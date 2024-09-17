@@ -16,7 +16,7 @@ let txt = `
 🟢 \`\`\`Información del Host\`\`\`
 
 💻 *Página:*
-https://dash.boxmineworld.com
+https://boxmineworld.com
 
 ⚙️ *Panel*
 https://panel.boxmineworld.com
@@ -35,10 +35,10 @@ isForwarded: true,
 "externalAdReply": {
 "showAdAttribution": true,
 "containsAutoReply": true,
-title: `*`,
-body: `*`,
+title: `Boxmine World`,
+body: `Un mundo lleno de servidores`,
 "previewType": "PHOTO",
-thumbnailUrl: 'https://telegra.ph/file/551d3d544d7bc607fd337.jpg', 
+thumbnailUrl: 'https://qu.ax/Nvpi.png', 
 sourceUrl: accountsgb}}},
 { quoted: fkontak})
 } 

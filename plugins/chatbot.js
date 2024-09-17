@@ -11,40 +11,19 @@ return true;
 }
 let vn = 'https://qu.ax/Ocxm.mp3'
 let bot = `${pickRandom([`*¡𝑬𝒚! 𝑨𝒒𝒖í 𝒆𝒔𝒕𝒐𝒚. 𝒀𝒐 𝒑𝒖𝒆𝒅𝒐 𝒂𝒚𝒖𝒅𝒂𝒓 👉👈 𝑯𝒆𝒚! 𝑰'𝒎 𝒉𝒆𝒓𝒆. 𝑰 𝒄𝒂𝒏 𝒉𝒆𝒍𝒑 🙌*`, `Aqui estoy | Here I am 😼`, `*Hola Aqui estoy yo puedo ayudar? | Hello, here I am, can I help? 😸*`])}`.trim()
-let txt = `*¿Tu Nokia es muy lento y necesitas que tu bot esté activo 24/7?* 📱⏳
-
-¡Tenemos la solución perfecta para ti! 🎉 Mantén tu bot funcionando sin interrupciones con nuestros servidores, Ofrecemos servidores gratuitos y de pago a precios súper accesibles, al alcance de todos. 💸 
-
-🖥️ *Totalmente compatible con GataBot:* Disfruta al máximo de su potencial en nuestros servidores de alto rendimiento, asegurando una experiencia fluida y de alta calidad. El staff de GataBot y CorinPlus Host se encarga de que disfrutes de todas sus funciones al máximo. 😺✨
+let txt = `
 
 🟢 \`\`\`Información del Host\`\`\`
 
 💻 *Página:*
-https://dash.corinplus.com
-
-*🟢 Dashboard:*
-https://dash.corinplus.com
+https://dash.boxmineworld.com
 
 ⚙️ *Panel*
-https://panel.corinplus.com
-
-💥 *Comunidad de WhatsApp:*
-https://chat.whatsapp.com/HR3OLhsuZPqCMImzuHcuON
-
-*🟣 Discord:*
-https://discord.com/invite/bjKpRBtkHv
-
-🧡 *Canal de WhatsApp:*
-https://whatsapp.com/channel/0029VakUvreFHWpyWUr4Jr0g
-
-🗣📲 *Contacto:*
-• wa.me/5214531287294
-• wa.me/573147616444
-• https://www.facebook.com/elrebelde21
+https://panel.boxmineworld.com
 
 No esperes más y lleva tu bot al siguiente nivel con nuestro servicio de alojamiento. ¡Es fácil, rápido y económico! 💪🚀` 
 
-if (/^infohost|hosting|corinplus|CorinPlus$/i.test(m.text)) {
+if (/^infohost|hosting|Boxmine|boxmine$/i.test(m.text)) {
  await conn.sendMessage(m.chat, { text: txt,
 contextInfo:{
 forwardedNewsletterMessageInfo: { 
@@ -96,31 +75,10 @@ conn.reply(m.chat,  `\`⚡¿Quieres un bot para tu grupo?\`
 * #serbot (escanea el QR) 
 * #jadibot --code (Código de 8 dígitos)
 
-*💖 Puedes solicitarlo haciendo una donación voluntaria a través de PayPal o Mercado Pago arg.*
 
 > 🚀 El bot estará activo 24/7 para tu grupo.
 
-\`⚡ ¿Por dónde puedo donar?\`
-> A través de nuestro PayPal o Mercado Pago.
 
-*❇️PayPal:*
-• https://www.paypal.com/paypalme/OficialGD
-
-*❇️Mercado pago:*
-
-*• Alias :* OficialGB
-*• CVU :* 0000003100059201491917
-
-\`⏩ Siguiente paso ⏩\`
-
-> Una vez realizado el pago, puedes enviar un comprobante de envío del dinero (captura de pantalla) para que pueda agregar el bot a tu grupo:
-
-• https://chat.whatsapp.com/FDRfhecUGrCEQswkg8FUYz
-• ${ig}
-• https://www.facebook.com/elrebelde21
-
-\`⚡ ¿El bot estará activo 24/7?\`
-_*Sí, nuestro bot está alojado en un servidor de pago para mantenerlo activo 24/7 (por eso también solicitamos donaciones para mantenerlo en funcionamiento) 💞*_
 
 > *𝙂𝙧𝙖𝙘𝙞𝙖𝙨 𝙥𝙤𝙧 𝙨𝙪𝙨 𝙥𝙧𝙚𝙛𝙚𝙧𝙚𝙣𝙘𝙞𝙖𝙨 𝙚𝙣 ${gt} 🐈💞*`, fkontak, {contextInfo: {externalAdReply :{ mediaUrl: null, mediaType: 1, description: null, title: `Hola ${name} 👋`, body: wm, previewType: 0, thumbnail: gataImg, sourceUrl: accountsgb }}})}
  

@@ -13,8 +13,8 @@ global.welgata = [tk, ig, yt2, yt2, ig, md, ig, yt, paypal, yt2, yt2, ig, fb, tk
 global.redesMenu = [canal1, canal2, canal3, canal4, soporteGB, grupo1, grupo2, grupo3, grupo4, grupo5, grupo6, md, ig, paypal, yt, asistencia, fb, tk].getRandom()
 global.accountsgb = [canal1, canal2, canal3, canal4, tk, ig, yt, paypal, fb, ths, md, asistencia].getRandom()
 
-global.canalIdGB = ["120363310525923571@newsletter", "120363310525923571@newsletter", "120363310525923571@newsletter", "120363310525923571@newsletter"]
-global.canalNombreGB = ["The Alya Mikhailovna Kujou Bot", "The Alya Mikhailovna Kujou Bot", "The Alya Mikhailovna Kujou Bot", "The Alya Mikhailovna Kujou Bot"]
+global.canalIdGB = ["120363310525923571@newsletter"]
+global.canalNombreGB = ["AlyaBot & RaphtaliaBot"]
 global.channelRD = await getRandomChannel()
 
 // Imágenes 

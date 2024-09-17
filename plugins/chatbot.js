@@ -48,16 +48,16 @@ if (/^infohost|hosting|corinplus|CorinPlus$/i.test(m.text)) {
  await conn.sendMessage(m.chat, { text: txt,
 contextInfo:{
 forwardedNewsletterMessageInfo: { 
-newsletterJid: '120363301598733462@newsletter', 
+newsletterJid: '120363310525923571@newsletter', 
 serverMessageId: '', 
-newsletterName: 'CorinPlus-Host ☁️' }, 
+newsletterName: 'AlyaBot & RaphtaliaBot' }, 
 forwardingScore: 9999999,
 isForwarded: true, 
 "externalAdReply": {
 "showAdAttribution": true,
 "containsAutoReply": true,
-title: `🤖 𝐂O𝐑𝐈𝐍𝐏𝐋𝐔𝐒-𝐇𝐎𝐒𝐓 🤖`,
-body: `¡El plus que necesitas!_`,
+title: `*`,
+body: `*`,
 "previewType": "PHOTO",
 thumbnailUrl: 'https://telegra.ph/file/551d3d544d7bc607fd337.jpg', 
 sourceUrl: accountsgb}}},
@@ -132,7 +132,7 @@ conn.reply(m.chat, `\`✨ ¿𝐐𝐮𝐞́ 𝐞𝐬 𝐮𝐧 𝐁𝐨𝐭 𝐝�
 🍃 *_Para ver el menú de comandos puedes usar:_*
 #menu
 
-🐈 𝙂𝙖𝙩𝙖 𝘿𝙞𝙤𝙨 🐈`, m)}  
+🐈 Alya Bot🐈`, m)}  
 return !0 
 }
 export default handler

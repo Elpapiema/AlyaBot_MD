@@ -131,7 +131,7 @@ global.author = ` ╭ 𝑯𝒆𝒄𝒉𝒐 𝒄𝒐𝒏 𝒂𝒎𝒐𝒓 𝒑�
 // [ES] > INFORMACIÓN DE VERSIONES DEL BOT, POR FAVOR 
 // MANTENGA ESTO SIN MODIFICAR, NOS ESFORZAMOS A DIARIO POR OFRECERLES UN BOT PARA LA COMUNIDAD, SEA AGRADECIDO 😉
 // [EN] > BOT VERSION INFORMATION, PLEASE KEEP THIS UNCHANGED, WE STRIVE DAILY TO PROVIDE YOU WITH A BOT FOR THE COMMUNITY, BE GRATEFUL
-global.vs = "1.2.2"
+global.vs = "1.2.3"
 global.vsJB = "3.0 (Beta)"
 global.gt = "𝘽𝙤𝙩 𝘼𝙡𝙮𝙖 𝙈𝙞𝙠𝙝𝙖𝙞𝙡𝙤𝙫𝙣𝙖 𝙆𝙪𝙟𝙤𝙪"
 
@@ -161,7 +161,7 @@ global.eg = '╰⊱💚⊱ *𝙀́𝙓𝙄𝙏𝙊 | 𝙎𝙐𝘾𝘾𝙀𝙎�
 global.exito = eg
 
 // • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • •
-global.wm = "𝘼𝙡𝙮𝙖 𝙈𝙞𝙠𝙝𝙖𝙞𝙡𝙤𝙫𝙣𝙖 𝙆𝙪𝙟𝙤𝙪: v1.2.2"
+global.wm = "𝘼𝙡𝙮𝙖 𝙈𝙞𝙠𝙝𝙖𝙞𝙡𝙤𝙫𝙣𝙖 𝙆𝙪𝙟𝙤𝙪: v1.2.3"
 global.igfg = "𝘽𝙤𝙩 𝘼𝙡𝙮𝙖 𝙈𝙞𝙠𝙝𝙖𝙞𝙡𝙤𝙫𝙣𝙖 𝙆𝙪𝙟𝙤𝙪"
 global.nomorown = "5212441357601"
 global.pdoc = ["application/vnd.openxmlformats-officedocument.presentationml.presentation", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.ms-excel", "application/msword", "application/pdf", "text/rtf"]

@@ -10,7 +10,7 @@ if (!text) return conn.reply(m.chat, `*🤔Que esta buscado? 🤔*\n*Ingrese el 
 const yt_play = await search(args.join(' '))
 const texto1 = `📌 *Título* : ${yt_play[0].title}\n📆 *Publicado:* ${yt_play[0].ago}\n⌚ *Duración:* ${secondString(yt_play[0].duration.seconds)}`.trim()
 
-await conn.sendButton(m.chat, texto1, botname, yt_play[0].thumbnail, [['Audio', `${usedPrefix}yta ${yt_play[0].url}`], ['video', `${usedPrefix}ytv ${yt_play[0].url}`]], null, null, m)
+await conn.sendButton(m.chat, texto1, yt_play[0].thumbnail, [['Audio', `${usedPrefix}yta ${yt_play[0].url}`], ['video', `${usedPrefix}ytv ${yt_play[0].url}`]], null, null, m)
 }
 
 if (command == 'play3' || command == 'play4') {

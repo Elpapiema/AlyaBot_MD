@@ -78,4 +78,4 @@ handler.help = ['rw'];
 handler.tags = ['fun'];
 handler.command = ['rw','rollwaifu']; // El comando será "rw", insensible a mayúsculas
 
-export default rollWaifuPlugin;
+export default handler

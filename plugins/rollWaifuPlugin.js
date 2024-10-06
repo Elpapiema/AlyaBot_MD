@@ -18,11 +18,15 @@ const __dirname = path.dirname(__filename);
 // Log de prueba para verificar si el plugin se carga
 console.log("Plugin rollWaifuPlugin cargado correctamente.");
 
-// Función para cargar el archivo characters.json
+// Función para cargar el archivo characters.json con manejo de errores
 function loadCharacters() {
     const filePath = path.join(__dirname, './src/JSON/characters.json');
-    const data = fs.readFileSync(filePath, 'utf8');
-    return JSON.parse(data);
+    try {
+        const data = fs.readFileSync(filePath, 'utf8');
+        return JSON.parse(data);
+    } catch (error) {
+        throw new Error(`No se pudo cargar el archivo characters.json. Verifica que el archivo exista en la ruta ${filePath}`);
+    }
 }
 
 // Función para seleccionar un personaje aleatorio
@@ -32,7 +36,7 @@ function getRandomCharacter() {
     return characters[randomIndex];
 }
 
-// Plugin para responder al comando 'rw' o 'rollwaifu' con prefijo
+// Plugin para responder al comando 'rw' o 'rollwaifu' con prefijo y manejo de errores
 export async function rollWaifuPlugin(message, sock) {
     const command = message.body.toLowerCase();
 
@@ -50,19 +54,25 @@ export async function rollWaifuPlugin(message, sock) {
             // Añadir usuario al cooldown
             cooldowns.add(message.key.remoteJid);
 
-            // Obtener un personaje aleatorio
-            const character = getRandomCharacter();
+            try {
+                // Obtener un personaje aleatorio
+                const character = getRandomCharacter();
 
-            // Enviar los datos del personaje
-            await sock.sendMessage(message.key.remoteJid, {
-                text: `Personaje: ${character.name}\nEdad: ${character.age}\nEstado: ${character.status}\nAnime/Juego/Manga: ${character.anime}`,
-            });
+                // Enviar los datos del personaje
+                await sock.sendMessage(message.key.remoteJid, {
+                    text: `Personaje: ${character.name}\nEdad: ${character.age}\nEstado: ${character.status}\nAnime/Juego/Manga: ${character.anime}`,
+                });
 
-            // Enviar la imagen del personaje
-            await sock.sendMessage(message.key.remoteJid, {
-                image: { url: character.image_url },
-                caption: `${character.name} de ${character.anime}`
-            });
+                // Enviar la imagen del personaje
+                await sock.sendMessage(message.key.remoteJid, {
+                    image: { url: character.image_url },
+                    caption: `${character.name} de ${character.anime}`
+                });
+
+            } catch (error) {
+                // Enviar mensaje de error si no se pudo cargar el archivo characters.json
+                await sock.sendMessage(message.key.remoteJid, { text: error.message });
+            }
 
             // Eliminar el cooldown después de COOLDOWN_TIME
             setTimeout(() => {

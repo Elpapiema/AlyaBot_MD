@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 
 // Sistema de cooldown
 const cooldowns = new Set();
-const COOLDOWN_TIME = 10; // Tiempo de cooldown (10 segundos)
+const COOLDOWN_TIME = 10 * 1000; // Tiempo de cooldown (10 segundos)
 
 // URL del archivo JSON en el repositorio de GitHub
 const jsonUrl = 'https://raw.githubusercontent.com/Elpapiema/Adiciones-para-AlyaBot-RaphtaliaBot-/refs/heads/main/image_json/characters.json';
@@ -18,16 +18,18 @@ async function loadCharacters() {
             throw new Error(`No se pudo obtener el archivo characters.json. Código de estado: ${response.status}`);
         }
 
-        // Verificar si la respuesta es JSON
-        const contentType = response.headers.get('content-type');
-        if (!contentType || !contentType.includes('application/json')) {
+        // Obtener el contenido como texto
+        const textData = await response.text();
+
+        // Intentar parsear el texto como JSON
+        try {
+            const data = JSON.parse(textData);
+            console.log('Archivo JSON cargado correctamente desde GitHub.');
+            return data;
+        } catch (jsonError) {
             throw new Error('El archivo characters.json no es un JSON válido.');
         }
 
-        // Convertir la respuesta a JSON
-        const data = await response.json();
-        console.log('Archivo JSON cargado correctamente desde GitHub.');
-        return data;
     } catch (error) {
         console.error(`Error al cargar el archivo characters.json: ${error.message}`);
         throw new Error(`No se pudo cargar el archivo characters.json desde GitHub.`);

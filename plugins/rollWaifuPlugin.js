@@ -75,7 +75,9 @@ async function rollWaifuPlugin(message, sock) {
 
 // Configuración del comando
 handler.help = ['rw'];
-handler.tags = ['fun'];
-handler.command = ['rw','rollwaifu']; // El comando será "rw", insensible a mayúsculas
+handler.tags = ['anime'];
+handler.command = ['rw','rollwaifu']; 
+
+// El comando será "rw", insensible a mayúsculas
 
 export default handler

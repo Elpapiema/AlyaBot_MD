@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 
 // Sistema de cooldown
 const cooldowns = new Set();
-const COOLDOWN_TIME = 10; // Tiempo de cooldown (10 segundos)
+const COOLDOWN_TIME = 1; // Tiempo de cooldown (10 segundos)
 
 // URL del archivo JSON en el repositorio de GitHub
 const jsonUrl = 'https://raw.githubusercontent.com/Elpapiema/Adiciones-para-AlyaBot-RaphtaliaBot-/refs/heads/main/image_json/characters.json';

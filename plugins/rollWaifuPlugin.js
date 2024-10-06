@@ -1,5 +1,6 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 // Prefijo del bot
 const PREFIX = '!'; // Aquí puedes cambiar el prefijo a lo que quieras
@@ -9,6 +10,10 @@ const cooldowns = new Set();
 
 // Tiempo de cooldown en milisegundos (10 segundos)
 const COOLDOWN_TIME = 10 * 1000;
+
+// Obtener el directorio actual en ES Modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Log de prueba para verificar si el plugin se carga
 console.log("Plugin rollWaifuPlugin cargado correctamente.");
@@ -28,7 +33,7 @@ function getRandomCharacter() {
 }
 
 // Plugin para responder al comando 'rw' o 'rollwaifu' con prefijo
-async function rollWaifuPlugin(message, sock) {
+export async function rollWaifuPlugin(message, sock) {
     const command = message.body.toLowerCase();
 
     // Verificar si el comando tiene el prefijo correcto
@@ -66,5 +71,3 @@ async function rollWaifuPlugin(message, sock) {
         }
     }
 }
-
-module.exports = rollWaifuPlugin;

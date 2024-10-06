@@ -18,8 +18,15 @@ async function loadCharacters() {
             throw new Error(`No se pudo obtener el archivo characters.json. Código de estado: ${response.status}`);
         }
 
+        // Verificar si la respuesta es JSON
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+            throw new Error('El archivo characters.json no es un JSON válido.');
+        }
+
         // Convertir la respuesta a JSON
         const data = await response.json();
+        console.log('Archivo JSON cargado correctamente desde GitHub.');
         return data;
     } catch (error) {
         console.error(`Error al cargar el archivo characters.json: ${error.message}`);

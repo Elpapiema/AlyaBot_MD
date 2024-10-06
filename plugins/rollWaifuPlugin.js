@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename);
 
 // Sistema de cooldown
 const cooldowns = new Set();
-const COOLDOWN_TIME = 10 * 1000; // Tiempo de cooldown (10 segundos)
+const COOLDOWN_TIME = 10; // Tiempo de cooldown (10 segundos)
 
 // Función para cargar el archivo characters.json con manejo de errores
 function loadCharacters() {

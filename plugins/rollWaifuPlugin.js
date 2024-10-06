@@ -10,18 +10,12 @@ const jsonUrl = 'https://raw.githubusercontent.com/Elpapiema/Adiciones-para-Alya
 // Función para cargar el archivo characters.json desde GitHub
 async function loadCharacters() {
     try {
-        // Hacer una solicitud HTTP para obtener el archivo JSON
         const response = await fetch(jsonUrl);
-        
-        // Verificar si la respuesta fue exitosa
         if (!response.ok) {
             throw new Error(`No se pudo obtener el archivo characters.json. Código de estado: ${response.status}`);
         }
 
-        // Obtener el contenido como texto
         const textData = await response.text();
-
-        // Intentar parsear el texto como JSON
         try {
             const data = JSON.parse(textData);
             console.log('Archivo JSON cargado correctamente desde GitHub.');
@@ -46,31 +40,25 @@ async function getRandomCharacter() {
 // Definición del handler del plugin
 let handler = async (m, { conn, usedPrefix, command }) => {
     try {
-        // Verificar si el usuario está en cooldown
         if (cooldowns.has(m.sender)) {
             await conn.reply(m.chat, 'Espera un rato antes de usar el comando otra vez 😅', m);
             return;
         }
 
-        // Añadir usuario al cooldown
         cooldowns.add(m.sender);
-
-        // Obtener un personaje aleatorio
         const character = await getRandomCharacter();
 
-        // Enviar los datos del personaje
-        await conn.reply(m.chat, `Personaje: ${character.name}\nEdad: ${character.age}\nEstado: ${character.status}\nAnime/Juego/Manga: ${character.anime}`, m);
+        // Crear el mensaje de texto con la información del personaje
+        const characterInfo = `*Personaje:* ${character.name}\n*Edad:* ${character.age}\n*Estado:* ${character.status}\n*Anime/Juego/Manga:* ${character.anime}`;
 
-        // Enviar la imagen del personaje
-        await conn.sendFile(m.chat, character.image_url, `${character.name}.jpg`, `${character.name} de ${character.anime}`, m);
+        // Enviar la imagen con el mensaje de texto
+        await conn.sendFile(m.chat, character.image_url, `${character.name}.jpg`, characterInfo, m);
 
-        // Eliminar el cooldown después de COOLDOWN_TIME
         setTimeout(() => {
             cooldowns.delete(m.sender);
         }, COOLDOWN_TIME);
 
     } catch (error) {
-        // Enviar mensaje de error si no se pudo cargar el archivo characters.json
         await conn.reply(m.chat, error.message, m);
     }
 };

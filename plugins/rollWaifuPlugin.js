@@ -2,21 +2,13 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-// Prefijo del bot
-const PREFIX = '!'; // Puedes quitar esta parte si ya no usas prefijo en el handler
-
-// Sistema de cooldown
-const cooldowns = new Set();
-
-// Tiempo de cooldown en milisegundos (10 segundos)
-const COOLDOWN_TIME = 10 * 1000;
-
 // Obtener el directorio actual en ES Modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Log de prueba para verificar si el plugin se carga
-console.log("Plugin rollWaifuPlugin cargado correctamente.");
+// Sistema de cooldown
+const cooldowns = new Set();
+const COOLDOWN_TIME = 10 * 1000; // Tiempo de cooldown (10 segundos)
 
 // Función para cargar el archivo characters.json con manejo de errores
 function loadCharacters() {
@@ -36,48 +28,42 @@ function getRandomCharacter() {
     return characters[randomIndex];
 }
 
-// Plugin para responder al comando 'rw' o 'rollwaifu' con prefijo y manejo de errores
-async function rollWaifuPlugin(message, sock) {
+// Definición del handler del plugin
+let handler = async (m, { conn, usedPrefix, command }) => {
     try {
         // Verificar si el usuario está en cooldown
-        if (cooldowns.has(message.key.remoteJid)) {
-            await sock.sendMessage(message.key.remoteJid, { text: 'Espera un rato antes de usar el comando otra vez 😅' });
+        if (cooldowns.has(m.sender)) {
+            await conn.reply(m.chat, 'Espera un rato antes de usar el comando otra vez 😅', m);
             return;
         }
 
         // Añadir usuario al cooldown
-        cooldowns.add(message.key.remoteJid);
+        cooldowns.add(m.sender);
 
         // Obtener un personaje aleatorio
         const character = getRandomCharacter();
 
         // Enviar los datos del personaje
-        await sock.sendMessage(message.key.remoteJid, {
-            text: `Personaje: ${character.name}\nEdad: ${character.age}\nEstado: ${character.status}\nAnime/Juego/Manga: ${character.anime}`,
-        });
+        await conn.reply(m.chat, `Personaje: ${character.name}\nEdad: ${character.age}\nEstado: ${character.status}\nAnime/Juego/Manga: ${character.anime}`, m);
 
         // Enviar la imagen del personaje
-        await sock.sendMessage(message.key.remoteJid, {
-            image: { url: character.image_url },
-            caption: `${character.name} de ${character.anime}`
-        });
+        await conn.sendFile(m.chat, character.image_url, `${character.name}.jpg`, `${character.name} de ${character.anime}`, m);
 
         // Eliminar el cooldown después de COOLDOWN_TIME
         setTimeout(() => {
-            cooldowns.delete(message.key.remoteJid);
+            cooldowns.delete(m.sender);
         }, COOLDOWN_TIME);
 
     } catch (error) {
         // Enviar mensaje de error si no se pudo cargar el archivo characters.json
-        await sock.sendMessage(message.key.remoteJid, { text: error.message });
+        await conn.reply(m.chat, error.message, m);
     }
-}
+};
 
 // Configuración del comando
-handler.help = ['rw'];
+handler.help = ['rw', 'rollwaifu'];
 handler.tags = ['anime'];
-handler.command = ['rw','rollwaifu']; 
+handler.command = /^(rw|rollwaifu)$/i; // Los comandos aceptados son "rw" y "rollwaifu"
 
-// El comando será "rw", insensible a mayúsculas
-
-export default handler
+// Exportar el handler
+export default handler;

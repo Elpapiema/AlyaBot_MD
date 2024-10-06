@@ -5,7 +5,7 @@ const cooldowns = new Set();
 const COOLDOWN_TIME = 10; // Tiempo de cooldown (10 segundos)
 
 // URL del archivo JSON en el repositorio de GitHub
-const jsonUrl = 'https://raw.githubusercontent.com/Elpapiema/Adiciones-para-AlyaBot-RaphtaliaBot-/refs/heads/main/image_json/characters.json';  // Cambia esta URL a la correcta
+const jsonUrl = 'https://raw.githubusercontent.com/Elpapiema/Adiciones-para-AlyaBot-RaphtaliaBot-/refs/heads/main/image_json/characters.json';
 
 // Función para cargar el archivo characters.json desde GitHub
 async function loadCharacters() {

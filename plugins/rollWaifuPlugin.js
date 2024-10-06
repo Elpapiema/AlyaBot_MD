@@ -1,34 +1,35 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-// Obtener el directorio actual en ES Modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import fetch from 'node-fetch';
 
 // Sistema de cooldown
 const cooldowns = new Set();
-const COOLDOWN_TIME = 10 * 1000; // Tiempo de cooldown (10 segundos)
+const COOLDOWN_TIME = 10; // Tiempo de cooldown (10 segundos)
 
-// Función para cargar el archivo characters.json con manejo de errores y verificación de ruta
-function loadCharacters() {
-    const filePath = path.join(__dirname, './src/JSON/characters.json');
-    
-    // Mensaje de depuración para verificar la ruta
-    console.log(`Intentando cargar el archivo desde: ${filePath}`);
+// URL del archivo JSON en el repositorio de GitHub
+const jsonUrl = 'https://raw.githubusercontent.com/usuario/repositorio/rama/path/characters.json';  // Cambia esta URL a la correcta
 
+// Función para cargar el archivo characters.json desde GitHub
+async function loadCharacters() {
     try {
-        const data = fs.readFileSync(filePath, 'utf8');
-        return JSON.parse(data);
+        // Hacer una solicitud HTTP para obtener el archivo JSON
+        const response = await fetch(jsonUrl);
+        
+        // Verificar si la respuesta fue exitosa
+        if (!response.ok) {
+            throw new Error(`No se pudo obtener el archivo characters.json. Código de estado: ${response.status}`);
+        }
+
+        // Convertir la respuesta a JSON
+        const data = await response.json();
+        return data;
     } catch (error) {
         console.error(`Error al cargar el archivo characters.json: ${error.message}`);
-        throw new Error(`No se pudo cargar el archivo characters.json. Verifica que el archivo exista en la ruta ${filePath}`);
+        throw new Error(`No se pudo cargar el archivo characters.json desde GitHub.`);
     }
 }
 
 // Función para seleccionar un personaje aleatorio
-function getRandomCharacter() {
-    const characters = loadCharacters();
+async function getRandomCharacter() {
+    const characters = await loadCharacters();
     const randomIndex = Math.floor(Math.random() * characters.length);
     return characters[randomIndex];
 }
@@ -46,7 +47,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
         cooldowns.add(m.sender);
 
         // Obtener un personaje aleatorio
-        const character = getRandomCharacter();
+        const character = await getRandomCharacter();
 
         // Enviar los datos del personaje
         await conn.reply(m.chat, `Personaje: ${character.name}\nEdad: ${character.age}\nEstado: ${character.status}\nAnime/Juego/Manga: ${character.anime}`, m);

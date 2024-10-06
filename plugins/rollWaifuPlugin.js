@@ -8,15 +8,20 @@ const __dirname = path.dirname(__filename);
 
 // Sistema de cooldown
 const cooldowns = new Set();
-const COOLDOWN_TIME = 10; // Tiempo de cooldown (10 segundos)
+const COOLDOWN_TIME = 10 * 1000; // Tiempo de cooldown (10 segundos)
 
-// Función para cargar el archivo characters.json con manejo de errores
+// Función para cargar el archivo characters.json con manejo de errores y verificación de ruta
 function loadCharacters() {
     const filePath = path.join(__dirname, './src/JSON/characters.json');
+    
+    // Mensaje de depuración para verificar la ruta
+    console.log(`Intentando cargar el archivo desde: ${filePath}`);
+
     try {
         const data = fs.readFileSync(filePath, 'utf8');
         return JSON.parse(data);
     } catch (error) {
+        console.error(`Error al cargar el archivo characters.json: ${error.message}`);
         throw new Error(`No se pudo cargar el archivo characters.json. Verifica que el archivo exista en la ruta ${filePath}`);
     }
 }

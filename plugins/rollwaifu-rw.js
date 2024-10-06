@@ -10,6 +10,9 @@ const cooldowns = new Set();
 // Tiempo de cooldown en milisegundos (10 segundos)
 const COOLDOWN_TIME = 10 * 1000;
 
+// Log de prueba para verificar si el plugin se carga
+console.log("Plugin rollWaifuPlugin cargado correctamente.");
+
 // Función para cargar el archivo characters.json
 function loadCharacters() {
     const filePath = path.join(__dirname, './src/JSON/characters.json');

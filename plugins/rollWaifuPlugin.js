@@ -8,10 +8,13 @@ const charactersUrl = 'https://raw.githubusercontent.com/Elpapiema/Adiciones-par
 async function loadCharacters() {
     try {
         const res = await fetch(charactersUrl);
+        if (!res.ok) {
+            throw new Error('No se pudo cargar el archivo characters.json desde GitHub.');
+        }
         const characters = await res.json();
         return characters;
     } catch (error) {
-        throw new Error('No se pudo cargar el archivo characters.json desde GitHub.');
+        throw new Error('No se pudo cargar el archivo characters.json.');
     }
 }
 
@@ -28,7 +31,12 @@ let handler = async (m, { conn }) => {
 📚 *Origen*: ${randomCharacter.source}
         `;
 
-        // Enviar el mensaje con la información del personaje
+        // Verificar si la URL de la imagen es válida antes de enviarla
+        if (!randomCharacter.img || !randomCharacter.img.startsWith('http')) {
+            throw new Error('URL de imagen no válida');
+        }
+
+        // Enviar el mensaje con la información del personaje junto con la imagen
         const sentMsg = await conn.sendFile(m.chat, randomCharacter.img, 'waifu.jpg', message, m);
 
         // Almacenar el personaje generado con el ID del mensaje enviado por el bot

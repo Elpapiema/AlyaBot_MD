@@ -30,7 +30,7 @@ let claimHandler = async (m, { conn, command }) => {
 
     // Obtener el mensaje respondido
     const characterMessage = await conn.loadMessage(m.chat, messageId);
-    const characterInfo = characterMessage?.text;
+    const characterInfo = characterMessage?.message?.conversation || characterMessage?.message?.extendedTextMessage?.text;
 
     if (!characterInfo) {
         await conn.reply(m.chat, 'No se pudo encontrar el personaje en el mensaje.', m);

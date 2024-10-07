@@ -31,11 +31,6 @@ let handler = async (m, { conn }) => {
 📚 *Origen*: ${randomCharacter.source}
         `;
 
-        // Verificar si la URL de la imagen es válida antes de enviarla
-        if (!randomCharacter.img || !randomCharacter.img.startsWith('http')) {
-            throw new Error('URL de imagen no válida');
-        }
-
         // Enviar el mensaje con la información del personaje junto con la imagen
         const sentMsg = await conn.sendFile(m.chat, randomCharacter.img, 'waifu.jpg', message, m);
 

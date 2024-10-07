@@ -54,13 +54,6 @@ let handler = async (m, { conn, usedPrefix, command }) => {
         // Enviar la imagen con el mensaje de texto
         await conn.sendFile(m.chat, character.image_url, `${character.name}.jpg`, characterInfo, m);
 
-        // Enviar el mensaje con la información del personaje
-        const sentMsg = await conn.sendFile(m.chat, randomCharacter.img, '${character.name}.jpg', message, m);
-
-        // Almacenar el personaje generado con el ID del mensaje enviado por el bot
-        if (!global.lastCharacter) global.lastCharacter = {};
-        global.lastCharacter[sentMsg.key.id] = randomCharacter; // Guardar usando el ID del mensaje del bot
-
         setTimeout(() => {
             cooldowns.delete(m.sender);
         }, COOLDOWN_TIME);

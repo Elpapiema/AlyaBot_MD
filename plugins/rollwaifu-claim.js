@@ -25,7 +25,7 @@ async function saveHarem(harem) {
 }
 
 // Handler para el comando 'c' o 'reclamar'
-let handler = async (m, { conn, isOwner }) => {
+let handler = async (m, { conn }) => {
     try {
         // Verificar si se está respondiendo a un mensaje que tiene un personaje
         const reply = m.quoted;
@@ -61,4 +61,5 @@ handler.help = ['c', 'reclamar'];
 handler.tags = ['anime'];
 handler.command = /^(c|reclamar)$/i; // Comandos "c" y "reclamar"
 
+// Exportar el handler
 export default handler;

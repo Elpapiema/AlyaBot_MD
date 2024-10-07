@@ -28,12 +28,21 @@ let claimHandler = async (m, { conn, command }) => {
         return;
     }
 
-    // Encontrar el personaje en el mensaje respondido
-    const characterMessage = await conn.getMessage(messageId);
-    const characterName = characterMessage?.text.match(/Personaje:\s*(.*)/)?.[1];
+    // Obtener el mensaje respondido
+    const characterMessage = await conn.loadMessage(m.chat, messageId);
+    const characterInfo = characterMessage?.text;
+
+    if (!characterInfo) {
+        await conn.reply(m.chat, 'No se pudo encontrar el personaje en el mensaje.', m);
+        return;
+    }
+
+    // Extraer el nombre del personaje usando una expresión regular
+    const characterNameMatch = characterInfo.match(/Personaje:\s*(.*)/);
+    const characterName = characterNameMatch ? characterNameMatch[1].trim() : null;
 
     if (!characterName) {
-        await conn.reply(m.chat, 'No se pudo encontrar el personaje en el mensaje.', m);
+        await conn.reply(m.chat, 'No se pudo encontrar el nombre del personaje en el mensaje.', m);
         return;
     }
 

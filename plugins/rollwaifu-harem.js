@@ -33,7 +33,7 @@ let handler = async (m, { conn }) => {
         userHarem.forEach((character, index) => {
             message += `${index + 1}. ${character.name}\n`;
             message += `   Situación Sentimental: ${character.relationship}\n`;
-            message += `   Origen: ${character.source}\n`;
+            message += `   Origen: ${character.source}\n \n`;
         });
 
         // Enviar el mensaje con la lista de personajes y la imagen personalizada

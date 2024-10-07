@@ -1,4 +1,5 @@
 import fetch from 'node-fetch';
+import { promises as fs } from 'fs';
 
 // Sistema de cooldown
 const cooldowns = new Set();
@@ -6,6 +7,9 @@ const COOLDOWN_TIME = 10 * 1000; // Tiempo de cooldown (10 segundos)
 
 // URL del archivo JSON en el repositorio de GitHub
 const jsonUrl = 'https://raw.githubusercontent.com/Elpapiema/Adiciones-para-AlyaBot-RaphtaliaBot-/refs/heads/main/image_json/characters.json';
+
+// Ruta del archivo harem.json (en la raíz del repositorio)
+const haremFilePath = './harem.json';
 
 // Función para cargar el archivo characters.json desde GitHub
 async function loadCharacters() {
@@ -37,6 +41,27 @@ async function getRandomCharacter() {
     return characters[randomIndex];
 }
 
+// Función para cargar o crear el archivo harem.json
+async function loadHarem() {
+    try {
+        const data = await fs.readFile(haremFilePath);
+        return JSON.parse(data);
+    } catch (error) {
+        // Si no existe el archivo, lo crea
+        if (error.code === 'ENOENT') {
+            await fs.writeFile(haremFilePath, JSON.stringify([]));
+            return [];
+        } else {
+            throw new Error('No se pudo cargar el archivo harem.json.');
+        }
+    }
+}
+
+// Función para guardar los datos en harem.json
+async function saveHarem(harem) {
+    await fs.writeFile(haremFilePath, JSON.stringify(harem, null, 2));
+}
+
 // Definición del handler del plugin
 let handler = async (m, { conn, usedPrefix, command }) => {
     try {
@@ -49,10 +74,18 @@ let handler = async (m, { conn, usedPrefix, command }) => {
         const character = await getRandomCharacter();
 
         // Crear el mensaje de texto con la información del personaje
-        const characterInfo = `*Personaje:* ${character.name}\n*Edad:* ${character.age}\n*Estado:* ${character.status}\n*Anime/Juego/Manga:* ${character.anime}`;
+        const characterInfo = `*Personaje:* ${character.name}\n*Edad:* ${character.age}\n*Estado:* ${character.relationship}\n*Anime/Juego/Manga:* ${character.source}`;
 
         // Enviar la imagen con el mensaje de texto
-        await conn.sendFile(m.chat, character.image_url, `${character.name}.jpg`, characterInfo, m);
+        const sentMsg = await conn.sendFile(m.chat, character.img, `${character.name}.jpg`, characterInfo, m);
+
+        // Almacenar el personaje generado para reclamación
+        if (!global.lastCharacter) global.lastCharacter = {};
+        global.lastCharacter[sentMsg.key.id] = {
+            ...character,
+            owner: null, // Inicialmente sin propietario
+            messageId: sentMsg.key.id // Guardar el ID del mensaje del bot
+        };
 
         setTimeout(() => {
             cooldowns.delete(m.sender);

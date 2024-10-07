@@ -53,7 +53,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 
         // Enviar la imagen con el mensaje de texto y guardar el ID del mensaje
         const message = await conn.sendFile(m.chat, character.image_url, `${character.name}.jpg`, characterInfo, m);
-        message.replyMessage = { id: message.id }; // Agregar el ID del mensaje
+        message.replyMessage = { id: message.key.id }; // Guardar el ID del mensaje de respuesta
 
         setTimeout(() => {
             cooldowns.delete(m.sender);

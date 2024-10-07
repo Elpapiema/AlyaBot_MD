@@ -28,8 +28,8 @@ let handler = async (m, { conn }) => {
 📚 *Origen*: ${randomCharacter.source}
         `;
 
-              // Enviar la imagen con el mensaje de texto
-        await conn.sendFile(m.chat, character.image_url, `${character.name}.jpg`, characterInfo, m);
+        // Enviar el mensaje con la información del personaje
+        const sentMsg = await conn.sendFile(m.chat, randomCharacter.img, 'waifu.jpg', message, m);
 
         // Almacenar el personaje generado con el ID del mensaje enviado por el bot
         if (!global.lastCharacter) global.lastCharacter = {};

@@ -1,76 +1,57 @@
-// rollwaifu-claim.js
 import fs from 'fs';
-import fetch from 'node-fetch';
 
 // Ruta del archivo harem.json
 const haremFilePath = './harem.json';
 
-// Función para cargar el archivo characters.json desde GitHub
-async function loadCharacters() {
-    const jsonUrl = 'https://raw.githubusercontent.com/Elpapiema/Adiciones-para-AlyaBot-RaphtaliaBot-/refs/heads/main/image_json/characters.json';
-    try {
-        const response = await fetch(jsonUrl);
-        if (!response.ok) {
-            throw new Error(`No se pudo obtener el archivo characters.json. Código de estado: ${response.status}`);
-        }
-
-        const textData = await response.text();
-        return JSON.parse(textData);
-    } catch (error) {
-        console.error(`Error al cargar el archivo characters.json: ${error.message}`);
-        throw new Error(`No se pudo cargar el archivo characters.json desde GitHub.`);
+// Función para cargar los personajes reclamados
+function loadHarem() {
+    if (fs.existsSync(haremFilePath)) {
+        const haremData = fs.readFileSync(haremFilePath, 'utf-8');
+        return JSON.parse(haremData);
     }
+    return [];
 }
 
-// Función para reclamar un personaje
-async function claimCharacter(sender, character) {
-    try {
-        let harem = [];
-        // Verificar si el archivo harem.json existe
-        if (fs.existsSync(haremFilePath)) {
-            const haremData = fs.readFileSync(haremFilePath, 'utf-8');
-            harem = JSON.parse(haremData);
-        }
-
-        // Comprobar si el usuario ya ha reclamado un personaje
-        if (harem.some(entry => entry.sender === sender)) {
-            return `Ya has reclamado un personaje.`;
-        }
-
-        // Agregar el personaje reclamado al harem
-        harem.push({ sender, character });
-        fs.writeFileSync(haremFilePath, JSON.stringify(harem, null, 2));
-
-        return `Has reclamado a *${character.name}* exitosamente.`;
-    } catch (error) {
-        console.error(`Error al reclamar el personaje: ${error.message}`);
-        return 'Ocurrió un error al reclamar el personaje.';
-    }
+// Función para guardar los personajes reclamados
+function saveHarem(harem) {
+    fs.writeFileSync(haremFilePath, JSON.stringify(harem, null, 2));
 }
 
-// Handler para reclamar personajes
-let claimHandler = async (m, { conn, args }) => {
-    const sender = m.sender;
-    if (args.length === 0) {
-        await conn.reply(m.chat, 'Por favor, proporciona el nombre del personaje que deseas reclamar.', m);
+// Handler para reclamar un personaje
+let claimHandler = async (m, { conn, command }) => {
+    const messageId = m.replyMessage?.id; // Obtener el ID del mensaje al que se responde
+    const harem = loadHarem();
+    
+    // Verificar si el mensaje es una respuesta a un mensaje del bot
+    if (!messageId) {
+        await conn.reply(m.chat, 'Por favor, responde al mensaje del personaje que deseas reclamar.', m);
         return;
     }
 
-    const characterName = args.join(' ');
-    const characters = await loadCharacters();
-    const character = characters.find(c => c.name.toLowerCase() === characterName.toLowerCase());
+    // Encontrar el personaje en el mensaje respondido
+    const characterMessage = await conn.getMessage(messageId);
+    const characterName = characterMessage?.text.match(/Personaje:\s*(.*)/)?.[1];
 
-    if (!character) {
-        await conn.reply(m.chat, 'No se encontró un personaje con ese nombre.', m);
+    if (!characterName) {
+        await conn.reply(m.chat, 'No se pudo encontrar el personaje en el mensaje.', m);
         return;
     }
 
-    const claimMessage = await claimCharacter(sender, character);
-    await conn.reply(m.chat, claimMessage, m);
+    // Verificar si el personaje ya fue reclamado
+    if (harem.some(entry => entry.name === characterName && entry.sender === m.sender)) {
+        await conn.reply(m.chat, `Ya has reclamado a *${characterName}*.`, m);
+        return;
+    }
+
+    // Agregar el personaje al harem
+    harem.push({ sender: m.sender, name: characterName });
+    saveHarem(harem);
+
+    await conn.reply(m.chat, `Has reclamado a *${characterName}* exitosamente.`, m);
 };
 
-// Configuración de los comandos de reclamación
-claimHandler.help = ['c <nombre del personaje>', 'claim <nombre del personaje>'];
+// Configuración del comando
+claimHandler.help = ['c', 'claim'];
 claimHandler.tags = ['anime'];
 claimHandler.command = /^(c|claim)$/i; // Los comandos aceptados son "c" y "claim"
 

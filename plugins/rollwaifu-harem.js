@@ -7,7 +7,7 @@ const haremFilePath = './harem.json';
 async function loadHarem() {
     try {
         const data = await fs.readFile(haremFilePath, 'utf-8');
-        return JSON.parse(data);
+        return JSON.parse(data); // Retornar el objeto completo
     } catch (error) {
         throw new Error('No se pudo cargar el archivo harem.json.');
     }
@@ -18,20 +18,24 @@ let handler = async (m, { conn }) => {
     try {
         const harem = await loadHarem();
         
-        // Verificar si hay personajes en el harem
-        if (harem.length === 0) {
+        // Obtener el ID del usuario que ejecuta el comando
+        const userId = m.sender; // m.sender contiene el ID del usuario
+
+        // Verificar si el usuario tiene personajes en su harem
+        const userHarem = harem[userId];
+        if (!userHarem || userHarem.length === 0) {
             await conn.reply(m.chat, 'No tienes personajes reclamados en tu harem.', m);
             return;
         }
 
         // Crear mensaje con la lista de personajes
         let message = '✨ *Personajes en tu Harem:*\n';
-        harem.forEach((character, index) => {
-            message += `${index + 1}. ${character.name}\n`;
+        userHarem.forEach((character, index) => {
+            message += `${index + 1}. ${character.name} - ${character.status} (${character.anime})\n`;
         });
 
         // Enviar el mensaje con la lista de personajes y la imagen personalizada
-        await conn.sendFile(m.chat, 'https://qu.ax/uXxWp.jpg', 'harem.jpg', message, m);
+        await conn.sendFile(m.chat, 'https://example.com/imagen.jpg', 'harem.jpg', message, m);
     } catch (error) {
         await conn.reply(m.chat, `Error al cargar el harem: ${error.message}`, m);
     }

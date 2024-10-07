@@ -1,4 +1,3 @@
-// rollWaifuPlugin.js
 import fetch from 'node-fetch';
 
 // Sistema de cooldown
@@ -39,7 +38,7 @@ async function getRandomCharacter() {
 }
 
 // Definición del handler del plugin
-let handler = async (m, { conn }) => {
+let handler = async (m, { conn, usedPrefix, command }) => {
     try {
         if (cooldowns.has(m.sender)) {
             await conn.reply(m.chat, 'Espera un rato antes de usar el comando otra vez 😅', m);
@@ -52,8 +51,9 @@ let handler = async (m, { conn }) => {
         // Crear el mensaje de texto con la información del personaje
         const characterInfo = `*Personaje:* ${character.name}\n*Edad:* ${character.age}\n*Estado:* ${character.status}\n*Anime/Juego/Manga:* ${character.anime}`;
 
-        // Enviar la imagen con el mensaje de texto
-        await conn.sendFile(m.chat, character.image_url, `${character.name}.jpg`, characterInfo, m);
+        // Enviar la imagen con el mensaje de texto y guardar el ID del mensaje
+        const message = await conn.sendFile(m.chat, character.image_url, `${character.name}.jpg`, characterInfo, m);
+        message.replyMessage = { id: message.id }; // Agregar el ID del mensaje
 
         setTimeout(() => {
             cooldowns.delete(m.sender);
@@ -64,7 +64,7 @@ let handler = async (m, { conn }) => {
     }
 };
 
-// Configuración de los comandos
+// Configuración del comando
 handler.help = ['rw', 'rollwaifu'];
 handler.tags = ['anime'];
 handler.command = /^(rw|rollwaifu)$/i; // Los comandos aceptados son "rw" y "rollwaifu"

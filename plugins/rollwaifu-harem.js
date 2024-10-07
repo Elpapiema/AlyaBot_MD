@@ -28,14 +28,16 @@ let handler = async (m, { conn }) => {
             return;
         }
 
-        // Crear mensaje con la lista de personajes
+        // Crear mensaje con la lista de personajes y los nuevos datos
         let message = '✨ *Personajes en tu Harem:*\n';
         userHarem.forEach((character, index) => {
-            message += `${index + 1}. ${character.name} - ${character.status} (${character.anime})\n`;
+            message += `${index + 1}. ${character.name}\n`;
+            message += `   Situación Sentimental: ${character.relationship}\n`;
+            message += `   Origen: ${character.source}\n`;
         });
 
         // Enviar el mensaje con la lista de personajes y la imagen personalizada
-        await conn.sendFile(m.chat, 'https://qu.ax/uXxWp.jpg', 'harem.jpg', message, m);
+        await conn.sendFile(m.chat, 'https://example.com/imagen.jpg', 'harem.jpg', message, m);
     } catch (error) {
         await conn.reply(m.chat, `Error al cargar el harem: ${error.message}`, m);
     }

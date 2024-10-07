@@ -1,7 +1,6 @@
 import { promises as fs } from 'fs';
-import fetch from 'node-fetch';
 
-// Nueva ruta del archivo harem.json en la raíz del repositorio
+// Ruta del archivo harem.json en la raíz del repositorio
 const haremFilePath = './harem.json';
 
 // Función para cargar o inicializar harem.json
@@ -30,7 +29,7 @@ async function saveHarem(harem) {
 }
 
 // Definición del handler para reclamar el personaje
-let handler = async (m, { conn, usedPrefix, command }) => {
+let handler = async (m, { conn }) => {
     try {
         let character;
 
@@ -45,12 +44,8 @@ let handler = async (m, { conn, usedPrefix, command }) => {
             }
             character = global.lastCharacter[quotedMessageId]; // Obtener el personaje del mensaje citado
         } else {
-            // Si no está respondiendo, verificar si el usuario generó un personaje con "rw"
-            if (!global.lastCharacter || !global.lastCharacter[m.sender]) {
-                await conn.reply(m.chat, 'No has generado un personaje con el comando rw. Usa el comando primero o responde a un mensaje con un personaje para reclamarlo.', m);
-                return;
-            }
-            character = global.lastCharacter[m.sender];
+            await conn.reply(m.chat, 'Debes responder a un mensaje con un personaje para reclamarlo.', m);
+            return;
         }
 
         // Cargar el archivo harem.json

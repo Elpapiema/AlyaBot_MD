@@ -36,13 +36,25 @@ async function saveHarem(harem) {
 // Definición del handler del plugin para reclamar el personaje
 let handler = async (m, { conn, usedPrefix, command }) => {
     try {
-        // Verificar si el último personaje generado existe
-        if (!global.lastCharacter || !global.lastCharacter[m.sender]) {
-            await conn.reply(m.chat, 'No has generado un personaje con el comando rw. Usa el comando primero para reclamar uno.', m);
-            return;
-        }
+        let character;
 
-        const character = global.lastCharacter[m.sender];
+        // Si el usuario está respondiendo a un mensaje
+        if (m.quoted && m.quoted.sender === conn.user.jid) {
+            // Verificar si el mensaje citado es uno en el que el bot generó un personaje
+            const quotedMessageId = m.quoted.id;
+            if (!global.lastCharacter || !global.lastCharacter[quotedMessageId]) {
+                await conn.reply(m.chat, 'El mensaje al que estás respondiendo no contiene un personaje válido para reclamar.', m);
+                return;
+            }
+            character = global.lastCharacter[quotedMessageId];
+        } else {
+            // Si no está respondiendo a un mensaje, verificar si el usuario generó un personaje con "rw"
+            if (!global.lastCharacter || !global.lastCharacter[m.sender]) {
+                await conn.reply(m.chat, 'No has generado un personaje con el comando rw. Usa el comando primero o responde a un mensaje con un personaje para reclamarlo.', m);
+                return;
+            }
+            character = global.lastCharacter[m.sender];
+        }
 
         // Cargar el archivo harem.json
         const harem = await loadHarem();

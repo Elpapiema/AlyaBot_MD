@@ -1,4 +1,5 @@
 import fetch from 'node-fetch';
+import fs from 'fs';
 
 // Sistema de cooldown
 const cooldowns = new Set();
@@ -6,6 +7,9 @@ const COOLDOWN_TIME = 10 * 1000; // Tiempo de cooldown (10 segundos)
 
 // URL del archivo JSON en el repositorio de GitHub
 const jsonUrl = 'https://raw.githubusercontent.com/Elpapiema/Adiciones-para-AlyaBot-RaphtaliaBot-/refs/heads/main/image_json/characters.json';
+
+// Ruta del archivo donde se almacenarán los personajes generados
+const haremFilePath = './harem.json';
 
 // Función para cargar el archivo characters.json desde GitHub
 async function loadCharacters() {
@@ -37,6 +41,29 @@ async function getRandomCharacter() {
     return characters[randomIndex];
 }
 
+// Función para cargar o crear el archivo harem.json
+function loadOrCreateHarem() {
+    try {
+        if (fs.existsSync(haremFilePath)) {
+            const haremData = fs.readFileSync(haremFilePath, 'utf-8');
+            return JSON.parse(haremData);
+        } else {
+            fs.writeFileSync(haremFilePath, JSON.stringify({}));
+            return {};
+        }
+    } catch (error) {
+        console.error('Error al cargar o crear el archivo harem.json:', error);
+        return {};
+    }
+}
+
+// Función para guardar un personaje con el ID del mensaje
+function saveCharacterWithMessageId(messageId, character) {
+    const harem = loadOrCreateHarem();
+    harem[messageId] = character;
+    fs.writeFileSync(haremFilePath, JSON.stringify(harem, null, 2));
+}
+
 // Definición del handler del plugin
 let handler = async (m, { conn, usedPrefix, command }) => {
     try {
@@ -52,7 +79,10 @@ let handler = async (m, { conn, usedPrefix, command }) => {
         const characterInfo = `*Personaje:* ${character.name}\n*Edad:* ${character.age}\n*Estado:* ${character.status}\n*Anime/Juego/Manga:* ${character.anime}`;
 
         // Enviar la imagen con el mensaje de texto
-        await conn.sendFile(m.chat, character.image_url, `${character.name}.jpg`, characterInfo, m);
+        const sentMessage = await conn.sendFile(m.chat, character.image_url, `${character.name}.jpg`, characterInfo, m);
+
+        // Guardar el personaje usando el ID del mensaje
+        saveCharacterWithMessageId(sentMessage.key.id, character);
 
         setTimeout(() => {
             cooldowns.delete(m.sender);

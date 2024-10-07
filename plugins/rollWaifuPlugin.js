@@ -21,6 +21,7 @@ let handler = async (m, { conn }) => {
         const characters = await loadCharacters();
         const randomCharacter = characters[Math.floor(Math.random() * characters.length)];
 
+        // Crear el mensaje con la información del personaje
         const message = `
 ✨ *Nombre*: ${randomCharacter.name}
 🎂 *Edad*: ${randomCharacter.age}
@@ -28,12 +29,12 @@ let handler = async (m, { conn }) => {
 📚 *Origen*: ${randomCharacter.source}
         `;
 
-        // Enviar el mensaje con la información del personaje
-        const sentMsg = await conn.sendFile(m.chat, randomCharacter.img, '${character.name}.jpg', message, m);
+        // Enviar la imagen con el mensaje de texto
+        await conn.sendFile(m.chat, randomCharacter.img, `${randomCharacter.name}.jpg`, message, m);
 
         // Almacenar el personaje generado con el ID del mensaje enviado por el bot
         if (!global.lastCharacter) global.lastCharacter = {};
-        global.lastCharacter[sentMsg.key.id] = randomCharacter; // Guardar usando el ID del mensaje del bot
+        global.lastCharacter[m.key.id] = randomCharacter; // Guardar usando el ID del mensaje del bot
 
     } catch (error) {
         await conn.reply(m.chat, `Error al cargar el personaje: ${error.message}`, m);

@@ -7,15 +7,13 @@ const haremFilePath = './harem.json';
 // Función para cargar o inicializar harem.json
 async function loadHarem() {
     try {
-        // Intentar leer el archivo harem.json
         const data = await fs.readFile(haremFilePath, 'utf-8');
         return JSON.parse(data);
     } catch (error) {
-        // Si el archivo no existe, crearlo y devolver un objeto vacío
         if (error.code === 'ENOENT') {
             console.log('El archivo harem.json no existe. Creando uno nuevo...');
             const emptyHarem = {};
-            await saveHarem(emptyHarem); // Crear el archivo vacío
+            await saveHarem(emptyHarem);
             return emptyHarem;
         } else {
             throw new Error('Error al cargar el archivo harem.json');
@@ -23,32 +21,31 @@ async function loadHarem() {
     }
 }
 
-// Función para guardar el archivo harem.json
 async function saveHarem(harem) {
     try {
-        // Guardar el contenido actualizado del harem
         await fs.writeFile(haremFilePath, JSON.stringify(harem, null, 2), 'utf-8');
     } catch (error) {
         throw new Error('Error al guardar el archivo harem.json');
     }
 }
 
-// Definición del handler del plugin para reclamar el personaje
+// Definición del handler para reclamar el personaje
 let handler = async (m, { conn, usedPrefix, command }) => {
     try {
         let character;
 
-        // Si el usuario está respondiendo a un mensaje
+        // Si el usuario está respondiendo a un mensaje del bot
         if (m.quoted && m.quoted.sender === conn.user.jid) {
-            // Verificar si el mensaje citado es uno en el que el bot generó un personaje
             const quotedMessageId = m.quoted.id;
+
+            // Verificar si el mensaje citado contiene un personaje generado
             if (!global.lastCharacter || !global.lastCharacter[quotedMessageId]) {
                 await conn.reply(m.chat, 'El mensaje al que estás respondiendo no contiene un personaje válido para reclamar.', m);
                 return;
             }
-            character = global.lastCharacter[quotedMessageId];
+            character = global.lastCharacter[quotedMessageId]; // Obtener el personaje del mensaje citado
         } else {
-            // Si no está respondiendo a un mensaje, verificar si el usuario generó un personaje con "rw"
+            // Si no está respondiendo, verificar si el usuario generó un personaje con "rw"
             if (!global.lastCharacter || !global.lastCharacter[m.sender]) {
                 await conn.reply(m.chat, 'No has generado un personaje con el comando rw. Usa el comando primero o responde a un mensaje con un personaje para reclamarlo.', m);
                 return;

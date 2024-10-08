@@ -1,13 +1,20 @@
 let handler = async (m, { conn }) => {
     try {
-        // Referencia del video que se enviará como GIF
-        const videoReference = 'gataVidMenu'; // Referencia a usar para obtener el video
+        // URLs de los videos que se enviarán como GIF
+        const videoUrls = [
+            'https://qu.ax/WgJR.mp4', // Reemplaza con la URL del primer video
+            's://qu.ax/kOwY.mp4', // Reemplaza con la URL del segundo video
+            'https://qu.ax/UYGf.mp4'  // Reemplaza con la URL del tercer video
+        ];
+
+        // Seleccionar un video aleatoriamente
+        const randomVideoUrl = videoUrls[Math.floor(Math.random() * videoUrls.length)];
 
         // Texto del mensaje del menú
         const menuMessage = 'Bienvenido al menú principal. Presiona el botón "Más opciones" para ver todas las opciones disponibles.';
 
-        // Enviar el video como GIF usando la referencia
-        await conn.sendFile(m.chat, videoReference, 'menu.mp4', menuMessage, m, {
+        // Enviar el video aleatorio como GIF
+        await conn.sendFile(m.chat, randomVideoUrl, 'menu.mp4', menuMessage, m, {
             asGif: true, // Interpretar el video como GIF
         });
 

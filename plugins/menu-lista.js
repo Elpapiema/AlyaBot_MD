@@ -2,9 +2,9 @@ let handler = async (m, { conn }) => {
     try {
         // URLs de los videos que se enviarán como GIF
         const videoUrls = [
-            'https://qu.ax/WgJR.mp4', // Reemplaza con la URL del primer video
-            's://qu.ax/kOwY.mp4', // Reemplaza con la URL del segundo video
-            'https://qu.ax/UYGf.mp4'  // Reemplaza con la URL del tercer video
+            'https://qu.ax/WgJR.mp4', // Primer video
+            'https://qu.ax/kOwY.mp4', // Segundo video
+            'https://qu.ax/UYGf.mp4'  // Tercer video
         ];
 
         // Seleccionar un video aleatoriamente
@@ -13,9 +13,10 @@ let handler = async (m, { conn }) => {
         // Texto del mensaje del menú
         const menuMessage = 'Bienvenido al menú principal. Presiona el botón "Más opciones" para ver todas las opciones disponibles.';
 
-        // Enviar el video aleatorio como GIF
+        // Enviar el video aleatorio como GIF, especificando el tipo MIME
         await conn.sendFile(m.chat, randomVideoUrl, 'menu.mp4', menuMessage, m, {
-            asGif: true, // Interpretar el video como GIF
+            asGif: true,  // Interpretar el video como GIF
+            mimetype: 'video/mp4' // Especificar el tipo de archivo
         });
 
         // Configuración del botón

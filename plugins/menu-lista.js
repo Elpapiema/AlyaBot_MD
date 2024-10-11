@@ -1,6 +1,14 @@
 import axios from 'axios';
 
 const sendMenuGif = async (client, message) => {
+  // Verificar si remoteJid existe
+  const remoteJid = message.key && message.key.remoteJid;
+
+  if (!remoteJid) {
+    console.error('remoteJid no está disponible en el mensaje');
+    return; // Salir si no se puede obtener remoteJid
+  }
+
   // Definimos los enlaces de los videos
   const videoLinks = [
     'https://qu.ax/UYGf.mp4',
@@ -26,7 +34,7 @@ const sendMenuGif = async (client, message) => {
     const buffer = Buffer.from(response.data, 'binary');
 
     // Envía el video como un "gif" (looped MP4) junto con el mensaje
-    await client.sendMessage(message.key.remoteJid, {
+    await client.sendMessage(remoteJid, {
       video: buffer,
       gifPlayback: true, // Esto indica a WhatsApp que debe interpretarlo como un GIF
       caption: welcomeMessage // Mensaje que se enviará junto con el GIF

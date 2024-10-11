@@ -26,11 +26,11 @@ const sendMenuGif = async (client, message) => {
     const buffer = Buffer.from(response.data, 'binary');
 
     // Envía el video como un "gif" (looped MP4) junto con el mensaje
-    await client.sendMessage(message.chat, {
+    await client.sendMessage(message.key.remoteJid, {
       video: buffer,
       gifPlayback: true, // Esto indica a WhatsApp que debe interpretarlo como un GIF
       caption: welcomeMessage // Mensaje que se enviará junto con el GIF
-    });
+    }, { quoted: message });  // Este objeto "quoted" se utiliza para referenciar el mensaje original
   } catch (error) {
     console.error('Error al enviar el GIF: ', error);
   }

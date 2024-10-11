@@ -13,9 +13,9 @@ let handler = async (m, { conn }) => {
         // Texto del mensaje del menú
         const menuMessage = `*Alya Mikhailovna Kujou*\n\nBienvenido al menú\n\nPor el momento este menú se encuentra en construcción.\n\nUsa el menú de GataNina-Li usando #allmenu`;
 
-        // Enviar el video aleatorio interpretado como GIF
+        // Enviar el video aleatorio interpretado como GIF con reproducción automática
         await conn.sendFile(m.chat, randomVideoUrl, 'menu.mp4', menuMessage, m, {
-            asGif: true,  // Interpretar el video como GIF
+            gifPlayback: true,  // Reproducción automática de GIF
             mimetype: 'video/mp4' // Especificar el tipo de archivo
         });
 

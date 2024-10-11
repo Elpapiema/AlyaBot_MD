@@ -11,7 +11,7 @@ let handler = async (m, { conn }) => {
         const randomVideoUrl = videoUrls[Math.floor(Math.random() * videoUrls.length)];
 
         // Texto del mensaje del menú
-        const menuMessage = 'Bienvenido al menú principal.
+        const menuMessage = 'Bienvenido al menú principal.\n
 
 Este menu está en construcción 
 

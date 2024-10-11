@@ -11,7 +11,11 @@ let handler = async (m, { conn }) => {
         const randomVideoUrl = videoUrls[Math.floor(Math.random() * videoUrls.length)];
 
         // Texto del mensaje del menú
-        const menuMessage = 'Bienvenido al menú principal. Usa el comando .allmenu para ver todas las opciones disponibles.';
+        const menuMessage = 'Bienvenido al menú principal.
+
+Este menu está en construcción 
+
+ Usa el comando .allmenu para ver todas las opciones disponibles.';
 
         // Enviar el video aleatorio como archivo de video normal
         await conn.sendFile(m.chat, randomVideoUrl, 'menu.mp4', menuMessage, m);

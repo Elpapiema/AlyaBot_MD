@@ -14,10 +14,14 @@ let handler = async (m, { conn }) => {
         const menuMessage = `*Alya Mikhailovna Kujou*\n\nBienvenido al menú\n\nPor el momento este menú se encuentra en construcción.\n\nUsa el menú de GataNina-Li usando #allmenu`;
 
         // Enviar el video aleatorio interpretado como GIF con reproducción automática
-        await conn.sendFile(m.chat, randomVideoUrl, 'menu.mp4', menuMessage, m, {
-            gifPlayback: true,  // Reproducción automática de GIF
-            mimetype: 'video/mp4' // Especificar el tipo de archivo
-        });
+        await conn.sendMessage(m.chat, 
+            { 
+                video: { url: randomVideoUrl }, 
+                gifPlayback: true,  // Reproducción automática de GIF
+                caption: menuMessage,  // El mensaje del menú
+                mentions: [m.sender]  // Mencionar al remitente del mensaje
+            }
+        );
 
     } catch (error) {
         await conn.reply(m.chat, `Error al cargar el menú: ${error.message}`, m);

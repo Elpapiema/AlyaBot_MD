@@ -11,7 +11,16 @@ let handler = async (m, { conn }) => {
         const randomVideoUrl = videoUrls[Math.floor(Math.random() * videoUrls.length)];
 
         // Texto del mensaje del menú
-        const menuMessage = `*Alya Mikhailovna Kujou*\n\nBienvenido al menú\n\nPor el momento este menú se encuentra en construcción.\n\nUsa el menú de GataNina-Li usando #allmenu`;
+        const menuMessage = `
+┎┈┈┈┈┈┈┈┈┈┈┈୨ Ｉｎｆｏ ୧┈┈┈┈┈┈┈┈┈┈┒
+┊
+┊
+┊   ✦ Desarrollado por: 𝓔𝓶𝓶𝓪 (𝓥𝓲𝓸𝓵𝓮𝓽'𝓼 𝓥𝓮𝓻𝓼𝓲𝓸𝓷)
+┊   
+┊   ✦ Versión actual: 1.2.3
+┊
+┊
+┖┈┈┈┈┈┈┈┈┈┈┈┈┈┈୨♡୧┈┈┈┈┈┈┈┈┈┈┈┈┈┚`;
 
         // Enviar el video aleatorio interpretado como GIF con reproducción automática
         await conn.sendMessage(m.chat, 

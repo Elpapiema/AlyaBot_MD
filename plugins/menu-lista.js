@@ -3,7 +3,7 @@ let handler = async (m, { conn }) => {
         // URLs de los videos que se enviarán
         const videoUrls = [
             'https://qu.ax/WgJR.mp4', // Primer video
-            'https://qu.ax/kOwY.mp4', // Segundo video
+            'https://qu.ax/auYbf.mp4', // Segundo video
             'https://qu.ax/UYGf.mp4'  // Tercer video
         ];
 

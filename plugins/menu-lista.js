@@ -4,7 +4,7 @@ let handler = async (m, { conn }) => {
         const videoUrls = [
             'https://qu.ax/CUVel.mp4', // Primer video
             'https://qu.ax/auYbf.mp4', // Segundo video
-            'https://qu.ax/UYGf.mp4'  // Tercer video
+            'https://qu.ax/ocrFx.mp4'  // Tercer video
         ];
 
         // Seleccionar un video aleatoriamente

@@ -3,7 +3,7 @@ let handler = async (m, { conn }) => {
         // URLs de los videos que se enviarán
         const videoUrls = [
             'https://files.catbox.moe/b5n81s.mp4', // Primer video
-            'https://qu.ax/auYbf.mp4', // Segundo video
+            'https://files.catbox.moe/o9vzpe.mp4', // Segundo video
             'https://qu.ax/ocrFx.mp4'  // Tercer video
         ];
 

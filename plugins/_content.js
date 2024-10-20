@@ -32,33 +32,33 @@ global.imagen11 = fs.readFileSync("./media/menus/img10.jpg")
 global.imagen12 = fs.readFileSync("./media/menus/img11.jpg")
 global.imagen13 = fs.readFileSync("./media/menus/img12.jpg")
 
-global.img = 'https://qu.ax/ysFO.jpeg'
-global.img2 = 'https://qu.ax/DOAE.jpeg'
+global.img = 'https://files.catbox.moe/awtxnn.jpg'
+global.img2 = 'https://files.catbox.moe/ulv50i.jpg'
 
 global.img3 = 'https://qu.ax/zELg.jpg' //prem
 global.img4 = 'https://qu.ax/YueS.jpg' //prem
 
-global.img5 = 'https://qu.ax/pMjB.jpeg'
-global.img6 = 'https://qu.ax/Ngvn.jpg'
-global.img7 = 'https://qu.ax/YOOm.jpeg'
-global.img8 = 'https://qu.ax/BkiV.jpg'
-global.img9 = 'https://qu.ax/RzdM.jpg'
+global.img5 = 'https://files.catbox.moe/setbmb.jpg'
+global.img6 = 'https://files.catbox.moe/paasad.jpg'
+global.img7 = 'https://files.catbox.moe/ka3c29.jpg'
+global.img8 = 'https://files.catbox.moe/qjdsrp.jpg'
+global.img9 = 'https://files.catbox.moe/ysynq3.jpg'
 
-global.img10 = 'https://qu.ax/Cgpb.jpg'
-global.img11 = 'https://qu.ax/xsiq.jpeg'
-global.img12 = 'https://qu.ax/GRfW.jpg'
-global.img13 = 'https://qu.ax/dCXN.jpg'
-global.img14 = 'https://qu.ax/SAuP.png'
-global.img15 = 'https://qu.ax/BkiV.jpg' 
+global.img10 = 'https://files.catbox.moe/20ezgd.jpg'
+global.img11 = 'https://files.catbox.moe/w7d1qn.jpg'
+global.img12 = 'https://files.catbox.moe/33uqkc.jpg'
+global.img13 = 'https://files.catbox.moe/z441v5.jpg'
+global.img14 = 'https://files.catbox.moe/dn3dhv.png'
+global.img15 = 'https://files.catbox.moe/qjdsrp.jpg' 
 
 global.img16 = 'https://qu.ax/ovkN.jpg' //+18
 
-global.img17 = 'https://qu.ax/Ngvn.jpg'
-global.img18 = 'https://qu.ax/Cgpb.jpg'
+global.img17 = 'https://files.catbox.moe/paasad.jpg'
+global.img18 = 'https://files.catbox.moe/20ezgd.jpg'
 
 global.logogit = 'https://qu.ax/RzKF.jpg'
 
-global.gataVidMenu = ['https://qu.ax/WgJR.mp4', 'https://qu.ax/kOwY.mp4', 'https://qu.ax/UYGf.mp4'].getRandom()
+global.gataVidMenu = ['https://files.catbox.moe/r3nnn3.mp4', 'https://files.catbox.moe/qk42kl.mp4', 'https://files.catbox.moe/y5mz66.mp4'].getRandom()
 global.gataMenu = [img, img2, img6, img7, img8, img9, img13, img14, img15, img17, img18].getRandom()
 global.gataImg = [imagen1, imagen2, imagen3, imagen4, imagen5, imagen6, imagen7, imagen8, imagen9, imagen10, imagen11, imagen12, imagen13].getRandom()
 

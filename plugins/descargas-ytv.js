@@ -41,7 +41,7 @@ await conn.sendMessage(m.chat, { video: { url: mediaa.result }, fileName: `error
 } catch (E2) {  
 //console.log('Error 2 ' + E2)   
 try {
-let lolhuman = await fetch(`https://api.lolhuman.xyz/api/ytvideo2?apikey=${lolkeysapi}&url=${youtubeLink}`)    
+let lolhuman = await fetch(`https://api.eliasar.cloud/api/ytplay?url=${youtubeLink}&apikey=57412xovi13ci97y1sk2yw`)    
 let lolh = await lolhuman.json()
 let n = lolh.result.title || 'error'
 let n2 = lolh.result.link

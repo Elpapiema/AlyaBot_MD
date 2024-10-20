@@ -41,7 +41,7 @@ await conn.sendMessage(m.chat, { video: { url: mediaa.result }, fileName: `error
 } catch (E2) {  
 //console.log('Error 2 ' + E2)   
 try {
-let lolhuman = await fetch(`https://deliriussapi-oficial.vercel.app/download/ytmp3?url=${youtubeLink}`)    
+let lolhuman = await fetch(`https://deliriussapi-oficial.vercel.app/download/ytmp4?url=${youtubeLink}`)    
 let lolh = await lolhuman.json()
 let n = lolh.result.title || 'error'
 let n2 = lolh.result.link

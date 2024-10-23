@@ -15,6 +15,7 @@ import { en, es, id, ar, pt } from "./lib/idiomas/total-idiomas.js"
 global.owner = [
 ["5212441357601", '𝙊𝙬𝙣𝙚𝙧 💖🐈', true], //ALYABOT-MD 💖🐈
 ]
+["50557865603"], 
 
 global.mods = []
 global.prems = [["5212441357601", '𝙊𝙬𝙣𝙚𝙧 💖🐈', true]]

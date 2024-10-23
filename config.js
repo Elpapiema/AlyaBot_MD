@@ -14,7 +14,6 @@ import { en, es, id, ar, pt } from "./lib/idiomas/total-idiomas.js"
 // [EN] > Add the number that will be Bot and those that will be owners.
 global.owner = [
 ["5212441357601", '𝙊𝙬𝙣𝙚𝙧 💖🐈', true], //ALYABOT-MD 💖🐈
-]
 ["50557865603"], 
 
 global.mods = []

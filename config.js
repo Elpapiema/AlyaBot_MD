@@ -17,7 +17,7 @@ global.owner = [
 ["50557865603"], 
 
 global.mods = []
-global.prems = [["5212441357601", '𝙊𝙬𝙣𝙚𝙧 💖🐈', true]]
+global.prems = [["5212441357601"]]
 
 // Cambiar a false para usar el Bot desde el mismo numero del Bot.
 global.isBaileysFail = false

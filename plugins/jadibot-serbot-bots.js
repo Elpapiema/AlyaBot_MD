@@ -25,7 +25,7 @@ async function handler(m, { conn: _envio, usedPrefix }) {
 
   const replyMessage = message.length === 0 ? '*No hay Sub bots conectado, verifique más tarde.*' : message;
   const totalUsers = users.length;
-  const responseMessage = `*🤖 Aquí tienes la lista de algunos sub bots (jadibot/serbot) 🤖️*\n\n*👉🏻 Puedes contactarlos para ver si se unen a tu grupo*\n\n*Te pedimos de favor que:*\n*1.- Seas amable ✅*\n*2.- No insistas ni discutas ✅*\n\n*✳ ️Si le aparece el siguiente texto en blanco es que no hay ningún sub bot disponible en este momento inténtelo más tarde*\n\n*_⚠ NOTA: ️ELLOS SON PERSONAS QUE NO CONOCEMOS.. POR LO QUE EL EQUIPO DE LOLIBOT NO SE HACE RESPONSABLE DE LO QUE PUEDA OCURRIR AHI.._*\n\n*🤖 SUBBOTS CONECTADO :* ${totalUsers || '0'}\n\n${replyMessage.trim()}`.trim();
+  const responseMessage = `*🤖 Aquí tienes la lista de algunos sub bots (jadibot/serbot) 🤖️*\n\n*👉🏻 Puedes contactarlos para ver si se unen a tu grupo*\n\n*Te pedimos de favor que:*\n*1.- Seas amable ✅*\n*2.- No insistas ni discutas ✅*\n\n*✳ ️Si le aparece el siguiente texto en blanco es que no hay ningún sub bot disponible en este momento inténtelo más tarde*\n\n*_⚠ NOTA: ️ELLOS SON PERSONAS QUE NO CONOCEMOS.. POR LO QUE EL EQUIPO DE ALYABOT NO SE HACE RESPONSABLE DE LO QUE PUEDA OCURRIR AHI.._*\n\n*🤖 SUBBOTS CONECTADO :* ${totalUsers || '0'}\n\n${replyMessage.trim()}`.trim();
 
   await _envio.sendMessage(m.chat, {
     text: responseMessage,

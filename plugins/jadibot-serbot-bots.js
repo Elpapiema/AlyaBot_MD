@@ -38,7 +38,7 @@ async function handler(m, { conn: _envio, usedPrefix }) {
         title: wm,  // Asegúrate de que wm esté definido
         body: '𝐒𝐮𝐩𝐞𝐫 𝐁𝐨𝐭 𝐃𝐞 𝐖𝐡𝐚𝐭𝐬𝐀𝐩𝐩',
         previewType: 0,
-        thumbnail: img.getRandom()  // Asegúrate de que img esté definido y tenga el método getRandom()
+        thumbnail: gataMenu.getRandom()  // Asegúrate de que img esté definido y tenga el método getRandom()
       }
     }
   }, { quoted: m });

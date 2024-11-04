@@ -36,7 +36,7 @@ try {
 let lolhuman = await fetch(`https://api.dorratz.com/v2/yt-mp3?url=${youtubeLink}`)    
 let lolh = await lolhuman.json()
 let n = lolh.result.title || 'error'
-await conn.sendMessage(m.chat, { audio: { url: lolh.result.link }, fileName: `${n}.mp3`, mimetype: 'audio/mp4' }, { quoted: m })  
+await conn.sendMessage(m.chat, { audio: { url: lolh.result.link }, fileName: `${n}.mp3`, mimetype: 'audio/mpeg' }, { quoted: m })  
 } catch {   
 try {
 let searchh = await yts(youtubeLink)

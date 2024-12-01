@@ -604,7 +604,7 @@ await conn.sendFile(
   'gata.mp4', 
   menu, 
   fkontak, 
-  { gifPlayback: true }
+  { gifPlayback: true, isGif: true }
 );
 } catch (e) {
 await m.reply(lenguajeGB['smsMalError3']() + '\n*' + lenguajeGB.smsMensError1() + '*\n*' + usedPrefix + `${lenguajeGB.lenguaje() == 'es' ? 'reporte' : 'report'}` + '* ' + `${lenguajeGB.smsMensError2()} ` + usedPrefix + command)

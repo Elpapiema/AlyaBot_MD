@@ -20,7 +20,7 @@
 [`🜸 Joan TK`](https://wa.me/51910234457)
 
 <details>
-<summary>✐ Ajustes del Servidor - Admin-TK</summary><img src="https://pomf2.lain.la/f/xohfs4gi.jpg">
+<summary>✐ Ajustes del Servidor - AlyaBot_MD</summary><img src="https://files.catbox.moe/uc08wj.jpg">
 
 </details>
 

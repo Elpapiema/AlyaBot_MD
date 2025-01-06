@@ -38,7 +38,7 @@ let handler = async (m, { conn }) => {
  ❀ .resetpreferences
 
 ┈┈┈┈┈┈┈┈┈┈┈┈୨♡୧┈┈┈┈┈┈┈┈┈┈┈┈
-> Administracion   (ノ^o^)ノ 
+> 𝚊𝚍𝚖𝚒𝚗𝚒𝚜𝚝𝚛𝚊𝚌𝚒𝚘𝚗   (ノ^o^)ノ 
 
 ❀ .ban ➩ .kick _expulsa a los ususarios *Solo para Admins*_
 

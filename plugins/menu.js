@@ -53,7 +53,7 @@ let handler = async (m, { conn }) => {
 
   ❀ .play ➩ _nombre de la cancion ➩_ (audio)
   ❀ .play2 ➩ _nombre de la cancion_ (video)
-  ❀ .tt .tiktok _link de tiktok_ (vídeo)
+  ❀ .tt ➩ .tiktok _link de tiktok_ (vídeo)
 
 ┈┈┈┈┈┈┈┈┈┈┈┈୨♡୧┈┈┈┈┈┈┈┈┈┈┈┈
 > RPG

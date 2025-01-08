@@ -6,32 +6,29 @@ const handler = async (m, { conn, text, command }) => {
     }
 
     try {
-        const apiUrl = `https://deliriussapi-oficial.vercel.app/download/tiktok?url=${encodeURIComponent(text)}`;
+        const apiUrl = `https://api.dorratz.com/v2/tiktok-dl?url=${encodeURIComponent(text)}`;
         const response = await fetch(apiUrl);
         const result = await response.json();
 
-        if (!result || !result.status || !result.data || !result.data.meta || !result.data.meta.media) {
+        if (!result || !result.status || !result.data || !result.data.media || !result.data.media.org) {
             return conn.reply(m.chat, '❌ No se pudo descargar el video. Verifica el enlace e intenta nuevamente.', m);
         }
 
-        // Obtener el video sin marca de agua (org)
-        const media = result.data.meta.media.find((item) => item.type === 'video' && item.org);
-        if (!media || !media.org) {
-            return conn.reply(m.chat, '❌ No se encontró un video válido sin marca de agua.', m);
-        }
-
-        const videoUrl = media.org;
+        const videoUrl = result.data.media.org;
 
         // Obtener información adicional
         const author = result.data.author?.nickname || 'Desconocido';
+        const username = result.data.author?.username || 'Desconocido';
+        const title = result.data.title || 'Sin título';
         const likes = result.data.like || '0';
         const shares = result.data.share || '0';
         const comments = result.data.comment || '0';
+        const repro = result.data.repro || '0';
 
         const caption = `
 ✅ *Video descargado correctamente:*
 
-👤 Autor: ${author}
+👤 Autor: ${author} (${username})
 👍 Me gusta: ${likes}
 🔄 Compartidos: ${shares}
 💬 Comentarios: ${comments}

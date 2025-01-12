@@ -6,41 +6,31 @@ const handler = async (m, { conn, text, command }) => {
     }
 
     try {
-        const apiUrl = `https://exonity.tech/api/ytdlp2-faster?apikey=adminsepuh&url=${encodeURIComponent(text)}`;
+        const apiUrl = `https://api.siputzx.my.id/api/dl/youtube/mp3?url=${encodeURIComponent(text)}`;
         const response = await fetch(apiUrl);
         const result = await response.json();
 
-        if (result.status !== 200 || !result.result || !result.result.audio) {
+        if (!result || !result.status || !result.data) {
             return conn.reply(m.chat, '❌ No se pudo descargar el audio. Verifica el enlace e intenta nuevamente.', m);
         }
 
-        // Obtener datos del video
-        const { title, thumb, duration, description, audio } = result.result;
+        const audioUrl = result.data;
 
-        const caption = `
-🎶 *Descarga completada:*
-*🔤 Título:* ${title}
-*🕒 Duración:* ${duration}
-*📝 Descripción:* ${description}
-`;
+        const caption = `✅ *Audio descargado correctamente*`;
 
         // Enviar el audio al usuario
-        await conn.sendMessage(
-            m.chat,
-            {
-                audio: { url: audio },
-                mimetype: 'audio/mp4',
-                ptt: false, // Cambiar a true si se desea enviar como nota de voz
-               // caption,
-            },
-            { quoted: m }
-        );
+        await conn.sendMessage(m.chat, {
+            audio: { url: audioUrl },
+            mimetype: 'audio/mp4',
+            caption,
+        }, { quoted: m });
     } catch (error) {
         console.error(error);
         conn.reply(m.chat, '❌ Ocurrió un error al intentar descargar el audio.', m);
     }
 };
 
-handler.command = /^(yta|ytmp3)$/i;
+// Comandos aceptados
+handler.command = /^(ytmp3|yta)$/i;
 
 export default handler;

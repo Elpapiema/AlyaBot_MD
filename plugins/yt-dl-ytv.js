@@ -6,36 +6,34 @@ const handler = async (m, { conn, text, command }) => {
     }
 
     try {
-        const apiUrl = `https://exonity.tech/api/ytdlp2-faster?apikey=adminsepuh&url=${encodeURIComponent(text)}`;
-        const response = await fetch(apiUrl);
-        const result = await response.json();
+        // API: Obtener enlace de descarga
+        const downloadApiUrl = `https://api.siputzx.my.id/api/d/ytmp4?url=${encodeURIComponent(text)}`;
+        const downloadResponse = await fetch(downloadApiUrl);
+        const downloadResult = await downloadResponse.json();
 
-        if (result.status !== 200 || !result.result || !result.result.video) {
-            return conn.reply(m.chat, '❌ No se pudo descargar el video. Verifica el enlace e intenta nuevamente.', m);
+        if (!downloadResult || !downloadResult.status || !downloadResult.data || !downloadResult.data.dl) {
+            return conn.reply(m.chat, '❌ No se pudo descargar el video. Intenta nuevamente más tarde.', m);
         }
 
-        // Obtener datos del video
-        const { title, thumb, duration, description, video } = result.result;
+        const { title, dl: videoUrl } = downloadResult.data;
 
         const caption = `
 🎥 *Descarga completada:*
 *🔤 Título:* ${title}
-*🕒 Duración:* ${duration}
 `;
 
         // Enviar el video al usuario
         await conn.sendMessage(
             m.chat,
             {
-                video: { url: video },
+                video: { url: videoUrl },
                 caption,
-                jpegThumbnail: await (await fetch(thumb)).buffer(), // Thumbnail del video
             },
             { quoted: m }
         );
     } catch (error) {
         console.error(error);
-        conn.reply(m.chat, '❌ Ocurrió un error al intentar descargar el video.', m);
+        conn.reply(m.chat, '❌ Ocurrió un error al intentar procesar el video.', m);
     }
 };
 

@@ -6,24 +6,41 @@ const handler = async (m, { conn, text, command }) => {
     }
 
     try {
-        const apiUrl = `https://api.siputzx.my.id/api/dl/youtube/mp3?url=${encodeURIComponent(text)}`;
+        // API para obtener datos del audio
+        const apiUrl = `https://restapi.apibotwa.biz.id/api/ytmp3?url=${encodeURIComponent(text)}`;
         const response = await fetch(apiUrl);
         const result = await response.json();
 
-        if (!result || !result.status || !result.data) {
+        // Validaciones de respuesta de la API
+        if (!result || result.status !== 200 || !result.result || !result.result.download) {
             return conn.reply(m.chat, '❌ No se pudo descargar el audio. Verifica el enlace e intenta nuevamente.', m);
         }
 
-        const audioUrl = result.data;
+        const { metadata, download } = result.result;
+        const { title, thumbnail } = metadata;
+        const { url: audioUrl, quality } = download;
 
-        const caption = `✅ *Audio descargado correctamente*`;
+        // Mensaje de confirmación con detalles del audio descargado
+        const caption = `
+✅ *Audio descargado correctamente:*
+*🎵 Título:* ${title}
+*🎚️ Calidad:* ${quality}
+`;
 
         // Enviar el audio al usuario
-        await conn.sendMessage(m.chat, {
-            audio: { url: audioUrl },
-            mimetype: 'audio/mp4',
-            caption,
-        }, { quoted: m });
+        await conn.sendMessage(
+            m.chat,
+            {
+                audio: { url: audioUrl },
+                mimetype: 'audio/mp4',
+                ptt: false, // Cambia a `true` si deseas enviar como nota de voz
+                jpegThumbnail: await (await fetch(thumbnail)).buffer(), // Miniatura del video
+            },
+            { quoted: m }
+        );
+
+        // Enviar mensaje de confirmación
+        await conn.reply(m.chat, caption, m);
     } catch (error) {
         console.error(error);
         conn.reply(m.chat, '❌ Ocurrió un error al intentar descargar el audio.', m);

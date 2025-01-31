@@ -25,7 +25,7 @@ const handler = async (m, { text, usedPrefix, command }) => {
     };
 
     // ID del grupo del staff
-    const staffGroupId = '120363350160478830@g.us';
+    const staffGroupId = '120363395553029777@g.us';
 
     // Enviar al grupo del staff
     const jsonMessage = `Nuevo personaje añadido:\n\`\`\`${JSON.stringify(characterData, null, 2)}\`\`\``;

@@ -4,7 +4,7 @@ const handler = async (m, { text, usedPrefix, command }) => {
     const args = text.split(',').map(arg => arg.trim()); // Separar por comas y eliminar espacios extra
 
     if (args.length < 5) {
-        return m.reply(`Uso incorrecto del comando.\nFormato: ${usedPrefix}${command} <Nombre del personaje>, <Edad>, <Situación sentimental>, <Origen>, <Enlace de imagen> \n \n > Nota: el link debe estar en catbox.moe o en qu.ax si se usa qu.ax se debe configurar cono permanente`);
+        return m.reply(`Uso incorrecto del comando.\nFormato: ${usedPrefix}${command} <Nombre del personaje>, <Edad>, <Situación sentimental>, <Origen>, <Enlace de imagen> \n \n> Nota: el link debe estar en catbox.moe o en qu.ax si se usa qu.ax se debe configurar cono permanente`);
     }
 
     // Asignar valores
@@ -32,7 +32,7 @@ const handler = async (m, { text, usedPrefix, command }) => {
     await conn.sendMessage(staffGroupId, { text: jsonMessage });
 
     // Confirmar al usuario
-    m.reply(`El personaje "${name}" ha sido añadido correctamente y enviado al grupo del staff.`);
+    m.reply(`El personaje "${name}" ha sido enviado al grupo del staff para su posterior adicion.`);
 };
 
 handler.command = ['addcharacter', 'addrw'];

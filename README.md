@@ -29,8 +29,8 @@
 ---
 
 ### **`Colaboradores`**
-<a href="https://github.com/Elpapiema/Adiciones-para-AlyaBot-RaphtaliaBot-/graphs/contributors">
-<img src="https://contrib.rocks/image?repo=Elpapiema/Adiciones-para-AlyaBot-RaphtaliaBot-" />
+<a href="https://github.com/Elpapiema/AlyaBot/_MD/graphs/contributors">
+<img src="https://contrib.rocks/image?repo=Elpapiema/AlyaBot_MD" />
 </a>
 
 ### **`Desarrollador`**

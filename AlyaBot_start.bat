@@ -1,9 +1,4 @@
 @echo off
-REM Función para imprimir mensajes con formato
-:printMessage
-    echo [%~1] %~2
-    exit /b
-
 REM Verificar si Node.js está instalado
 where node >nul 2>nul
 if %errorlevel% neq 0 (

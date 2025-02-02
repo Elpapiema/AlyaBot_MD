@@ -1,9 +1,20 @@
 @echo off
+REM Verificar si el script se ejecuta como administrador
+net session >nul 2>&1
+if %errorlevel% == 0 (
+    echo Ejecutando con permisos de administrador...
+) else (
+    echo Solicitud de permisos de administrador...
+    REM Solicitar elevación de permisos
+    powershell -Command "Start-Process '%~f0' -Verb runAs"
+    exit /b
+)
+
 REM Verificar si Node.js está instalado
 where node >nul 2>nul
 if %errorlevel% neq 0 (
     echo Node.js no está instalado. Ejecutando instalador...
-    start /wait node-installer.msi
+    start /wait node-installer.exe
 ) else (
     echo Node.js ya está instalado.
 )

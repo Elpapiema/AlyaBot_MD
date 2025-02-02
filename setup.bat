@@ -5,7 +5,7 @@ if %errorlevel% neq 0 (
     echo Node.js no está instalado. Ejecutando instalador...
     start /wait node-installer.exe
 ) else (
-    echo Node.js ya está instalado.
+    echo Node.js ya esta instalado.
 )
 
 REM Verificar si Git está instalado
@@ -14,7 +14,7 @@ if %errorlevel% neq 0 (
     echo Git no está instalado. Ejecutando instalador...
     start /wait git-installer.exe
 ) else (
-    echo Git ya está instalado.
+    echo Git ya esta instalado.
 )
 
 REM Verificar si ImageMagick está instalado
@@ -23,22 +23,18 @@ if %errorlevel% neq 0 (
     echo ImageMagick no está instalado. Ejecutando instalador...
     start /wait imagemagick-installer.exe
 ) else (
-    echo ImageMagick ya está instalado.
+    echo ImageMagick ya esta instalado.
 )
 
 REM Ejecutar Git pull
-echo Ejecutando git pull...
+echo Verificando Actualizaciones...
 git pull
 
 REM Ejecutar npm install (ignorar crasheo)
-echo Ejecutando npm install...
+echo Instalando Dependencias...
 npm install
 if %errorlevel% neq 0 (
     echo [ADVERTENCIA] Se detectó un problema después de npm install, pero se ignorará para continuar.
 )
-
-REM Ejecutar node index.js
-echo Ejecutando node index.js...
-node index.js
 
 pause

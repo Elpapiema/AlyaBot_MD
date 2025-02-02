@@ -1,6 +1,6 @@
 @echo off
 REM Ejecutar el archivo setup.bat
-echo Verificando si los programas de ejecucion estan instalados...
+echo [INFO] Verificando si los programas de ejecucion estan instalados...
 call setup.bat
 
 REM Verificar si setup.bat terminó correctamente
@@ -9,7 +9,7 @@ if %errorlevel% neq 0 (
 )
 
 REM Ejecutar node index.js
-echo Iniciando AlyBot...
+echo [INFO] Iniciando AlyaBot...
 node index.js
 if %errorlevel% neq 0 (
     echo [ERROR] Ocurrio un error. Verifica la instalacion.

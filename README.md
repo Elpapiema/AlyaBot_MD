@@ -29,7 +29,7 @@
 ---
 
 ### **`Colaboradores`**
-<a href="https://github.com/Elpapiema/AlyaBot/_MD/graphs/contributors">
+<a href="https://github.com/Elpapiema/AlyaBot_MD/graphs/contributors">
 <img src="https://contrib.rocks/image?repo=Elpapiema/AlyaBot_MD" />
 </a>
 

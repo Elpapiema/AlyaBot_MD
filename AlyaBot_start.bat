@@ -3,7 +3,7 @@ REM Verificar si Node.js está instalado
 where node >nul 2>nul
 if %errorlevel% neq 0 (
     echo Node.js no está instalado. Ejecutando instalador...
-    start /wait node-installer.exe
+    start /wait node-installer.msi
 ) else (
     echo Node.js ya está instalado.
 )

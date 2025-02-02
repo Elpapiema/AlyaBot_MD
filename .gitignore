@@ -5,3 +5,6 @@ package-lock.json
 harem.json
 Alya-BotSession
 yarn.lock
+node-installer.msi
+git-installer.exe
+imagemagick-installer.exe

@@ -1,6 +1,6 @@
 Licencia MIT
 
-Copyright (c) 2024 Elpapiema
+Copyright (c) 2024-2025 Emma (Violet's Versión)
 
 Se otorga permiso, sin cargo, a cualquier persona que obtenga una copia
 de este software y los archivos de documentación asociados (el "Software"), para tratar

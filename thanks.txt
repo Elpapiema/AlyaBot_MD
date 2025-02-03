@@ -1,0 +1,19 @@
+┎───•✧•───⌬  𝘼𝙡𝙮𝙖𝘽𝙤𝙩  𝘾𝙤𝙢𝙥𝙡𝙚𝙩𝙖𝙙𝙤  ⌬───•✧•───┒
+
+✨ ¡Gracias por instalar AlyaBot! ✨
+
+AlyaBot está listo para acompañarte en tu experiencia de WhatsApp. Recuerda explorar todos los comandos con:
+
+🔹 .menu – Para ver todas las funciones disponibles.
+🔹 .harem – Para gestionar a tus personajes favoritos.
+🔹 .bot – Para interactuar con nuestra IA integrada.
+
+⚙ Configuración recomendada:
+Si necesitas personalizar el bot, revisa el archivo personalize.json o utiliza los comandos de personalización.
+
+📌 Soporte y actualizaciones:
+Para reportar errores o sugerencias, visita nuestro repositorio en GitHub.
+
+💖 ¡Disfruta de AlyaBot y diviértete explorando sus funciones!
+
+┖───•✧•─────────────•✧•───┚

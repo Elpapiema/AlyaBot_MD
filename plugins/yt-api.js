@@ -1,7 +1,15 @@
 import { spawn } from 'child_process';
+import fs from 'fs';
 
 const runPythonScript = () => {
-    const process = spawn('python', ['yt_api.py'], { stdio: 'inherit' });
+    const pythonCommand = process.platform === 'win32' ? 'python' : 'python3'; // Usa python3 en Linux/macOS
+
+    if (!fs.existsSync('./yt_api.py')) {
+        console.error('[YT_API] Error: No se encontró yt_api.py en la raíz.');
+        return;
+    }
+
+    const process = spawn(pythonCommand, ['yt_api.py'], { stdio: 'inherit' });
 
     process.on('error', (err) => {
         console.error('[YT_API] Error al ejecutar yt_api.py:', err);
@@ -12,7 +20,7 @@ const runPythonScript = () => {
     });
 };
 
-const handler = async (m) => {}; // No responde a ningún mensaje, solo es para ejecución automática
+const handler = async (m) => {}; // No responde a ningún mensaje
 
 handler.customPrefix = /./;
 handler.command = new RegExp(); // No tiene comandos

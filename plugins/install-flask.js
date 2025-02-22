@@ -3,7 +3,7 @@ import { exec } from 'child_process';
 const handler = async (m, { conn }) => {
   m.reply('Instalando Flask, por favor espera...');
 
-  exec('pip install flask', (error, stdout, stderr) => {
+  exec('pip3 install flask', (error, stdout, stderr) => {
     if (error) {
       return m.reply(`❌ Error al instalar Flask:\n${error.message}`);
     }

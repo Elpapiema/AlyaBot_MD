@@ -40,7 +40,8 @@ let handler = async (m, { conn }) => {
 ┈┈┈┈┈┈┈┈┈┈┈┈୨♡୧┈┈┈┈┈┈┈┈┈┈┈┈
 > 𝚊𝚍𝚖𝚒𝚗𝚒𝚜𝚝𝚛𝚊𝚌𝚒𝚘𝚗   (ノ^o^)ノ 
 
-❀ .ban ➩ .kick _expulsa a los ususarios *Solo para Admins*_
+❀ .ban ➩ .kick _expulsa a los ususarios *solo para admins*_
+❀ .tag ➩ .tag _etiqueta a todo el grupo respondiendo o junto con el mensaje *solo para admins*_
 
 ┈┈┈┈┈┈┈┈┈┈┈┈୨♡୧┈┈┈┈┈┈┈┈┈┈┈┈
 > 𝚁𝚊𝚗𝚍𝚘𝚖   (ノ^o^)ノ  

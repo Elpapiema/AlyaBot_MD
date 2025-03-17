@@ -61,7 +61,7 @@ const handler = async (m, { conn, text, command }) => {
 
     try {
         // Nueva API local para obtener el audio
-        const apiUrl = `http://127.0.0.1:5000/download_audio?url=${encodeURIComponent(text)}`;
+        const apiUrl = `http://de01.uniplex.xyz:5194/download_audio?url=${encodeURIComponent(text)}`;
         const response = await fetch(apiUrl);
         const result = await response.json();
 

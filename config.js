@@ -79,7 +79,9 @@ global.author = 'Emma (Violets Version)'
 
 global.wm = 'AlyaBot' 
 global.botname = 'AlyaBot'
-global.vs = '2.0.1'
+global.vs = '2.2.1'
+global.dev = 'Emma (Violets Version)'
+global.copy = '© 2025'
 
 //----------------------------[ NIVELES | RPG ]---------------------------------
 

@@ -1,12 +1,11 @@
 {
-  "name": "AlyaBot",
-  "version": "2.0.1",
-  "description": "Bot de whatsApp basada en alya del anime de la rusa",
+  "name": "base_bot",
+  "version": "1.0.0",
+  "description": "Base para Bots de whatsApp (Alyabot especialmente)",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node index.js",
-    "test": "node test.js"
+    "test": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -20,12 +19,15 @@
   "homepage": "https://github.com/Elpapiema/Base_Bot#readme",
   "dependencies": {
     "@bochilteam/scraper": "^5.0.1",
-    "@whiskeysockets/baileys": "^6.7.12",
+    "@whiskeysockets/baileys": "^6.7.16",
+    "adm-zip": "0.5.16",
     "awesome-phonenumber": "^7.2.0",
     "axios": "^1.7.9",
     "cfonts": "^3.3.0",
     "chalk": "^5.3.0",
     "cheerio": "1.0.0-rc.12",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
     "file-type": "^19.6.0",
     "fluent-ffmpeg":"^2.1.3",
     "formdata-node":"^6.0.3",
@@ -34,11 +36,13 @@
     "lowdb": "^3.0.0",
     "moment-timezone": "^0.5.46",
     "mongoose": "^8.8.4",
+    "node-cache": "5.1.2",
     "node-fetch": "^3.3.2",
     "node-webpmux":"^3.2.0",
     "qrcode": "^1.5.0",
     "qrcode-terminal": "^0.12.0",
     "syntax-error": "^1.4.0",
+    "unzipper": "^0.12.3",
     "url-regex-safe": "^4.0.0",
     "yargs": "^17.7.2",
     "yt-search": "^2.12.1",

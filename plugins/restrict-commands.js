@@ -1,6 +1,9 @@
 const handler = async (m, { conn, usedPrefix, command, isOwner, isAdmin, isBotAdmin, isPremium, isGroup }) => {
+    // Asegurar que global.plugins está definido y es un objeto
+    if (typeof global.plugins !== 'object') return !0;
+
     // Obtener el plugin que maneja el comando
-    const plugin = conn.plugins.get(command);
+    const plugin = global.plugins?.[command];
     if (!plugin) return !0; // Si el comando no existe, continuar normalmente
 
     // Validar restricciones automáticamente según las propiedades del plugin

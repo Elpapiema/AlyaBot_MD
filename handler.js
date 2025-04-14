@@ -1467,7 +1467,12 @@ global.dfail = (type, m, conn, usedPrefix) => {
         unreg: '「NO ESTAS REGISTRADO」\n\nPA NO APARECES EN MI BASE DE DATOS ✋🥸🤚\n\nPara poder usarme escribe el siguente comando\n\nComando: #reg nombre.edad\nEjemplo: #reg elrebelde.21',
         restrict: '[ 🔐 ] Este comando esta desactivado por mi jefe'
     }[type]
-    if (msg) return conn.sendMessage(m.chat, {text: msg, contextInfo: { mentionedJid: null, forwardingScore: 1, isForwarded: true, forwardedNewsletterMessageInfo: { newsletterJid: '120363355261011910@newsletter', serverMessageId: '', newsletterName: 'LoliBot ✨' }, externalAdReply : {mediaUrl: null, mediaType: 1, description: null, "title": `ℹ️𝐈𝐍𝐅𝐎 ℹ️`, body: wm, previewType: 0, "thumbnail": img.getRandom(), sourceUrl: [nna, nna2, md, yt, nn, tiktok].getRandom()}}}, { quoted: m })
+    if (msg) return conn.sendMessage(m.chat, { 
+        text: msg, 
+        contextInfo: { 
+            mentionedJid: null
+        } 
+    }, { quoted: m })
 }
 
 const file = global.__filename(import.meta.url, true);

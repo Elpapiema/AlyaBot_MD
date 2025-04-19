@@ -102,6 +102,7 @@ let handler = async (m, { conn }) => {
 │ 👑 𝙾𝚆𝙽𝙴𝚁 🛠️
 │ ✧ .update 🔄
 │ ✧ .dsowner ➩ .purgar 🗑️
+│ ✧ .join 🎎
 ╰── ⋆⋅🚀⋅⋆ ──╯
 
 > ${copy} Hecho con mucho amor por ${dev}

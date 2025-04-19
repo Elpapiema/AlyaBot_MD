@@ -42,15 +42,19 @@ let handler = async (m, { conn }) => {
 │ ✧ .getplugin 🔌
 │ ✧ .getpack 📦
 │ ✧ .store 🛒
+│ ✧ .status 💻
+│ ✧ .ping ⏳
 ╰── ⋆⋅🚀⋅⋆ ──╯
 
 ╭── ⋆⋅🎀⋅⋆ ──╮
 │ 🎲 𝚁𝙰𝙽𝙳𝙾𝙼 🎭
 │ ✧ .rw ➩ .rollwaifu 💖
+│ ✧ .winfo 💖
 │ ✧ .c ➩ .claim 📜
 │ ✧ .harem 💑
 │ ✧ .addrw 📝
 │ ✧ .alya ➩ .bot 💖
+│ ✧ .kaori 💖
 ╰── ⋆⋅🚀⋅⋆ ──╯
 
 ╭── ⋆⋅🎀⋅⋆ ──╮
@@ -59,6 +63,7 @@ let handler = async (m, { conn }) => {
 │ ✧ .play2 ➩ nombre de la canción 🎥 (video)
 │ ✧ .tt ➩ .tiktok ➩ enlace de TikTok 🎞️
 │ ✧ .sp ➩ .Spotify enlace de Spotify 🎼
+│ ✧ .fb ➩ link de facebook 🎥 (video)
 ╰── ⋆⋅🚀⋅⋆ ──╯
 
 ╭── ⋆⋅🎀⋅⋆ ──╮

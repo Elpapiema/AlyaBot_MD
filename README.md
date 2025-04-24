@@ -2,7 +2,7 @@
  Bot de WhatsApp con tematica de la Waifu rusa
 
 <p align="center">
-<img src="https://files.catbox.moe/uv3o5o.jpeg" width="250"/>
+<img src="https://raw.githubusercontent.com/Elpapiema/API_Alya/refs/heads/main/web/icon.png" width="250"/>
 
 # Activar 24/7 en 
 

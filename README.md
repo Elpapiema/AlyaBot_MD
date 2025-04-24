@@ -2,25 +2,22 @@
  Bot de WhatsApp con tematica de la Waifu rusa
 
 <p align="center">
-<img src="https://files.catbox.moe/uv3o5o.jpeg" width="800"/>
+<img src="https://files.catbox.moe/uv3o5o.jpeg" width="250"/>
 
 # Activar 24/7 en 
 
-### ✐ TK-Host
-<a href="https://dash.tk-joanhost.com/home"><img src="https://files.catbox.moe/lmgc5p.jpg" height="125px"></a>
+### ✐ Sky Ultra Plus
+<a href="https://dash.skyultraplus.com/"><img src="https://files.catbox.moe/mzuf2m.ico" height="125px"></a>
 
 <details>
  <summary><b>✰ Enlaces Importantes</b></summary>
 
-- **✐ Dashboard:** [`🜸 Aquí`](https://dash.tk-joanhost.com/home)
-- **✐ Panel:** [`🜸 Aquí`](https://panel.tk-joanhost.com/)
-- **✐ Canal de WhatsApp:** [`🜸 Aquí`](https://chat.whatsapp.com/EyoFXnaNujs53FBeqj2NM3)
-- **✐ Grupo de WhatsApp:** [`🜸 Aquí`](https://chat.whatsapp.com/CxyUKH5ElNdHAWiJpx7D0E)
-- **✐ Contacto(s):** 
-[`🜸 Joan TK`](https://wa.me/51910234457)
+- **✐ Dashboard:** [`🜸 Aquí`](https://dash.skyultraplus.com/)
+- **✐ Panel:** [`🜸 Aquí`](https://panel.skyultraplus.com/)
+
 
 <details>
-<summary>✐ Ajustes del Servidor - AlyaBot_MD</summary><img src="https://files.catbox.moe/uc08wj.jpg">
+<summary>✐ Ajustes del Servidor - AlyaBot_MD</summary><img src="https://files.catbox.moe/oucq6s.png">
 
 </details>
 

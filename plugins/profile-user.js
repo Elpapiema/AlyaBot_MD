@@ -41,7 +41,7 @@ let handler = async (m, { conn }) => {
     try {
         profilePicUrl = await conn.profilePictureUrl(userId, 'image');
     } catch (e) {
-        profilePicUrl = 'https://i.imgur.com/Y2Z55QF.png'; // Imagen por defecto si no tiene foto
+        profilePicUrl = 'https://files.catbox.moe/vpqhom.webp'; // Imagen por defecto si no tiene foto
     }
 
     // Crear el mensaje

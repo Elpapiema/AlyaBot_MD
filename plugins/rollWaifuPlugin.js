@@ -24,7 +24,7 @@ let handler = async (m, { conn }) => {
         // Mensaje de información del personaje
         const message = `
 ✨ *Nombre*: ${randomCharacter.name}
-🎂 *Edad*: ${randomCharacter.age}
+🎂 *Edad*: ${randomCharacter.age} años
 💖 *Estado Sentimental*: ${randomCharacter.relationship}
 📚 *Origen*: ${randomCharacter.source}
         `;

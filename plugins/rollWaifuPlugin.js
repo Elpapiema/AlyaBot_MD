@@ -3,6 +3,7 @@ import fetch from 'node-fetch';
 
 // Ruta del archivo characters.json (remoto en GitHub)
 const charactersUrl = 'https://raw.githubusercontent.com/Elpapiema/Adiciones-para-AlyaBot-RaphtaliaBot-/refs/heads/main/image_json/characters.json';
+const filePath = './personalize.json';
 
 // Función para cargar el archivo characters.json desde GitHub
 async function loadCharacters() {
@@ -18,6 +19,13 @@ async function loadCharacters() {
 // Definición del handler del comando 'rw' o 'rollwaifu'
 let handler = async (m, { conn }) => {
     try {
+        // Cargar moneda o algo asi xd 
+        const data = JSON.parse(await fs.readFile(filePath));
+        const globalConfig = data.global;
+        const defaultConfig = data.default;
+        // Definicion de lo de arriba xd
+        const currency = globalConfig.currency || defaultConfig.currency;
+        // Carga de personajes, si no le sabes no le muevas
         const characters = await loadCharacters();
         const randomCharacter = characters[Math.floor(Math.random() * characters.length)];
 
@@ -27,6 +35,7 @@ let handler = async (m, { conn }) => {
 🎂 *Edad*: ${randomCharacter.age} años
 💖 *Estado Sentimental*: ${randomCharacter.relationship}
 📚 *Origen*: ${randomCharacter.source}
+💵 *Costo*: ${randomCharacter.buy} ${currency}
         `;
 
         // Enviar el mensaje con la información del personaje y la imagen
@@ -44,6 +53,6 @@ let handler = async (m, { conn }) => {
 // Configuración del comando
 handler.help = ['rw', 'rollwaifu'];
 handler.tags = ['anime'];
-handler.command = /^(rw|rollwaifu)$/i; // Comandos "rw" y "rollwaifu"
+handler.command = ['rw', 'rollwaifu']; // Comandos "rw" y "rollwaifu"
 
 export default handler;

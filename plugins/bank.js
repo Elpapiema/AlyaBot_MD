@@ -71,6 +71,6 @@ let handler = async (m, { text }) => {
 };
 
 // Definir el comando
-handler.command = /^(deposit)$/i;
+handler.command = ['deposit', 'depositar', 'd'];
 
 export default handler;

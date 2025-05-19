@@ -98,6 +98,6 @@ let handler = async (m, { conn, text }) => {
     }
 };
 
-handler.command = /^(robar|rob)$/i;
+handler.command = ['rob', 'robar', 'crime'];
 
 export default handler;

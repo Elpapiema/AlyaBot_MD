@@ -47,8 +47,8 @@ let handler = async (m, { conn }) => {
     // Crear el mensaje
     let message = `🌟 *Perfil de Usuario* 🌟\n\n`
         + `👤 *Usuario:* @${userId.split('@')[0]}\n`
-        + `💰 *${currency} en mano:* ${userMoney}\n`
-        + `🏦 *Banco:* ${userBank}\n`
+        + `💰 *Dinero en mano:* ${userMoney} ${currency} \n`
+        + `🏦 *Banco:* ${userBank} ${currency} \n`
         + `💞 *Personajes en harem:* ${haremCount}`;
 
     // Enviar la foto con el mensaje
@@ -60,6 +60,6 @@ let handler = async (m, { conn }) => {
 };
 
 // Definir el comando
-handler.command = /^(perfil|profile)$/i;
+handler.command = ['profile', 'perfil', 'bal', 'balance'];
 
 export default handler;

@@ -28,7 +28,7 @@ Próximamente se añadirán más proveedores, tanto gratuitos como premium.
   <img src="https://files.catbox.moe/oucq6s.png" alt="Vista del servidor"/>
 </details>
 
-```## Despliegue en BoxMineWorld
+## Despliegue en BoxMineWorld
 
 <a href="https://boxmineworld.com">
   <img width="180px" src="https://boxmineworld.com/img/Logo.png"/>
@@ -43,7 +43,7 @@ Próximamente se añadirán más proveedores, tanto gratuitos como premium.
 - **Documentación:** [docs.boxmineworld.com](https://docs.boxmineworld.com)
 - **Comunidad de Discord:** [¡Únete aquí!](https://discord.gg/84qsr4v)
 
-</details>```
+</details>
 
 ---
 

@@ -163,7 +163,7 @@ return msg?.message || ""
 msgRetryCounterCache, // Resolver mensajes en espera
 msgRetryCounterMap, // Determinar si se debe volver a intentar enviar un mensaje o no
 defaultQueryTimeoutMs: undefined,
-version: [2, 3000, 1015901307],
+version: [2, 3000, 1023223821], //version: [2, 3000, 1015901307] esto ya corrige el qr
 }
 
 global.conn = makeWASocket(connectionOptions)

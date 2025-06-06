@@ -36,7 +36,8 @@ let handler = async (m, { conn }) => {
         //------------------------------
         let character;
 
-        if (m.quoted && m.quoted.sender === conn.user.jid) {
+        if (m.quoted && (m.quoted.sender === conn.user.jid || m.quoted.id.startsWith('BAE5') || m.quoted.id.startsWith('3EB0'))) {
+        //if (m.quoted && m.quoted.sender === conn.user.jid) {
             const quotedMessageId = m.quoted.id;
             if (!global.lastCharacter || !global.lastCharacter[quotedMessageId]) {
                 await conn.reply(m.chat, 'El mensaje al que estás respondiendo no contiene un personaje válido para reclamar.', m);

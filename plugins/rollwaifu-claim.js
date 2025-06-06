@@ -35,7 +35,6 @@ let handler = async (m, { conn }) => {
         const currency = globalConfig.currency || defaultConfig.currency;
         //------------------------------
         let character;
-
         if (m.quoted && (m.quoted.sender === conn.user.jid || m.quoted.id.startsWith('BAE5') || m.quoted.id.startsWith('3EB0'))) {
         //if (m.quoted && m.quoted.sender === conn.user.jid) {
             const quotedMessageId = m.quoted.id;

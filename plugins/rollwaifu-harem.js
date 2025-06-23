@@ -37,7 +37,7 @@ let handler = async (m, { conn }) => {
         });
 
         // Enviar el mensaje con la lista de personajes y la imagen personalizada
-        await conn.sendFile(m.chat, 'https://qu.ax/FmlF.png', 'harem.jpg', message, m);
+        await conn.sendFile(m.chat, 'https://files.catbox.moe/bnjw8e.jpg', 'harem.jpg', message, m);
     } catch (error) {
         await conn.reply(m.chat, `Error al cargar el harem: ${error.message}`, m);
     }

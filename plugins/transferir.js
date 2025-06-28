@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 
-const dbPath = path.join(process.cwd(), 'db_users.json');
-const personalizePath = path.join(process.cwd(), 'personalize.json');
+const dbPath = path.join(process.cwd(), 'database', 'db_users.json');
+const personalizePath = path.join(process.cwd(), 'database', 'personalize.json');
 
 // Función para leer archivos JSON
 function readJSON(filePath) {

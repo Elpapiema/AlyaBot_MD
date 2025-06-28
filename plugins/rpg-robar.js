@@ -3,7 +3,7 @@ import path from 'path';
 import fetch from 'node-fetch';
 
 const dbPath = path.join(process.cwd(), 'db_users.json');
-const eventsUrl = 'https://raw.githubusercontent.com/Elpapiema/Adiciones-para-AlyaBot-RaphtaliaBot-/refs/heads/main/Random/rob-events.json'; // Reemplaza con la URL real
+const eventsUrl = 'https://raw.githubusercontent.com/Elpapiema/CharHub-Store/refs/heads/main/Random/rob-events.json'; // Reemplaza con la URL real
 
 // Función para leer JSON local
 function readJSON(filePath) {

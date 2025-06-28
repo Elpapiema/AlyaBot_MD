@@ -12,7 +12,7 @@ let handler = async (m, { conn, text }) => {
     }
 
     try {
-        const storeUrl = 'https://raw.githubusercontent.com/Elpapiema/Adiciones-para-AlyaBot-RaphtaliaBot-/refs/heads/main/plugin_Store/store.json';
+        const storeUrl = 'https://raw.githubusercontent.com/Elpapiema/CharHub-Store/refs/heads/main/plugin_Store/store.json';
         conn.reply(m.chat, `🔄 Buscando el plugin "${pluginName}" en la tienda...`, m);
 
         // Obtén la lista de plugins desde la tienda

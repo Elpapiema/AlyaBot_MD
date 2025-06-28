@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-const filePath = './personalize.json';
+const filePath = './database/personalize.json';
 
 let handler = async (m, { text }) => {
     if (!text) throw '❌ Debes proporcionar el enlace del video que deseas eliminar.';

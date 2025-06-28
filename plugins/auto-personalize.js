@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-const filePath = './personalize.json';
+const filePath = './database/personalize.json';
 
 // Datos predeterminados que se agregarán al archivo si no existe
 const defaultData = {

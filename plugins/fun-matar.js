@@ -15,7 +15,7 @@ let handler = async (m, { conn, usedPrefix }) => {
     if (m.isGroup) {
         try {
             // Obtener el archivo JSON desde GitHub
-            const response = await axios.get('https://raw.githubusercontent.com/Elpapiema/Adiciones-para-AlyaBot-RaphtaliaBot-/refs/heads/main/video_json/SFW/matar.json');
+            const response = await axios.get('https://raw.githubusercontent.com/Elpapiema/CharHub-Store/refs/heads/main/video_json/SFW/matar.json');
             const videos = response.data.videos;
 
             // Seleccionar un video aleatorio

@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 const handler = async (m, { conn }) => {
   try {
     // URL del JSON
-    const url = 'https://raw.githubusercontent.com/Elpapiema/Adiciones-para-AlyaBot-RaphtaliaBot-/refs/heads/main/plugin_Store/store.json';
+    const url = 'https://raw.githubusercontent.com/Elpapiema/CharHub-Store/refs/heads/main/plugin_Store/store.json';
 
     // Intentar obtener el JSON
     let response = await fetch(url);

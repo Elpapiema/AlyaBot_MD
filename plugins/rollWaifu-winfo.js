@@ -6,7 +6,7 @@ let handler = async (m, { args, usedPrefix, command }) => {
   }
 
   const personajeBuscado = args.join(' ').toLowerCase();
-  const url = 'https://raw.githubusercontent.com/Elpapiema/Adiciones-para-AlyaBot-RaphtaliaBot-/main/image_json/characters.json';
+  const url = 'https://raw.githubusercontent.com/Elpapiema/CharHub-Store/main/image_json/characters.json';
 
   try {
     const res = await fetch(url);

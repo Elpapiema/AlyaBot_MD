@@ -1,8 +1,8 @@
 import { promises as fs } from 'fs';
 
-const haremFilePath = './harem.json';
-const usersDbPath = './db_users.json';
-const perzonaliPath = './personalize.json';
+const haremFilePath = './database/harem.json';
+const usersDbPath = './database/db_users.json';
+const perzonaliPath = './database/personalize.json';
 
 async function loadJSON(path, defaultValue = {}) {
     try {

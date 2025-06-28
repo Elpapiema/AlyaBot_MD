@@ -1,9 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 
-const ecoPath = './eco_config.json';
-const dbPath = './db_users.json';
-const personalizePath = './personalize.json';
+const ecoPath = './database/eco_config.json';
+const dbPath = './database/db_users.json';
+const personalizePath = './database/personalize.json';
 
 const textoAEmoji = {
   piedra: '🪨',

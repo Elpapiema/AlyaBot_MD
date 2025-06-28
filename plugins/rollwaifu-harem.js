@@ -1,7 +1,7 @@
 import { promises as fs } from 'fs';
 
 // Ruta del archivo harem.json
-const haremFilePath = './harem.json';
+const haremFilePath = './database/harem.json';
 
 // Función para cargar el archivo harem.json
 async function loadHarem() {

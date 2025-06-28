@@ -3,7 +3,7 @@ import fs from 'fs';
 
 // Función para obtener el trabajo aleatorio desde GitHub
 const getRandomJob = async () => {
-    const url = 'https://raw.githubusercontent.com/Elpapiema/Adiciones-para-AlyaBot-RaphtaliaBot-/refs/heads/main/Random/job.json'; // URL del archivo JSON
+    const url = 'https://raw.githubusercontent.com/Elpapiema/CharHub-Store/refs/heads/main/Random/job.json'; // URL del archivo JSON
     const response = await fetch(url);
     const data = await response.json();
     const jobs = data.jobs;

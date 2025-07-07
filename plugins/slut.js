@@ -12,18 +12,18 @@ const getRandomJob = async () => {
 
 // Función para obtener el nombre de la moneda desde 'personalize.json' (bajo la etiqueta global)
 const getCurrencyName = () => {
-    const config = JSON.parse(fs.readFileSync('./personalize.json'));
+    const config = JSON.parse(fs.readFileSync('./database/personalize.json'));
     return config.global?.currency || 'Yenes'; // Si no hay moneda personalizada, usa 'Yenes'
 };
 
 // Guardar el dinero ganado en 'database.json'
 const saveEarnings = (userId, moneyEarned) => {
-    const database = fs.existsSync('./db_users.json') ? JSON.parse(fs.readFileSync('./db_users.json')) : {};
+    const database = fs.existsSync('./database/db_users.json') ? JSON.parse(fs.readFileSync('./database/db_users.json')) : {};
     if (!database[userId]) {
         database[userId] = { money: 0 };
     }
     database[userId].money += moneyEarned;
-    fs.writeFileSync('./db_users.json', JSON.stringify(database, null, 2));
+    fs.writeFileSync('./database/db_users.json', JSON.stringify(database, null, 2));
 };
 
 // Comando para trabajar

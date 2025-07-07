@@ -7,9 +7,9 @@ const SEARCH_APIS = [
 ];
 
 const DOWNLOAD_APIS = [
-  { name: 'Servidor Masha', url: 'http://api.alyabot.xyz:3269/download_audio?url=' },
-  { name: 'Servidor Alya', url: 'http://api2.alyabot.xyz:5216/download_audio?url=' },
-  { name: 'Servidor Masachika', url: 'https://api3.alyabot.xyz/download_audio?url=' }
+  { name: 'Servidor Masha', url: 'http://api.alyabot.xyz:3269/download_audioV2?url=' },
+  { name: 'Servidor Alya', url: 'http://api2.alyabot.xyz:5216/download_audioV2?url=' },
+  { name: 'Servidor Masachika', url: 'https://api3.alyabot.xyz/download_audioV2?url=' }
 ];
 
 async function tryFetchJSON(servers, query) {

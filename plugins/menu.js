@@ -17,14 +17,17 @@ let handler = async (m, { conn }) => {
         const randomVideoUrl = videos[Math.floor(Math.random() * videos.length)];
 
         const menuMessage = `
-╔═══════════════════🌙
-║ ❀•° ${botName} °•❀
-║ 💜 𝑫𝒆𝒔𝒂𝒓𝒓𝒐𝒍𝒍𝒂𝒅𝒐 𝒑𝒐𝒓: ${dev}
-║ 🎀 𝑽𝒆𝒓𝒔𝒊ó𝒏: ${vs}
-╚❀•°🌠°•❀═══════════════════
+╭──〕${botName} 〕
+├̟̇❀ 𝑫𝒆𝒔𝒂𝒓𝒓𝒐𝒍𝒍𝒂𝒅𝒐 𝑷𝒐𝒓 : 
+├̟̇❀ ${dev}
+├̟̇❀ 𝑽𝒆𝒓𝒔𝒊𝒐́𝒏 : ${vs}
+╰──────────╼
 
 💬¡Hola ! Soy ${botName}, aquí tienes la lista de comandos ✨
 💰 Moneda actual: ¥ ${currency}
+
+Checa nuestro Canal Oficial de WhatsApp en donde se publican actualizaciones:
+https://whatsapp.com/channel/0029Vaj5mivLdQegrUZ1Xl3M
 
 ╭── ⋆⋅🎀⋅⋆ ──╮
 │ 🎨 𝙿𝙴𝚁𝚂𝙾𝙽𝙰𝙻𝙸𝚉𝙰𝙲𝙸Ó𝙽 🌸
@@ -44,6 +47,7 @@ let handler = async (m, { conn }) => {
 │ ✧ .store 🛒
 │ ✧ .status 💻
 │ ✧ .ping ⏳
+│ ✧ .on / .off 🔌 Activa o desactiva configuraciones 
 ╰── ⋆⋅🚀⋅⋆ ──╯
 
 ╭── ⋆⋅🎀⋅⋆ ──╮
@@ -55,7 +59,6 @@ let handler = async (m, { conn }) => {
 │ ✧ .addrw 📝
 │ ✧ .alya ➩ .bot 💖
 │ ✧ .kaori 💖
-│ ✧ .Gemini 🌟
 ╰── ⋆⋅🚀⋅⋆ ──╯
 
 ╭── ⋆⋅🎀⋅⋆ ──╮
@@ -63,6 +66,9 @@ let handler = async (m, { conn }) => {
 │ ✧ .play ➩ nombre de la canción 🎶 (audio)
 │ ✧ .play2 ➩ nombre de la canción 🎥 (video)
 │ ✧ .tt ➩ .tiktok ➩ enlace de TikTok 🎞️
+│ ✧ .ttp ➩ .ttph ➩ enlace de tiktok slides 📷
+│ ✧ .yt ➩ .ytv ➩ enlace de YouTube 🎥
+│ ✧ .yta ➩ enlace de YouTube 🎵
 │ ✧ .sp ➩ .Spotify enlace de Spotify 🎼
 │ ✧ .fb ➩ link de facebook 🎥 (video)
 ╰── ⋆⋅🚀⋅⋆ ──╯
@@ -76,7 +82,7 @@ let handler = async (m, { conn }) => {
 │ ✧ .retirar (cantidad) 🏧
 │ ✧ .transferir (cantidad) @usuario 🔁
 │ ✧ .perfil 🆔
-​​╰── ⋆⋅🚀⋅⋆ ──╯
+╰── ⋆⋅🚀⋅⋆ ──╯
 
 ╭── ⋆⋅🎀⋅⋆ ──╮
 │ 💕 𝚁𝙴𝙰𝙲𝙲𝙸𝙾𝙽𝙴𝚂 𝙰𝙽𝙸𝙼𝙴 🎭
@@ -100,10 +106,16 @@ let handler = async (m, { conn }) => {
 ╰── ⋆⋅🚀⋅⋆ ──╯
 
 ╭── ⋆⋅🎀⋅⋆ ──╮
+│ 🛠️𝚑𝚎𝚛𝚛𝚊𝚖𝚒𝚎𝚗𝚝𝚊𝚜🛠️
+│ ✧ .gemini 🌟
+╰── ⋆⋅🚀⋅⋆ ──╯
+
+╭── ⋆⋅🎀⋅⋆ ──╮
 │ 👑 𝙾𝚆𝙽𝙴𝚁 🛠️
 │ ✧ .update 🔄
 │ ✧ .dsowner ➩ .purgar 🗑️
 │ ✧ .join 🎎
+│ ✧ .ono / .offoS
 ╰── ⋆⋅🚀⋅⋆ ──╯
 
 > ${copy} Hecho con mucho amor por ${dev}
@@ -125,7 +137,7 @@ let handler = async (m, { conn }) => {
 
 handler.help = ['menu'];
 handler.tags = ['info'];
-handler.command = ['menu', 'help'];
+handler.command = /^(menu)$/i;
 
 export default handler;
 
@@ -133,4 +145,11 @@ export default handler;
 
 ┎───•✧•───⌬
 ┃
-┖───•✧•  */
+┖───•✧•  
+
+
+╭──〕ᴀʟɪsᴀ ʙᴏᴛ - ᴍᴅ 〕
+├̟̇❀ 𝑫𝒆𝒔𝒂𝒓𝒓𝒐𝒍𝒍𝒂𝒅𝒐 𝑷𝒐𝒓 : 
+├̟̇❀ 𝑬𝒎𝒎𝒂 𝓥𝓲𝓸𝓵𝓮𝓽'𝓼 𝓥𝓮𝓻𝓼𝓲𝒐́𝓷
+├̟̇❀ 𝑽𝒆𝒓𝒔𝒊𝒐́𝒏 : 
+╰──────────╼*/

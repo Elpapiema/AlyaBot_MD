@@ -54,6 +54,7 @@ if (!isNumber(user.limit)) user.limit = 8
             if (typeof chat !== 'object')
                 global.db.data.chats[m.chat] = {}
 if (chat) {
+
 }} catch (e) {
 console.error(e)
 }
@@ -112,10 +113,31 @@ let usedPrefix
 const groupMetadata = (m.isGroup ? ((conn.chats[m.chat] || {}).metadata || await this.groupMetadata(m.chat).catch(_ => null)) : {}) || {}
 const participants = (m.isGroup ? groupMetadata.participants : []) || []
 const user = (m.isGroup ? participants.find(u => conn.decodeJid(u.id) === m.sender) : {}) || {} // User Data
-const bot = (m.isGroup ? participants.find(u => conn.decodeJid(u.id) == this.user.jid) : {}) || {} // Your Data
+// Obtener el jid real del bot
+const botJid = conn.decodeJid(this.user?.id || this.user?.jid || '')
+
+const bot = (m.isGroup
+  ? participants.find(u => {
+      const participantJid = conn.decodeJid(u.id || '')
+      return participantJid === botJid
+    })
+  : {}) || {}
+
+/*const botNumber = this.user?.jid || ''
+const botJidVariants = [
+  botNumber,
+  botNumber.replace(/@s\.whatsapp\.net$/, '@lid'),
+  botNumber.replace(/@lid$/, '@s.whatsapp.net')
+]
+
+const bot = (m.isGroup
+  ? participants.find(u => botJidVariants.includes(conn.decodeJid(u.id)))
+  : {}) || {}*/
+//const bot = (m.isGroup ? participants.find(u => conn.decodeJid(u.id) == this.user.jid) : {}) || {} // Your Data
 const isRAdmin = user?.admin == 'superadmin' || false
 const isAdmin = isRAdmin || user?.admin == 'admin' || false // Is User Admin?
-const isBotAdmin = bot?.admin || false // Are you Admin?
+const isBotAdmin = bot?.admin === 'admin' || bot?.admin === 'superadmin'
+ //const isBotAdmin = bot?.admin || false // Are you Admin?
 
         const ___dirname = path.join(path.dirname(fileURLToPath(import.meta.url)), './plugins')
         for (let name in global.plugins) {
@@ -378,7 +400,7 @@ if (opts['autoread']) await this.readMessages([m.key])
 if (settingsREAD.autoread2) await this.readMessages([m.key])  
 //if (settingsREAD.autoread2 == 'true') await this.readMessages([m.key])    
 	    
-if (!m.fromMem && m.text.match(/(@5212441357601|Rusa|Albina|Alya|:v)/gi)) {
+if (!m.fromMem && m.text.match(/(albina|alya|Botsito|Gata|:v)/gi)) {
 let emot = pickRandom(["😺", "😸", "😹", "😻", "😼", "😽", "🙀", "😿", "😾", "🤩", "😏", "😳", "🥵", "🤯", "😱", "😨", "🤫", "🥴", "🤧", "🤑", "🤠", "🤖", "🤝", "💪", "👑", "😚", "🐱", "🐈", "🐆", "🐅", "⚡️", "🌈", "☃️", "⛄️", "🌝", "🌛", "🌜", "🍓", "🍎", "🎈", "🪄", "❤️", "🧡", "💛", "💚", "💙", "💜", "🖤", "🤍", "💘", "💝", "💟", "🌝", "😎", "🔥", "🖕", "🐦"])
 this.sendMessage(m.chat, { react: { text: emot, key: m.key }})}
 function pickRandom(list) { return list[Math.floor(Math.random() * list.length)]}}}
@@ -516,23 +538,23 @@ console.error(e)
 
 global.dfail = (type, m, conn, usedPrefix) => {
     let msg = {
-        rowner: '⚠️ Este comando es solo para mi propietario. ¡Lo siento, este es exclusivo! 🔒',
-        owner: '⚠️ Este comando es solo para mi propietario. ¡Lo siento, este es exclusivo! 🔒',
-        mods: '⚠️ Este comando solo lo puedo usar yo. ¡Privilegios de mod! 😘',
-        premium: '⚠️ Este comando es solo para usuarios Premium (VIP). ¡Ser VIP tiene sus beneficios! 🌟',
-        group: '⚠️ Pendejo este comando es solo para grupos.',
-        private: '⚠️ Vamos al privado, este comando solo funciona en el privado del bot. ¡Hablemos en privado! 🤫',
-        admin: '🤨 No eres admins. Solo los admins pueden usar este comando. ¡Necesito a los jefes aquí! 🛡️',
-        botAdmin: '⚠️ haz admin al Bot "YO" para poder usar este comando.',
-        unreg: '「NO ESTAS REGISTRADO」\n\nPA NO APARECES EN MI BASE DE DATOS ✋🥸🤚\n\nPara poder usarme escribe el siguente comando\n\nComando: #reg nombre.edad\nEjemplo: #reg elrebelde.21',
-        restrict: '[ 🔐 ] Este comando esta desactivado por mi jefe'
+        rowner: '🌸 Ukyuu~ ¡Ups! Este comando es exclusivo para mi querido propietario~ 💻💞 Pero no te preocupes, senpai~ ¡Hay muchas otras cositas que puedes probar conmigo! ❄️💋✨',
+        owner: '🌸 Ukyuu~ ¡Ups! Este comando es exclusivo para mi querido propietario~ 💻💞 Pero no te preocupes, senpai~ ¡Hay muchas otras cositas que puedes probar conmigo! ❄️💋✨',
+        mods: '🌸 Ukyuu~ Este comando solo puedo usarlo yo, da~ 💻✨ Privilegios de mod encantadora~ 😘💅🏻 Pero no te pongas celoso, senpai~ ¡Hay muchas otras cosas que tú también puedes disfrutar conmigo~! ❄️💞',
+        premium: '🌸 Ukyuu~ Este comando es solo para usuarios Premium, da~ 💎✨ Ser VIP tiene sus beneficios, ¿verdad que suena tentador, senpai~? 💋🌟',
+        group: '🌸 Ukyuu~ Este comando sólo funciona en grupos, da~ 💬❄️ ¿Por qué no me invitas a uno, senpai~? Prometo portarme linda~ 💋✨',
+        private: '🌸 Ukyuu~ Vamos al privado, da~ 💌🤫 Este comando solo funciona en el privado del bot~ Shshh… hablemos a solas, senpai~ 💋❄️',
+        admin: '🌸 Ukyuu~ Lo siento, senpai... 😳 Solo los admins pueden usar este comando~ 🛡️❄️ ¡Alya necesita que un admin esté aquí para ayudarte mejor! 💋✨',
+        botAdmin: '🌸 Ukyuu~ Haz admin a mí, Alya, senpai~ 💻💕 Sin admin, no puedo usar este comando, da! ❄️💋 ¡Así que hazlo rápido, por favor~! ✨🫶🏻',
+        unreg: '🌸 Ukyuu~ Uy, no apareces en mi base de datos, senpai... \n Para poder jugar conmigo, necesitas registrarte~ \n✨ 📋 Comando: #reg nombre.edad \n 💡 Ejemplo: #reg Alya.18 \n ¡No te tardes, da~! 🩵💻💫',
+        restrict: '🔐 Ukyuu~ Este comando está desactivado por mi jefe, senpai... ❄️💼 Lo siento, no puedo usarlo ahora mismo~ 🥺💖'
     }[type]
     if (msg) return conn.sendMessage(m.chat, { 
-        text: msg, 
-        contextInfo: { 
-            mentionedJid: null
-        } 
-    }, { quoted: m })
+    text: msg, 
+    contextInfo: { 
+        mentionedJid: null
+    } 
+}, { quoted: m })
 }
 
 const file = global.__filename(import.meta.url, true);

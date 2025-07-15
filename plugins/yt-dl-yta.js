@@ -1,98 +1,74 @@
-/* import fetch from 'node-fetch';
-
-const handler = async (m, { conn, text, command }) => {
-    if (!text) {
-        return conn.reply(m.chat, '❌ Por favor proporciona un enlace válido de YouTube.', m);
-    }
-
-    try {
-        // API para obtener datos del audio
-        const apiUrl = `https://restapi.apibotwa.biz.id/api/ytmp3?url=${encodeURIComponent(text)}`;
-        const response = await fetch(apiUrl);
-        const result = await response.json();
-
-        // Validaciones de respuesta de la API
-        if (!result || result.status !== 200 || !result.result || !result.result.download) {
-            return conn.reply(m.chat, '❌ No se pudo descargar el audio. Verifica el enlace e intenta nuevamente.', m);
-        }
-
-        const { metadata, download } = result.result;
-        const { title, thumbnail } = metadata;
-        const { url: audioUrl, quality } = download;
-
-        // Mensaje de confirmación con detalles del audio descargado
-        const caption = `
-✅ *Audio descargado correctamente:*
-*🎵 Título:* ${title}
-*🎚️ Calidad:* ${quality}
-`;
-
-        // Enviar el audio al usuario
-        await conn.sendMessage(
-            m.chat,
-            {
-                audio: { url: audioUrl },
-                mimetype: 'audio/mp4',
-                ptt: false, // Cambia a `true` si deseas enviar como nota de voz
-                jpegThumbnail: await (await fetch(thumbnail)).buffer(), // Miniatura del video
-            },
-            { quoted: m }
-        );
-
-        // Enviar mensaje de confirmación
-        await conn.reply(m.chat, caption, m);
-    } catch (error) {
-        console.error(error);
-        conn.reply(m.chat, '❌ Ocurrió un error al intentar descargar el audio.', m);
-    }
-};
-
-// Comandos aceptados
-handler.command = /^(ytmp3|yta)$/i;
-
-export default handler; */
-
 import fetch from 'node-fetch';
 
 const handler = async (m, { conn, text, command }) => {
-    if (!text) {
-        return conn.reply(m.chat, '❌ Por favor proporciona un enlace válido de YouTube.', m);
-    }
+  if (!text) {
+    return conn.reply(m.chat, '❌ Por favor proporciona un enlace válido de YouTube.', m);
+  }
+
+  const servers = [
+    { name: 'Servidor Masha', baseUrl: alya1 },
+    { name: 'Servidor Alya', baseUrl: alya2 },
+    { name: 'Servidor Masachika', baseUrl: alya3 },
+  ];
+
+  // Función para intentar descargar audio de los servidores en orden aleatorio
+  async function tryServers(serversList) {
+    if (serversList.length === 0) throw '❌ Todos los servidores fallaron. Intenta más tarde.';
+
+    const [currentServer, ...rest] = serversList;
 
     try {
-        // Nueva API local para obtener el audio
-        const apiUrl = `http://de01.uniplex.xyz:5194/download_audio?url=${encodeURIComponent(text)}`;
-        const response = await fetch(apiUrl);
-        const result = await response.json();
+      await conn.reply(m.chat, `🔄 Intentando descargar audio desde ${currentServer.name}...`, m);
 
-        // Validaciones de respuesta de la API
-        if (!result || !result.file_url) {
-            return conn.reply(m.chat, '❌ No se pudo descargar el audio. Verifica el enlace e intenta nuevamente.', m);
-        }
+      const apiUrl = `${currentServer.baseUrl}/download_audioV2?url=${encodeURIComponent(text)}`;
+      const res = await fetch(apiUrl);
+      if (!res.ok) throw new Error(`HTTP error ${res.status}`);
 
-        const audioUrl = result.file_url;
-        const caption = `✅ *Audio descargado correctamente.*`;
+      const result = await res.json();
 
-        // Enviar el audio al usuario
-        await conn.sendMessage(
-            m.chat,
-            {
-                audio: { url: audioUrl },
-                mimetype: 'audio/mp4',
-                ptt: false, // Cambia a `true` si deseas enviar como nota de voz
-            },
-            { quoted: m }
-        );
+      if (!result || !result.file_url) {
+        throw new Error('No se recibió URL de audio');
+      }
 
-        // Enviar mensaje de confirmación
-        await conn.reply(m.chat, caption, m);
-    } catch (error) {
-        console.error(error);
-        conn.reply(m.chat, '❌ Ocurrió un error al intentar descargar el audio.', m);
+      return { result, server: currentServer };
+    } catch (e) {
+      console.error(`Error en ${currentServer.name}:`, e.message || e);
+      return tryServers(rest);
     }
+  }
+
+  try {
+    const { result, server } = await tryServers(shuffleArray(servers));
+
+    // Enviar audio
+    await conn.sendMessage(
+      m.chat,
+      {
+        audio: { url: result.file_url },
+        mimetype: 'audio/mp4',
+        ptt: false,
+      },
+      { quoted: m }
+    );
+
+    await conn.reply(m.chat, `✅ Audio descargado correctamente desde ${server.name}.`, m);
+
+  } catch (e) {
+    console.error(e);
+    conn.reply(m.chat, e.toString(), m);
+  }
 };
 
-// Comandos aceptados
+// Función para barajar array (Fisher-Yates)
+function shuffleArray(array) {
+  let arr = array.slice();
+  for (let i = arr.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
 handler.command = /^(ytmp3|yta)$/i;
 
 export default handler;

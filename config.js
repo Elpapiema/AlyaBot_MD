@@ -9,7 +9,7 @@ import moment from 'moment-timezone'
 
 //---------[ Añada los numeros a ser Propietario/a ]---------
 
-global.owner = [['5212441357601', 'ＰＲＯＰＩＥＴＡＲＩＯ', true]]
+global.owner = [['5212441357601', 'ＰＲＯＰＩＥＴＡＲＩＯ', true], ['50238999796']]
 global.lidOwners = [['+128514011471987']] // Nota: esta configuracion es para que el bot reconozca a los owners en los grupos, si no quieres que el bot reconozca a los owners en los grupos, simplemente deja el array vacío: global.lidOwners = []
 global.mods = []
 global.prems = []
@@ -80,9 +80,17 @@ global.author = 'Emma (Violets Version)'
 
 global.wm = 'AlyaBot' 
 global.botname = 'AlyaBot'
-global.vs = '2.2.1'
+global.vs = '2.3.0 Stable'
 global.dev = 'Emma (Violets Version)'
-global.copy = '© 2025'
+global.copy = '© 2023-2025' // No modificar
+
+// ---------------[ APIs V2 ]---------------
+
+global.alya1 = 'http://api.alyabot.xyz:3269'
+global.alya2 = 'http://api2.alyabot.xyz:5216'
+global.alya3 = 'https://api3.alyabot.xyz'
+
+//------------------------------------------
 
 //----------------------------[ NIVELES | RPG ]---------------------------------
 

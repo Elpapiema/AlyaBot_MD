@@ -54,7 +54,7 @@ Próximamente se añadirán más proveedores, tanto gratuitos como premium.
 > ✅ Recomendado para usuarios sin experiencia técnica.
 
 1. Descarga el instalador desde el siguiente enlace:  
-   [🔗 Descargar AlyaBot para Windows](https://github.com/Elpapiema/AlyaBot_MD/releases/download/v2.2.1/Alya-installer-x64-x86.exe)
+   [🔗 Descargar AlyaBot para Windows](https://github.com/Elpapiema/AlyaBot_MD/releases/download/v2.3.0/AlyaBot.Installer.x64.exe)
 2. Ejecuta el archivo y sigue los pasos del asistente.
 3. El bot se iniciará automáticamente tras completar la instalación.
 

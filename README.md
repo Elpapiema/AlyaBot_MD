@@ -14,7 +14,6 @@ Próximamente se añadirán más proveedores, tanto gratuitos como premium.
 
 ### 🌐 Sky Ultra Plus
 
-<p align="center">
   <a href="https://dash.skyultraplus.com/">
     <img src="https://files.catbox.moe/mzuf2m.ico" height="130" alt="Sky Ultra Plus" />
   </a>
@@ -66,10 +65,20 @@ Próximamente se añadirán más proveedores, tanto gratuitos como premium.
 
 ```bash
 sudo apt update && sudo apt upgrade -y
+```
+```
 sudo apt install git nodejs ffmpeg imagemagick -y
+```
+```
 git clone https://github.com/Elpapiema/AlyaBot_MD
+```
+```
 cd AlyaBot_MD
+```
+```
 npm install
+```
+```
 npm start
 ```
 
@@ -81,10 +90,20 @@ npm start
 
 ```bash
 pkg update && pkg upgrade
+```
+```
 pkg install git nodejs ffmpeg imagemagick -y
+```
+```
 git clone https://github.com/Elpapiema/AlyaBot_MD
+```
+```
 cd AlyaBot_MD
+```
+```
 npm install
+```
+```
 npm start
 ```
 

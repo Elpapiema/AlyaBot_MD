@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 
 let handler = async (m, { conn, args, command }) => {
-  if (!args[0]) throw '⚠️ Proporciona la URL de un video de TikTok.\n\nEjemplo:\n.ttsl https://vt.tiktok.com/ZSBy3kxKw/';
+  if (!args[0]) throw '⚠️ Proporciona la URL de una presentacion de tiktok de TikTok.\n\nEjemplo:\n.ttsl https://vt.tiktok.com/ZSBy3kxKw/';
 
   const url = args[0];
 
@@ -19,7 +19,7 @@ let handler = async (m, { conn, args, command }) => {
     const [currentServer, ...rest] = serversList;
 
     try {
-      await m.reply(`🔄 Intentando obtener slides desde ${currentServer.name}, por favor espera...`);
+      // await m.reply(`🔄 Intentando obtener slides desde ${currentServer.name}, por favor espera...`);
 
       const apiUrl = `${currentServer.baseUrl}/Tiktok_slidesdl?url=${encodeURIComponent(url)}`;
       const res = await fetch(apiUrl);
@@ -46,7 +46,7 @@ let handler = async (m, { conn, args, command }) => {
     // Enviar primer slide con mensaje que incluye el nombre del servidor
     await conn.sendMessage(m.chat, {
       image: { url: json.slides[0] },
-      caption: `✅ Imágenes extraídas exitosamente desde ${server.name}.\nTotal: ${json.slides.length}\n Procesado por: ${server.name}`,
+      caption: `✅ Imágenes extraídas exitosamente.\nTotal: ${json.slides.length}\n Procesado por: ${server.name}`,
     }, { quoted: m });
 
     // Enviar los demás slides

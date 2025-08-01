@@ -7,10 +7,10 @@ const handler = async (m, { conn, text, participants, quoted, isAdmin, isBotAdmi
         return m.reply('❌ Este comando es solo para Admins.');
     }
 
-    // Verificar si el bot es admin
-    if (!isBotAdmin) {
+    // Verificar si el bot es admin  // Fix Temporal Joder te odio WhatsApp
+    /*if (!isBotAdmin) {
         return m.reply('❌ Necesito ser Admin para que puedas usar este comando.');
-    }
+    }*/
 
     // Obtener el usuario objetivo
     let target;
@@ -47,6 +47,6 @@ const handler = async (m, { conn, text, participants, quoted, isAdmin, isBotAdmi
 handler.command = /^(kick|ban)$/i;
 handler.group = true; // Solo funciona en grupos
 handler.admin = true; // Solo los administradores pueden usarlo
-handler.botAdmin = true; // El bot debe ser administrador
+handler.botAdmin = false; // El bot debe ser administrador // Dale admin de todas foemas o no funcionará
 
 export default handler;

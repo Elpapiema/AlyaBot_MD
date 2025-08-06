@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 
 // Ruta del archivo characters.json (remoto en GitHub)
 const charactersUrl = 'https://raw.githubusercontent.com/Elpapiema/CharHub-Store/refs/heads/main/image_json/characters.json';
-const filePath = './personalize.json';
+const filePath = './database/personalize.json';
 
 // Función para cargar el archivo characters.json desde GitHub
 async function loadCharacters() {

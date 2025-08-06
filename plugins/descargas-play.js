@@ -1,40 +1,47 @@
 import fetch from 'node-fetch';
 
-const SEARCH_APIS = [
-  { name: 'Servidor Masha', url: 'http://api.alyabot.xyz:3269/search_youtube?query=' },
-  { name: 'Servidor Alya', url: 'http://api2.alyabot.xyz:3108/search_youtube?query=' },
-  { name: 'Servidor Masachika', url: 'https://api3.alyabot.xyz/search_youtube?query=' }
+const SERVERS = [
+  { name: 'Servidor Masha', baseUrl: masha },
+  { name: 'Servidor Alya', baseUrl: alya },
+  { name: 'Servidor Masachika', baseUrl: masachika }
 ];
 
-const DOWNLOAD_APIS = [
-  { name: 'Servidor Masha', url: 'http://api.alyabot.xyz:3269/download_audioV2?url=' },
-  { name: 'Servidor Alya', url: 'http://api2.alyabot.xyz:3108/download_audioV2?url=' },
-  { name: 'Servidor Masachika', url: 'https://api3.alyabot.xyz/download_audioV2?url=' }
-];
+// Función para desordenar (shuffle) los servidores
+function shuffleArray(array) {
+  return [...array].sort(() => Math.random() - 0.5);
+}
 
-async function tryFetchJSON(servers, query) {
-  for (let server of servers) {
+// Intenta acceder a los servidores de forma aleatoria
+async function tryServers(servers, endpoint, queryParam) {
+  const shuffledServers = shuffleArray(servers);
+
+  for (const server of shuffledServers) {
     try {
-      const res = await fetch(server.url + encodeURIComponent(query));
-      if (!res.ok) continue;
+      const url = `${server.baseUrl}${endpoint}${encodeURIComponent(queryParam)}`;
+      const res = await fetch(url);
+
+      if (!res.ok) throw new Error(`Error HTTP ${res.status}`);
+
       const json = await res.json();
-      if (json && Object.keys(json).length) return { json, serverName: server.name };
-    } catch {
+      if (!json || Object.keys(json).length === 0) throw new Error('Respuesta vacía');
+
+      return { json, server: server.name };
+    } catch (err) {
+      console.error(`❌ ${server.name} falló:`, err.message || err);
       continue;
     }
   }
-  return { json: null, serverName: null };
+
+  throw '❌ Todos los servidores fallaron. Intenta más tarde.';
 }
 
 let handler = async (m, { text, conn, command }) => {
   if (!text) return m.reply('🔍 Ingresa el nombre de una canción. Ej: *.play Aishite Ado*');
 
   try {
-    const { json: searchJson, serverName: searchServer } = await tryFetchJSON(SEARCH_APIS, text);
+    const { json: searchJson, server: searchServer } = await tryServers(SERVERS, '/search_youtube?query=', text);
 
-    if (!searchJson || !searchJson.results || !searchJson.results.length) {
-      return m.reply('⚠️ No se encontraron resultados.');
-    }
+    if (!searchJson.results?.length) return m.reply('⚠️ No se encontraron resultados.');
 
     const video = searchJson.results[0];
     const thumb = video.thumbnails.find(t => t.width === 720)?.url || video.thumbnails[0]?.url;
@@ -53,23 +60,19 @@ let handler = async (m, { text, conn, command }) => {
 │👀 νιѕтαѕ: ${video.views.toLocaleString()}
 │🎤 Aυƚσɾ: ${video.channel}
 │🔗 ℓιηк: ${videoUrl}
-│📡 รε૨ѵε૨: ${searchServer || 'Desconocido'}-nyan~ 🐾
+│📡 รε૨ѵε૨: ${searchServer}-nyan~ 🐾
 ╰─⃝🌸⃝─〔  Enviando con amor 〕─⃝🌸⃝─╯
-
-> Hecho con amor por ${dev}
 `.trim();
 
     await conn.sendMessage(m.chat, { image: { url: thumb }, caption: msgInfo }, { quoted: m });
 
-    const { json: downloadJson } = await tryFetchJSON(DOWNLOAD_APIS, videoUrl);
+    const { json: downloadJson } = await tryServers(SERVERS, '/download_audioV2?url=', videoUrl);
 
-    if (!downloadJson || !downloadJson.file_url) {
-      return m.reply('❌ No se pudo descargar el audio.');
-    }
+    if (!downloadJson.file_url) return m.reply('❌ No se pudo descargar el audio.');
 
     await conn.sendMessage(m.chat, {
       audio: { url: downloadJson.file_url },
-      mimetype: 'audio/mp4',
+      mimetype: 'audio/mpeg',
       fileName: `${downloadJson.title}.mp3`
     }, { quoted: m });
 

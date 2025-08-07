@@ -6,9 +6,9 @@ let handler = async (m, { args, usedPrefix, command }) => {
   }
 
   const servers = [
-    { name: 'Server Masha', url: alya1 },
-    { name: 'Server Alya', url: alya2 },
-    { name: 'Server Masachika', url: alya3 }
+    { name: 'Server Masha', url: masha },
+    { name: 'Server Alya', url: alya },
+    { name: 'Server Masachika', url: masachika }
   ];
 
   // Reordenar aleatoriamente los servidores

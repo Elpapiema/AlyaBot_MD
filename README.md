@@ -104,7 +104,7 @@ cd AlyaBot_MD
 npm install
 ```
 ```
-npm start
+node index.js
 ```
 
 > 💡 Puedes usar [Termux Widget](https://f-droid.org/packages/com.termux.widget/) para lanzar el bot más rápido desde la pantalla de inicio.

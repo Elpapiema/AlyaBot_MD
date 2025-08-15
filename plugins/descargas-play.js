@@ -39,6 +39,7 @@ let handler = async (m, { text, conn, command }) => {
   if (!text) return m.reply('🔍 Ingresa el nombre de una canción. Ej: *.play Aishite Ado*');
 
   try {
+    // Buscar video
     const { json: searchJson, server: searchServer } = await tryServers(SERVERS, '/search_youtube?query=', text);
 
     if (!searchJson.results?.length) return m.reply('⚠️ No se encontraron resultados.');
@@ -66,14 +67,23 @@ let handler = async (m, { text, conn, command }) => {
 
     await conn.sendMessage(m.chat, { image: { url: thumb }, caption: msgInfo }, { quoted: m });
 
-    const { json: downloadJson } = await tryServers(SERVERS, '/download_audioV2?url=', videoUrl);
+    // Intentar descarga con endpoint principal
+    let downloadJson;
+    try {
+      const { json } = await tryServers(SERVERS, '/download_audio?url=', videoUrl);
+      downloadJson = json;
+    } catch (err) {
+      console.error('⚠️ Endpoint principal de descarga falló, intentando con el respaldo...');
+      const { json } = await tryServers(SERVERS, '/download_audioV2?url=', videoUrl);
+      downloadJson = json;
+    }
 
-    if (!downloadJson.file_url) return m.reply('❌ No se pudo descargar el audio.');
+    if (!downloadJson?.file_url) return m.reply('❌ No se pudo descargar el audio.');
 
     await conn.sendMessage(m.chat, {
       audio: { url: downloadJson.file_url },
       mimetype: 'audio/mpeg',
-      fileName: `${downloadJson.title}.mp3`
+      fileName: `${downloadJson.title || videoTitle}.mp3`
     }, { quoted: m });
 
   } catch (e) {

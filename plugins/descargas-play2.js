@@ -38,6 +38,7 @@ let handler = async (m, { text, conn }) => {
   if (!text) return m.reply('🔍 Ingresa el nombre del video. Ejemplo: *.play2 Usewa Ado*');
 
   try {
+    // Buscar video
     const { json: searchJson, server: searchServer } = await tryServers(SERVERS, '/search_youtube?query=', text);
 
     if (!searchJson.results?.length) return m.reply('⚠️ No se encontraron resultados para tu búsqueda.');
@@ -65,14 +66,23 @@ let handler = async (m, { text, conn }) => {
 
     await conn.sendMessage(m.chat, { image: { url: thumb }, caption: msgInfo }, { quoted: m });
 
-    const { json: downloadJson } = await tryServers(SERVERS, '/download_videoV2?url=', videoUrl);
+    // Intentar descarga con endpoint principal
+    let downloadJson;
+    try {
+      const { json } = await tryServers(SERVERS, '/download_video?url=', videoUrl);
+      downloadJson = json;
+    } catch (err) {
+      console.error('⚠️ Endpoint principal de descarga falló, intentando con el respaldo...');
+      const { json } = await tryServers(SERVERS, '/download_videoV2?url=', videoUrl);
+      downloadJson = json;
+    }
 
-    if (!downloadJson.file_url) return m.reply('❌ No se pudo descargar el video.');
+    if (!downloadJson?.file_url) return m.reply('❌ No se pudo descargar el video.');
 
     await conn.sendMessage(m.chat, {
       video: { url: downloadJson.file_url },
       mimetype: 'video/mp4',
-      fileName: `${downloadJson.title || 'video'}.mp4`
+      fileName: `${downloadJson.title || videoTitle}.mp4`
     }, { quoted: m });
 
   } catch (e) {

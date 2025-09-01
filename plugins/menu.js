@@ -27,6 +27,9 @@ let handler = async (m, { conn }) => {
 💰 Moneda actual: ¥ ${currency}
 
 Checa nuestro Canal Oficial de WhatsApp en donde se publican actualizaciones:
+https://whatsapp.com/channel/0029Vaj5mivLdQegrUZ1Xl3M
+
+Canal secundario:
 https://whatsapp.com/channel/0029VbBCHSsJZg41QE3Ibl3O
 
 ╭── ⋆⋅🎀⋅⋆ ──╮

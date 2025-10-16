@@ -1,11 +1,19 @@
+// Advertencia Modifica esto solo si sabes lo que haces 
+
+// esta madre funciona pero no tengo ni puta idea de como le hice para que funcione
+
+// este codigo es producto de 2 noches de lagrimas, sudor y mucho pero mucho cafe 
+
+// Agradezco al dev de LunaBotv6 por compartir soluciones
+
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 import './config.js'; 
-import { createRequire } from "module"; // Bring in the ability to create the 'require' method
+import { createRequire } from "module";
 import path, { join } from 'path'
 import { fileURLToPath, pathToFileURL } from 'url'
 import { platform } from 'process'
 import * as ws from 'ws';
-import { readdirSync, statSync, unlinkSync, existsSync, readFileSync, watch, rmSync } from 'fs';
+import { readdirSync, statSync, unlinkSync, existsSync, readFileSync, watch, rmSync, rmdirSync } from 'fs';
 import yargs from 'yargs';
 import { spawn } from 'child_process';
 import lodash from 'lodash';
@@ -24,12 +32,14 @@ import { Boom } from '@hapi/boom'
 import pkg from 'google-libphonenumber'
 const { PhoneNumberUtil } = pkg
 const phoneUtil = PhoneNumberUtil.getInstance()
-const {useMultiFileAuthState, DisconnectReason, fetchLatestBaileysVersion, MessageRetryMap, makeCacheableSignalKeyStore,  jidNormalizedUser } = await import('@whiskeysockets/baileys')
+const {useMultiFileAuthState, DisconnectReason, fetchLatestBaileysVersion, MessageRetryMap, makeCacheableSignalKeyStore, jidNormalizedUser, PHONENUMBER_MCC } = await import('@whiskeysockets/baileys')
 import moment from 'moment-timezone'
 import NodeCache from 'node-cache'
 import { startSubBots } from './plugins/sub-bots.js'
 import readline from 'readline'
 import fs from 'fs'
+import qrcode from 'qrcode-terminal'
+
 const { CONNECTING } = ws
 const { chain } = lodash
 const PORT = process.env.PORT || process.env.SERVER_PORT || 3000
@@ -37,10 +47,12 @@ const PORT = process.env.PORT || process.env.SERVER_PORT || 3000
 protoType()
 serialize()
 
-global.__filename = function filename(pathURL = import.meta.url, rmPrefix = platform !== 'win32') { return rmPrefix ? /file:\/\/\//.test(pathURL) ? fileURLToPath(pathURL) : pathURL : pathToFileURL(pathURL).toString() }; global.__dirname = function dirname(pathURL) { return path.dirname(global.__filename(pathURL, true)) }; global.__require = function require(dir = import.meta.url) { return createRequire(dir) } 
+global.__filename = function filename(pathURL = import.meta.url, rmPrefix = platform !== 'win32') { return rmPrefix ? /file:\/\/\//.test(pathURL) ? fileURLToPath(pathURL) : pathURL : pathToFileURL(pathURL).toString() }; 
+global.__dirname = function dirname(pathURL) { return path.dirname(global.__filename(pathURL, true)) }; 
+global.__require = function require(dir = import.meta.url) { return createRequire(dir) } 
 
 global.API = (name, path = '/', query = {}, apikeyqueryname) => (name in global.APIs ? global.APIs[name] : name) + path + (query || apikeyqueryname ? '?' + new URLSearchParams(Object.entries({ ...query, ...(apikeyqueryname ? { [apikeyqueryname]: global.APIKeys[name in global.APIs ? global.APIs[name] : name] } : {}) })) : '')
-// global.Fn = function functionCallBack(fn, ...args) { return fn.call(global.conn, ...args) }
+
 global.timestamp = {
   start: new Date
 }
@@ -49,8 +61,6 @@ const __dirname = global.__dirname(import.meta.url)
 
 global.opts = new Object(yargs(process.argv.slice(2)).exitProcess(false).parse())
 global.prefix = new RegExp('^[' + (opts['prefix'] || '‎z/i!#$%+£¢€¥^°=¶∆×÷π√✓©®:;?&.,\\-').replace(/[|\\{}()[\]^$+*?.\-\^]/g, '\\$&') + ']')
-
-//global.opts['db'] = "mongodb+srv://dbdyluxbot:password@cluster0.xwbxda5.mongodb.net/?retryWrites=true&w=majority"
 
 global.db = new Low(/https?:\/\//.test(opts['db'] || '') ?
 new cloudDBAdapter(opts['db']) : /mongodb(\+srv)?:\/\//i.test(opts['db']) ? (opts['mongodbv2'] ? new mongoDBV2(opts['db']) : new mongoDB(opts['db'])) :
@@ -90,107 +100,128 @@ let phoneNumber = global.botNumberCode
 const methodCodeQR = process.argv.includes("qr")
 const methodCode = !!phoneNumber || process.argv.includes("code")
 const MethodMobile = process.argv.includes("mobile")
-let rl = readline.createInterface({
+
+const filterStrings = [
+"Q2xvc2luZyBzdGFsZSBvcGVu",
+"Q2xvc2luZyBvcGVuIHNlc3Npb24=",
+"RmFpbGVkIHRvIGRlY3J5cHQ=",
+"U2Vzc2lvbiBlcnJvcg==",
+"RXJyb3I6IEJhZCBNQUM=",
+"RGVjcnlwdGVkIG1lc3NhZ2U="
+]
+console.info = () => {} 
+console.debug = () => {} 
+['log', 'warn', 'error'].forEach(methodName => redefineConsoleMethod(methodName, filterStrings))
+
+process.setMaxListeners(0)
+
+let opcion
+if (methodCodeQR) {
+opcion = '1'
+}
+
+const credsExist = fs.existsSync(`./${authFile}/creds.json`)
+
+if (!methodCodeQR && !methodCode && !credsExist) {
+const rl = readline.createInterface({
 input: process.stdin,
 output: process.stdout,
 terminal: true,
 })
 
 const question = (texto) => {
-rl.clearLine(rl.input, 0)
 return new Promise((resolver) => {
 rl.question(texto, (respuesta) => {
-rl.clearLine(rl.input, 0)
 resolver(respuesta.trim())
 })})
 }
 
-let opcion
-if (methodCodeQR) {
-opcion = '1'
-}
-if (!methodCodeQR && !methodCode && !fs.existsSync(`./${authFile}/creds.json`)) {
 do {
-let lineM = '⋯ ⋯ ⋯ ⋯ ⋯ ⋯ ⋯ ⋯ ⋯ ⋯ ⋯ 》'
+let lineM = '⋯ ⋯ ⋯ ⋯ ⋯ ⋯ ⋯ ⋯ ⋯ ⋯ ⋯ 〉'
 opcion = await question(`╭${lineM}  
-┊ ${chalk.blueBright('╭┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅')}
+┊ ${chalk.blueBright('╭─────────────')}
 ┊ ${chalk.blueBright('┊')} ${chalk.blue.bgBlue.bold.cyan('MÉTODO DE VINCULACIÓN')}
-┊ ${chalk.blueBright('╰┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅')}   
-┊ ${chalk.blueBright('╭┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅')}     
+┊ ${chalk.blueBright('╰─────────────')}   
+┊ ${chalk.blueBright('╭─────────────')}     
 ┊ ${chalk.blueBright('┊')} ${chalk.green.bgMagenta.bold.yellow('¿CÓMO DESEA CONECTARSE?')}
 ┊ ${chalk.blueBright('┊')} ${chalk.bold.redBright('⇢  Opción 1:')} ${chalk.greenBright('Código QR.')}
 ┊ ${chalk.blueBright('┊')} ${chalk.bold.redBright('⇢  Opción 2:')} ${chalk.greenBright('Código de 8 digitos.')}
-┊ ${chalk.blueBright('╰┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅')}
-┊ ${chalk.blueBright('╭┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅')}     
+┊ ${chalk.blueBright('╰─────────────')}
+┊ ${chalk.blueBright('╭─────────────')}     
 ┊ ${chalk.blueBright('┊')} ${chalk.italic.magenta('Escriba sólo el número de')}
 ┊ ${chalk.blueBright('┊')} ${chalk.italic.magenta('la opción para conectarse.')}
-┊ ${chalk.blueBright('╰┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅')} 
+┊ ${chalk.blueBright('╰─────────────')} 
 ╰${lineM}\n${chalk.bold.magentaBright('---> ')}`)
+
 if (!/^[1-2]$/.test(opcion)) {
-console.log(chalk.bold.redBright(`NO SE PERMITE NÚMEROS QUE NO SEAN ${chalk.bold.greenBright("1")} O ${chalk.bold.greenBright("2")}, TAMPOCO LETRAS O SÍMBOLOS ESPECIALES. ${chalk.bold.yellowBright("CONSEJO: COPIE EL NÚMERO DE LA OPCIÓN Y PÉGUELO EN LA CONSOLA.")}`))
-}} while (opcion !== '1' && opcion !== '2' || fs.existsSync(`./${authFile}/creds.json`))
+console.log(chalk.bold.redBright(`NO SE PERMITE NÚMEROS QUE NO SEAN ${chalk.bold.greenBright("1")} O ${chalk.bold.greenBright("2")}, TAMPOCO LETRAS O SÍMBOLOS ESPECIALES.`))
+}
+} while (!/^[1-2]$/.test(opcion))
+
+rl.close()
 }
 
-const filterStrings = [
-"Q2xvc2luZyBzdGFsZSBvcGVu", // "Closing stable open"
-"Q2xvc2luZyBvcGVuIHNlc3Npb24=", // "Closing open session"
-"RmFpbGVkIHRvIGRlY3J5cHQ=", // "Failed to decrypt"
-"U2Vzc2lvbiBlcnJvcg==", // "Session error"
-"RXJyb3I6IEJhZCBNQUM=", // "Error: Bad MAC" 
-"RGVjcnlwdGVkIG1lc3NhZ2U=" // "Decrypted message" 
-]
-console.info = () => {} 
-console.debug = () => {} 
-['log', 'warn', 'error'].forEach(methodName => redefineConsoleMethod(methodName, filterStrings))
 const connectionOptions = {
 logger: pino({ level: 'silent' }),
-printQRInTerminal: opcion == '1' ? true : methodCodeQR ? true : false,
 mobile: MethodMobile, 
-//Cambia esto por el nombre de tu bot
-browser: opcion == '1' ? ['Alya_Bot', 'Edge', '20.0.04'] : methodCodeQR ? ['Alya-Bot', 'Edge', '20.0.04'] : ["Ubuntu", "Edge", "20.0.04"],
+browser: ['Alya-Bot', 'Edge', '24.04.3'],
 auth: {
 creds: state.creds,
 keys: makeCacheableSignalKeyStore(state.keys, Pino({ level: "fatal" }).child({ level: "fatal" })),
 },
 markOnlineOnConnect: true, 
 generateHighQualityLinkPreview: true, 
-syncFullHistory: false,
 getMessage: async (clave) => {
 let jid = jidNormalizedUser(clave.remoteJid)
 let msg = await store.loadMessage(jid, clave.id)
 return msg?.message || ""
 },
-msgRetryCounterCache, // Resolver mensajes en espera
-msgRetryCounterMap, // Determinar si se debe volver a intentar enviar un mensaje o no
+msgRetryCounterCache,
 defaultQueryTimeoutMs: undefined,
-version: [2, 3000, 1023223821], //version: [2, 3000, 1015901307] esto ya corrige el qr
 }
 
 global.conn = makeWASocket(connectionOptions)
 
-if (!fs.existsSync(`./${authFile}/creds.json`)) {
+if (!credsExist) {
 if (opcion === '2' || methodCode) {
-opcion = '2'
 if (!conn.authState.creds.registered) {
+const rl = readline.createInterface({
+input: process.stdin,
+output: process.stdout,
+terminal: true,
+})
+
+const question = (texto) => {
+return new Promise((resolver) => {
+rl.question(texto, (respuesta) => {
+resolver(respuesta.trim())
+})})
+}
+
 let addNumber
 if (!!phoneNumber) {
 addNumber = phoneNumber.replace(/[^0-9]/g, '')
 } else {
 do {
-phoneNumber = await question(chalk.bgBlack(chalk.bold.greenBright("\n\n✳️ Escriba su número\n\nEjemplo: 5491168xxxx\n\n\n\n")))
+phoneNumber = await question(chalk.bgBlack(chalk.bold.greenBright("\n\n✳️ Escriba su número\n\nEjemplo: 5491168xxxx\n\n")))
 phoneNumber = phoneNumber.replace(/\D/g,'')
 if (!phoneNumber.startsWith('+')) {
 phoneNumber = `+${phoneNumber}`
 }
 } while (!await isValidPhoneNumber(phoneNumber))
-rl.close()
+
 addNumber = phoneNumber.replace(/\D/g, '')
+}
+
+rl.close()
+
 setTimeout(async () => {
 let codeBot = await conn.requestPairingCode(addNumber)
 codeBot = codeBot?.match(/.{1,4}/g)?.join("-") || codeBot
 console.log(chalk.bold.white(chalk.bgMagenta(`CÓDIGO DE VINCULACIÓN:`)), chalk.bold.white(chalk.white(codeBot)))
-}, 2000)
-}}}
+}, 3000)
+}
+}
 }
 
 conn.isInit = false
@@ -207,7 +238,6 @@ clearTmp()
 
 if (opts['server']) (await import('./server.js')).default(global.conn, PORT)
 
-/* Clear */
 async function clearTmp() {
 const tmp = [tmpdir(), join(__dirname, './tmp')]
 const filename = []
@@ -215,125 +245,160 @@ tmp.forEach(dirname => readdirSync(dirname).forEach(file => filename.push(join(d
 
 return filename.map(file => {
 const stats = statSync(file)
-if (stats.isFile() && (Date.now() - stats.mtimeMs >= 1000 * 60 * 1)) return unlinkSync(file) // 
+if (stats.isFile() && (Date.now() - stats.mtimeMs >= 1000 * 60 * 1)) return unlinkSync(file)
 return false
 })
 }
 
 setInterval(async () => {
 await clearTmp()
-console.log(chalk.cyan(`┏━━━━━━⪻♻️ AUTO-CLEAR 🗑️⪼━━━━━━•\n┃→ ARCHIVOS DE LA CARPETA TMP ELIMINADAS\n┗━━━━━━━━━━━━━━━━━━━━━━━━━━━•`))
-}, 60000) //1 munto
+console.log(chalk.cyan(`┏━━━━━━━━━»♻️ AUTO-CLEAR 🗑️«━━━━━━━━•\n┃→ ARCHIVOS DE LA CARPETA TMP ELIMINADAS\n┗━━━━━━━━━━━━━━━━━━━━━━━━━━━•`))
+}, 60000)
 
 function purgeSession() {
+try {
 let prekey = []
+if (!existsSync("./Alya-SubBots")) return
 let directorio = readdirSync("./Alya-SubBots")
 let filesFolderPreKeys = directorio.filter(file => {
-return file.startsWith('pre-key-') /*|| file.startsWith('session-') || file.startsWith('sender-') || file.startsWith('app-') */
+return file.startsWith('pre-key-')
 })
 prekey = [...prekey, ...filesFolderPreKeys]
 filesFolderPreKeys.forEach(files => {
-unlinkSync(`./Alya-BotSession/${files}`)
+const filePath = `./Alya-BotSession/${files}`
+if (existsSync(filePath)) {
+unlinkSync(filePath)
+}
 })
+} catch (err) {
+console.error('Error en purgeSession:', err)
+}
 } 
 
 function purgeSessionSB() {
 try {
+if (!existsSync('./Alya-SubBots/')) return
 let listaDirectorios = readdirSync('./Alya-SubBots/');
 let SBprekey = []
 listaDirectorios.forEach(directorio => {
-if (statSync(`./Alya-SubBots/${directorio}`).isDirectory()) {
-let DSBPreKeys = readdirSync(`./Alya-SubBots/${directorio}`).filter(fileInDir => {
-return fileInDir.startsWith('pre-key-') /*|| fileInDir.startsWith('app-') || fileInDir.startsWith('session-')*/
+const dirPath = `./Alya-SubBots/${directorio}`
+if (existsSync(dirPath) && statSync(dirPath).isDirectory()) {
+let DSBPreKeys = readdirSync(dirPath).filter(fileInDir => {
+return fileInDir.startsWith('pre-key-')
 })
 SBprekey = [...SBprekey, ...DSBPreKeys]
 DSBPreKeys.forEach(fileInDir => {
-unlinkSync(`./Alya-SubBots/${directorio}/${fileInDir}`)
+const filePath = `${dirPath}/${fileInDir}`
+if (existsSync(filePath)) {
+unlinkSync(filePath)
+}
 })
 }
 })
-if (SBprekey.length === 0) return; //console.log(chalk.cyanBright(`=> No hay archivos por eliminar.`))
 } catch (err) {
-console.log(chalk.bold.red(`[ ℹ️ ] Algo salio mal durante la eliminación, archivos no eliminados`))
+console.log(chalk.bold.red(`[ ℹ️ ] Algo salió mal durante la eliminación`))
 }}
 
 function purgeOldFiles() {
+try {
 const directories = ['./Alya-BotSession/', './Alya-SubBots/']
 const oneHourAgo = Date.now() - (60 * 60 * 1000)
 directories.forEach(dir => {
-readdirSync(dir, (err, files) => {
-if (err) throw err
+if (!existsSync(dir)) return
+const files = readdirSync(dir)
 files.forEach(file => {
 const filePath = path.join(dir, file)
-stat(filePath, (err, stats) => {
-if (err) throw err;
+try {
+const stats = statSync(filePath)
 if (stats.isFile() && stats.mtimeMs < oneHourAgo && file !== 'creds.json') { 
-unlinkSync(filePath, err => {  
-if (err) throw err
-console.log(chalk.bold.green(`Archivo ${file} borrado con éxito`))
+unlinkSync(filePath)
+}
+} catch (err) {}
 })
-} else {  
-console.log(chalk.bold.red(`Archivo ${file} no borrado` + err))
-} }) }) }) })
+})
+} catch (err) {}
 }
 
 setInterval(async () => {
-if (stopped === 'close' || !conn || !conn.user) return
+if (global.stopped === 'close' || !conn || !conn.user) return
 await purgeSessionSB()
 await purgeSession()
-console.log(chalk.bold.cyanBright(`\n╭» 🔵 ${global.authFile} 🔵\n│→ SESIONES NO ESENCIALES ELIMINADAS\n╰― ― ― ― ― ― ― ― ― ― ― ― ― ― ― ― ― ― ― 🗑️♻️`))
+console.log(chalk.bold.cyanBright(`\n╭» 🔵 ${global.authFile} 🔵\n│→ SESIONES NO ESENCIALES ELIMINADAS\n╰─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ 🗑️♻️`))
 await purgeOldFiles()
-console.log(chalk.bold.cyanBright(`\n╭» 🟠 ARCHIVOS 🟠\n│→ ARCHIVOS RESIDUALES ELIMINADAS\n╰― ― ― ― ― ― ― ― ― ― ― ― ― ― ― ― ― ― ― 🗑️♻️`))}, 1000 * 60 * 10)
+console.log(chalk.bold.cyanBright(`\n╭» 🟠 ARCHIVOS 🟠\n│→ ARCHIVOS RESIDUALES ELIMINADAS\n╰─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ 🗑️♻️`))
+}, 1000 * 60 * 10)
+
+let qrShown = false
 
 async function connectionUpdate(update) {
-const {connection, lastDisconnect, isNewLogin} = update;
+const {connection, lastDisconnect, isNewLogin, qr} = update;
 global.stopped = connection;
 if (isNewLogin) conn.isInit = true;
-const code = lastDisconnect?.error?.output?.statusCode || lastDisconnect?.error?.output?.payload?.statusCode;
-if (code && code !== DisconnectReason.loggedOut && conn?.ws.socket == null) {
-await global.reloadHandler(true).catch(console.error);
-//console.log(await global.reloadHandler(true).catch(console.error));
-global.timestamp.connect = new Date;
+
+if (qr && !qrShown) {
+qrShown = true
+console.log(chalk.cyan('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━'))
+console.log(chalk.bold.greenBright('✅ ESCANEA EL CÓDIGO QR'))
+console.log(chalk.yellow('⏱️  Expira en 60 segundos'))
+console.log(chalk.cyan('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n'))
+qrcode.generate(qr, { small: true })
+console.log(chalk.cyan('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n'))
 }
+
 if (global.db.data == null) loadDatabase();
-if (update.qr != 0 && update.qr != undefined || methodCodeQR) {
-if (opcion == '1' || methodCodeQR) {
-console.log(chalk.cyan('✅ ESCANEA EL CÓDIGO QR EXPIRA EN 45 SEGUNDOS ✅.'))
-}}
+
 if (connection == 'open') {
-console.log(chalk.bold.greenBright('\n▣─────────────────────────────···\n│\n│❧ 𝙲𝙾𝙽𝙴𝙲𝚃𝙰𝙳𝙾 𝙲𝙾𝚁𝚁𝙴𝙲𝚃𝙰𝙼𝙴𝙽𝚃𝙴 𝙰𝙻 𝚆𝙷𝙰𝚃𝚂𝙰𝙿𝙿 ✅\n│\n▣─────────────────────────────···'))
+qrShown = false
+console.log(chalk.bold.greenBright('\n▣─────────────────────────···\n│\n│§ CONECTADO CORRECTAMENTE AL WHATSAPP ✅\n│\n▣─────────────────────────···'))
 }
-let reason = new Boom(lastDisconnect?.error)?.output?.statusCode;
-if (reason == 405) {
-await fs.unlinkSync("./Alya-BotSession/" + "creds.json")
-console.log(chalk.bold.redBright(`[ ⚠ ] Conexión replazada, Por favor espere un momento me voy a reiniciar...\nSi aparecen error vuelve a iniciar con : npm start`)) 
-process.send('reset')}
+
 if (connection === 'close') {
+qrShown = false
+const code = lastDisconnect?.error?.output?.statusCode || lastDisconnect?.error?.output?.payload?.statusCode;
+let reason = new Boom(lastDisconnect?.error)?.output?.statusCode;
+
 if (reason === DisconnectReason.badSession) {
-conn.logger.error(`[ ⚠ ] Sesión incorrecta, por favor elimina la carpeta ${global.authFile} y escanea nuevamente.`);
-//process.exit();
+console.log(chalk.bold.red(`\n[ ⚠ ] SESIÓN INCORRECTA`))
+console.log(chalk.yellow(`Elimina la carpeta ${global.authFile} manualmente y reinicia`))
 } else if (reason === DisconnectReason.connectionClosed) {
-conn.logger.warn(`[ ⚠ ] Conexión cerrada, reconectando...`);
+console.log(chalk.yellow(`[ ⚠ ] Conexión cerrada, reconectando...`))
 await global.reloadHandler(true).catch(console.error);
 } else if (reason === DisconnectReason.connectionLost) {
-conn.logger.warn(`[ ⚠ ] Conexión perdida con el servidor, reconectando...`);
+console.log(chalk.yellow(`[ ⚠ ] Conexión perdida, reconectando...`))
 await global.reloadHandler(true).catch(console.error);
 } else if (reason === DisconnectReason.connectionReplaced) {
-conn.logger.error(`[ ⚠ ] Conexión reemplazada, se ha abierto otra nueva sesión. Por favor, cierra la sesión actual primero.`);
-//process.exit();
+console.log(chalk.bold.red(`\n[ ⚠ ] CONEXIÓN REEMPLAZADA`))
+console.log(chalk.yellow(`Ya existe otra sesión activa en otro lugar`))
+console.log(chalk.cyan(`Eliminando sesión...\n`))
+try {
+if (existsSync(`./${global.authFile}`)) {
+rmSync(`./${global.authFile}`, { recursive: true, force: true })
+}
+} catch (e) {}
+console.log(chalk.bold.magenta(`Sesión eliminada, puedes volver a conectar ahora\n`))
 } else if (reason === DisconnectReason.loggedOut) {
-conn.logger.error(`[ ⚠ ] Conexion cerrada, por favor elimina la carpeta ${global.authFile} y escanea nuevamente.`);
-//process.exit();
+console.log(chalk.bold.red(`\n[ ⚠ ] SESIÓN CERRADA`))
+console.log(chalk.yellow(`Elimina la carpeta ${global.authFile} manualmente y vuelve a conectar\n`))
 } else if (reason === DisconnectReason.restartRequired) {
-conn.logger.info(`[ ⚠ ] Reinicio necesario, reinicie el servidor si presenta algún problema.`);
+console.log(chalk.yellow(`[ ⚠ ] Reinicio requerido, reconectando...`))
 await global.reloadHandler(true).catch(console.error);
 } else if (reason === DisconnectReason.timedOut) {
-conn.logger.warn(`[ ⚠ ] Tiempo de conexión agotado, reconectando...`);
+console.log(chalk.yellow(`[ ⚠ ] Tiempo agotado, reconectando...`))
 await global.reloadHandler(true).catch(console.error);
+} else if (code === 405 || reason === 405) {
+console.log(chalk.bold.red(`\n[ ⚠ ] ERROR 405 - SESIÓN REEMPLAZADA`))
+console.log(chalk.cyan(`Eliminando sesión antigua...\n`))
+try {
+if (existsSync(`./${global.authFile}`)) {
+rmSync(`./${global.authFile}`, { recursive: true, force: true })
+}
+} catch (e) {}
+console.log(chalk.bold.magenta(`Sesión eliminada, puedes volver a conectar ahora\n`))
 } else {
-conn.logger.warn(`[ ⚠ ] Razón de desconexión desconocida. ${reason || ''}: ${connection || ''}`);
+console.log(chalk.yellow(`[ ⚠ ] Desconexión: ${reason || code || 'desconocida'}`))
 await global.reloadHandler(true).catch(console.error);
-}}}
+}
+}}
 
 process.on('uncaughtException', console.error);
 
@@ -362,9 +427,9 @@ conn.ev.off('connection.update', conn.connectionUpdate)
 conn.ev.off('creds.update', conn.credsUpdate)
 }
 
-conn.welcome = 'HOLAA!! @user ¿COMO ESTAS?😃\n\n『Bienvenido A *@subject*』\n\nUn gusto conocerte amig@ 🤗\n\n_Recuerda leer las reglas del grupo para no tener ningun problema 🧐_\n\n*Solo disfrutar de este grupo y divertite 🥳*`'
+conn.welcome = 'HOLAA!! @user ¿COMO ESTAS?😃\n\n〘Bienvenido A *@subject*〙\n\nUn gusto conocerte amig@ 🤗\n\n_Recuerda leer las reglas del grupo para no tener ningun problema 🧐_\n\n*Solo disfrutar de este grupo y divertite 🥳*`'
 conn.bye = 'Bueno, se fue @user 👋\n\nQue dios lo bendiga 😎`'
-conn.spromote = 'Hey @user ya forma parte de staff 👑'
+conn.spromote = 'Hey @user ya forma parte de staff 😏'
 conn.sdemote = 'jajaja @user ya no eres admins'
 conn.sDesc = 'La descripción ha sido cambiada a \n@desc'
 conn.sSubject = 'El nombre del grupo ha sido cambiado a \n@group'
@@ -387,11 +452,7 @@ isInit = false
 return true
 }
 
-// ----------------- Arranque de Sub-Bots ----------------------
-
 await startSubBots();
-
-//--------------------------------------------------------------
 
 const pluginFolder = global.__dirname(join(__dirname, './plugins/index'))
 const pluginFilter = (filename) => /\.js$/.test(filename)
@@ -464,7 +525,7 @@ Object.freeze(global.support)
 }
 
 _quickTest()
-.then(() => conn.logger.info('Ƈᴀʀɢᴀɴᴅᴏ．．．.\n'))
+.then(() => conn.logger.info('ᴄᴀʀɢᴀɴᴅᴏ．．．.\n'))
 .catch(console.error)
 
 function redefineConsoleMethod(methodName, filterStrings) {
@@ -480,20 +541,13 @@ originalConsoleMethod.apply(console, arguments)
 async function isValidPhoneNumber(number) {
 try {
 number = number.replace(/\s+/g, '')
-// Si el número empieza con '+521' o '+52 1', quitar el '1'
 if (number.startsWith('+521')) {
-number = number.replace('+521', '+52'); // Cambiar +521 a +52
+number = number.replace('+521', '+52');
 } else if (number.startsWith('+52') && number[4] === '1') {
-number = number.replace('+52 1', '+52'); // Cambiar +52 1 a +52
+number = number.replace('+52 1', '+52');
 }
 const parsedNumber = phoneUtil.parseAndKeepRawInput(number)
 return phoneUtil.isValidNumber(parsedNumber)
 } catch (error) {
 return false
 }}
-
-/*
-async function joinChannels(conn) {
-for (const channelId of Object.values(global.ch)) {
-await conn.newsletterFollow(channelId).catch(() => {})
-}}*/

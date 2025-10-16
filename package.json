@@ -19,7 +19,7 @@
   "homepage": "https://github.com/Elpapiema/Base_Bot#readme",
   "dependencies": {
     "@bochilteam/scraper": "^5.0.1",
-    "@whiskeysockets/baileys": "npm@itsukichan/baileys@lastest",
+    "@whiskeysockets/baileys": "npm:@itsukichan/baileys@latest",
     "adm-zip": "0.5.16",
     "awesome-phonenumber": "^7.2.0",
     "axios": "^1.7.9",

@@ -38,5 +38,5 @@ await conn.sendMessage(m.chat, { text : text ? text : '' , mentions: users}, { q
 }}}
 handler.command = /^(tag|notificar|notify)$/i
 handler.group = true
-handler.admin = true
+handler.admin = false
 export default handler

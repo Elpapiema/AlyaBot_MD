@@ -164,7 +164,7 @@ rl.close()
 const connectionOptions = {
 logger: pino({ level: 'silent' }),
 mobile: MethodMobile, 
-browser: ['Alya-Bot', 'Edge', '24.04.3'],
+browser: ['Ubuntu', 'Edge', '24.04.3'],
 auth: {
 creds: state.creds,
 keys: makeCacheableSignalKeyStore(state.keys, Pino({ level: "fatal" }).child({ level: "fatal" })),

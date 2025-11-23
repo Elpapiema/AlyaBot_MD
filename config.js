@@ -87,7 +87,7 @@ global.copy = '© 2023-2025' // No modificar
 // ---------------[ APIs V2 ]---------------
 
 global.masha = 'http://smasha.alyabot.xyz:3269'
-global.alya = 'http://salya.alyabot.xyz:3108'
+global.alya = 'https://salya.alyabot.xyz'
 global.masachika = 'https://smasachika.alyabot.xyz'
 
 //------------------------------------------

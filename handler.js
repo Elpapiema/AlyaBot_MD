@@ -110,34 +110,15 @@ m.exp += Math.ceil(Math.random() * 10)
 let usedPrefix
 //let _user = global.db.data && global.db.data.users && global.db.data.users[m.sender]
         
+// Obtener metadatos del grupo
 const groupMetadata = (m.isGroup ? ((conn.chats[m.chat] || {}).metadata || await this.groupMetadata(m.chat).catch(_ => null)) : {}) || {}
 const participants = (m.isGroup ? groupMetadata.participants : []) || []
-const user = (m.isGroup ? participants.find(u => conn.decodeJid(u.id) === m.sender) : {}) || {} // User Data
-// Obtener el jid real del bot
-const botJid = conn.decodeJid(this.user?.id || this.user?.jid || '')
-
-const bot = (m.isGroup
-  ? participants.find(u => {
-      const participantJid = conn.decodeJid(u.id || '')
-      return participantJid === botJid
-    })
-  : {}) || {}
-
-/*const botNumber = this.user?.jid || ''
-const botJidVariants = [
-  botNumber,
-  botNumber.replace(/@s\.whatsapp\.net$/, '@lid'),
-  botNumber.replace(/@lid$/, '@s.whatsapp.net')
-]
-
-const bot = (m.isGroup
-  ? participants.find(u => botJidVariants.includes(conn.decodeJid(u.id)))
-  : {}) || {}*/
-//const bot = (m.isGroup ? participants.find(u => conn.decodeJid(u.id) == this.user.jid) : {}) || {} // Your Data
+const user = (m.isGroup ? participants.find(u => conn.decodeJid(u.jid) === m.sender) : {}) || {} // User Data
+const bot = (m.isGroup ? participants.find(u => conn.decodeJid(u.jid) == this.user.jid) : {}) || {} // Your Data
 const isRAdmin = user?.admin == 'superadmin' || false
 const isAdmin = isRAdmin || user?.admin == 'admin' || false // Is User Admin?
-const isBotAdmin = bot?.admin === 'admin' || bot?.admin === 'superadmin'
- //const isBotAdmin = bot?.admin || false // Are you Admin?
+const isBotAdmin = bot?.admin || false // Are you Admin?
+
 
         const ___dirname = path.join(path.dirname(fileURLToPath(import.meta.url)), './plugins')
         for (let name in global.plugins) {

@@ -12,21 +12,6 @@
 AlyaBot_MD está diseñado para ejecutarse en múltiples plataformas de hosting.  
 Próximamente se añadirán más proveedores, tanto gratuitos como premium.
 
-### 🌐 Sky Ultra Plus
-
-  <a href="https://dash.skyultraplus.com/">
-    <img src="https://files.catbox.moe/mzuf2m.ico" height="130" alt="Sky Ultra Plus" />
-  </a>
-</p>
-
-- 📋 **Dashboard:** [Ir al Dashboard](https://dash.skyultraplus.com/)  
-- 🛠️ **Panel del Servidor:** [Ir al Panel](https://panel.skyultraplus.com/)
-
-<details>
-  <summary><strong>📸 Vista previa del servidor AlyaBot_MD</strong></summary>
-  <img src="https://files.catbox.moe/oucq6s.png" alt="Vista del servidor"/>
-</details>
-
 ### 🌐 BoxMineWorld
 
 <a href="https://boxmineworld.com">

@@ -1,6 +1,6 @@
 # 🧾 TÉRMINOS Y CONDICIONES DE USO – AlyaBot
 
-**Última actualización:** 13 de noviembre de 2025  
+**Última actualización:** 07 de Diciembre de 2025  
 **Propietario y desarrollador principal:** Emma (Violet’s Version) (GitHub: [@Elpapiema](https://github.com/Elpapiema))
 
 ---
@@ -52,7 +52,7 @@ No se comparten, venden ni transfieren a terceros, y se almacenan en una base de
 Por defecto, AlyaBot **no** incluye funciones NSFW (contenido explícito o adulto).  
 Sin embargo, dichas funciones pueden instalarse opcionalmente mediante la tienda de plugins (`#store`).  
 El uso de estas extensiones es responsabilidad exclusiva del usuario que las instala.  
-El equipo desarrollador se deslinda completamente de cualquier consecuencia derivada del uso o distribución de este tipo de contenido.
+La administración y el equipo desarrollador se deslindan completamente de cualquier consecuencia derivada del uso o distribución de este tipo de contenido.
 
 ---
 
@@ -89,15 +89,53 @@ AlyaBot se ofrece “**tal cual**”, sin garantías explícitas o implícitas d
 
 ---
 
-## 9. Actualizaciones de los términos
+## 9. Uso de sub-bots y visibilidad pública
+
+Al activar la función de **sub-bot**, el usuario acepta y entiende lo siguiente:
+
+1. **Visibilidad del número:**  
+   El número de teléfono vinculado al sub-bot podrá aparecer públicamente en la **lista de bots disponibles** dentro de los canales oficiales de AlyaBot o en comandos específicos (como `#bots`, `#lista`, etc.).  
+   Esta visibilidad permite que otros usuarios identifiquen el bot y puedan interactuar con él conforme a las funciones habilitadas.
+
+2. **Solicitudes de vinculación:**  
+   El usuario acepta que otros usuarios puedan **solicitar códigos de vinculación (pairing codes)** directamente al chat del sub-bot mediante el sistema de conexión oficial.  
+   El sub-bot puede recibir mensajes automáticos o manuales relacionados con este proceso.
+
+3. **Responsabilidad sobre la línea:**  
+   El propietario del número usado como sub-bot es **totalmente responsable** del uso, actividad, seguridad y control de su línea, incluyendo:
+   - Activación o desactivación de funciones.  
+   - Gestión de conexiones.  
+   - Supervisión de actividad sospechosa.
+
+4. **Suspensión del número por WhatsApp:**  
+   Si el número es suspendido temporal o permanentemente por WhatsApp debido a:
+   - Actividad automatizada,  
+   - Reportes de otros usuarios,  
+   - Envío masivo de mensajes,  
+   - Violación de las políticas de uso de WhatsApp,  
+   El equipo desarrollador de AlyaBot **no se hace responsable**, dado que estos Términos establecen claramente que **el uso del bot es responsabilidad del usuario**.
+
+5. **Buenas prácticas recomendadas:**  
+   Para minimizar riesgos, se recomienda:
+   - No enviar spam desde el sub-bot.  
+   - Evitar interacciones con usuarios que no lo soliciten.  
+   - Mantener configuraciones seguras.  
+   - Revisar las políticas oficiales de WhatsApp periódicamente.
+
+6. **Retiro de la lista pública:**  
+   El usuario puede solicitar ser retirado de la lista pública de sub-bots en cualquier momento desactivando la función o contactando al equipo de administración.
+
+---
+
+## 10. Actualizaciones de los términos
 
 Estos términos pueden actualizarse en cualquier momento.  
-Las versiones más recientes estarán disponibles en los canales oficiales del proyecto (por ejemplo, GitHub o el comando `!términos`).  
+Las versiones más recientes estarán disponibles en los canales oficiales del proyecto (por ejemplo: GitHub o el comando `!términos`).  
 El uso continuado del bot tras dichos cambios implica la aceptación de las nuevas condiciones.
 
 ---
 
-## 10. Soporte y contacto
+## 11. Soporte y contacto
 
 Si necesitas soporte técnico, tienes dudas o deseas reportar un error, puedes hacerlo mediante:
 

@@ -50,6 +50,9 @@ https://whatsapp.com/channel/0029VbBCHSsJZg41QE3Ibl3O
 │ ✧ .store 🛒
 │ ✧ .status 💻
 │ ✧ .ping ⏳
+│ ✧ .promote ➩ .daradmin 👑
+│ ✧ .demote ➩ .quitaradmin 🛑
+│ ✧ .gp ➩ .grupo 🛠️ (abrir/cerrar)
 │ ✧ .on / .off 🔌 Activa o desactiva configuraciones 
 ╰── ⋆⋅🚀⋅⋆ ──╯
 

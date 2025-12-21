@@ -11,7 +11,8 @@ if (fs.existsSync(settingsPath)) {
     global: {
       welcome: true,
       nsfw: false,
-      antiprivado: true
+      antiprivado: true,
+      modoadmin: false
     },
     groups: {}
   };

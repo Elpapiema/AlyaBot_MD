@@ -7,6 +7,35 @@ import chalk from 'chalk'
 import fetch from 'node-fetch'
 import ws from 'ws';
 
+// -----  Modo Admin ---
+
+const settingsPath = './database/settings.json'
+
+function getModoAdmin(chatId) {
+  try {
+    const settings = JSON.parse(fs.readFileSync(settingsPath, 'utf-8'))
+
+    // si no es grupo → no aplica
+    if (!chatId?.endsWith('@g.us')) {
+      return settings.global?.modoadmin ?? false
+    }
+
+    // grupo con override
+    if (settings.groups?.[chatId]?.modoadmin !== undefined) {
+      return settings.groups[chatId].modoadmin
+    }
+
+    // fallback global
+    return settings.global?.modoadmin ?? false
+
+  } catch (e) {
+    console.error('[SETTINGS] Error leyendo modoadmin:', e)
+    return false
+  }
+}
+
+//----------------
+
 /**
  * @type {import('@whiskeysockets/baileys')}
  */
@@ -245,7 +274,7 @@ global.db.data.users[m.sender].spam = new Date * 1
 }
                 
 const hl = _prefix;
-const adminMode = global.db.data.chats[m.chat].modoadmin;
+const adminMode = getModoAdmin(m.chat)
 const mystica = `${plugin.botAdmin || plugin.admin || plugin.group || plugin || noPrefix || hl || m.text.slice(0, 1) == hl || plugin.command}`;
 if (adminMode && !isOwner && !isROwner && m.isGroup && !isAdmin && mystica) return;                         
 if (plugin.rowner && plugin.owner && !(isROwner || isOwner)) { // Both Owner

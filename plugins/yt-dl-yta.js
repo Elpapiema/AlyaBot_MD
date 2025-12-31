@@ -20,7 +20,7 @@ const handler = async (m, { conn, text, command }) => {
     try {
       await conn.reply(m.chat, `🔄 Intentando descargar audio desde ${currentServer.name}...`, m);
 
-      const apiUrl = `${currentServer.baseUrl}/download_audioV2?url=${encodeURIComponent(text)}`;
+      const apiUrl = `${currentServer.baseUrl}/download_audio?url=${encodeURIComponent(text)}`;
       const res = await fetch(apiUrl);
       if (!res.ok) throw new Error(`HTTP error ${res.status}`);
 

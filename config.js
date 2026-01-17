@@ -80,12 +80,12 @@ global.author = 'Emma (Violets Version)'
 
 global.wm = 'AlyaBot' 
 global.botname = 'AlyaBot'
-global.vs = '2.3.0 Stable'
+global.vs = '2.3.1 Stable'
 global.dev = 'Emma (Violets Version)'
 global.copy = '© 2023-2025' // No modificar
 
 // ---------------[ APIs V2 ]-------------
-global.masha = 'https://salya.alyabot.xyz'
+global.masha = 'https://smasha.alyabot.xyz'
 global.alya = 'https://salya.alyabot.xyz'
 global.masachika = 'https://smasachika.alyabot.xyz'
 

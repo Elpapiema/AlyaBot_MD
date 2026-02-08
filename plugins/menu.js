@@ -40,6 +40,10 @@ https://whatsapp.com/channel/0029VbBCHSsJZg41QE3Ibl3O
 │ ✧ .viewbanner 📜
 │ ✧ .deletebanner 🚮
 │ ✧ .resetpreferences 🔄
+│ ✧ .setwelcome 🏠
+│ ✧ .setbye 👋
+│ ✧ .setban 🔨
+│ ✧ .resetmsgs (reinicia mensajes personalizados)
 ╰── ⋆⋅🚀⋅⋆ ──╯
 
 ╭── ⋆⋅🎀⋅⋆ ──╮

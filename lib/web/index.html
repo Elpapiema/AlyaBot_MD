@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Bienvenido al sustema de Conexion de subs de AlyaBot c 2023-2026 Emma (Violet's Version)"
+    />
+    <meta property="og:title" content="Vincular Sub-Bot" />
+    <meta
+      property="og:description"
+      content="Bienvenido al sustema de Conexion de subs de AlyaBot c 2023-2026 Emma (Violet's Version)"
+    />
+    <meta property="og:image" content="https://files.catbox.moe/n9crk3.webp" />
+    <meta property="og:type" content="website" />
+    <title>Vincular Sub-Bot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="/web/favicon.ico" />
+    <link rel="stylesheet" href="/web/styles.css" />
+  </head>
+  <body class="is-loading">
+    <div id="intro" class="intro" aria-hidden="true">
+      <div class="intro__text">
+        <span class="intro__title">AlyaBot</span><br />
+        <span class="intro__by">By</span><br />
+        <span class="intro__name">Emma (Violet's Version)</span>
+      </div>
+    </div>
+    <main class="card">
+      <header>
+        <h1>Vincular Sub-Bot</h1>
+        <p>Selecciona tu pais, escribe tu numero y genera tu codigo de vinculacion.</p>
+        <p>La pagina siempre trabaja con la ultima solicitud activa de sub-bot.</p>
+      </header>
+
+      <div id="error" class="alert hidden"></div>
+      <div id="success" class="alert alert--success hidden"></div>
+
+      <form id="code-form">
+        <label for="country">Pais</label>
+        <select id="country" name="country" required>
+          <option value="52">Mexico (+52)</option>
+          <option value="54">Argentina (+54)</option>
+          <option value="57">Colombia (+57)</option>
+          <option value="51">Peru (+51)</option>
+          <option value="591">Bolivia (+591)</option>
+          <option value="56">Chile (+56)</option>
+          <option value="506">Costa Rica (+506)</option>
+          <option value="53">Cuba (+53)</option>
+          <option value="593">Ecuador (+593)</option>
+          <option value="503">El Salvador (+503)</option>
+          <option value="502">Guatemala (+502)</option>
+          <option value="240">Guinea Ecuatorial (+240)</option>
+          <option value="504">Honduras (+504)</option>
+          <option value="505">Nicaragua (+505)</option>
+          <option value="507">Panama (+507)</option>
+          <option value="595">Paraguay (+595)</option>
+          <option value="598">Uruguay (+598)</option>
+          <option value="1">Estados Unidos (+1)</option>
+          <option value="1">Puerto Rico (+1)</option>
+          <option value="1">Republica Dominicana (+1)</option>
+          <option value="58">Venezuela (+58)</option>
+          <option value="34">España (+34)</option>
+        </select>
+
+        <label for="number">Numero</label>
+        <input
+          id="number"
+          name="number"
+          type="tel"
+          inputmode="numeric"
+          pattern="[0-9\\s]+"
+          autocomplete="tel"
+          placeholder="Ej: 1 244 122 8788"
+          required
+        />
+
+        <button type="submit">Generar codigo</button>
+      </form>
+
+      <section id="code-box" class="code hidden">
+        <h2>Codigo de vinculacion</h2>
+        <div id="code-value"></div>
+      </section>
+    </main>
+
+    <script src="/web/script.js"></script>
+  </body>
+</html>

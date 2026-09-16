@@ -1,0 +1,56 @@
+REGISTRO DE CAMBIOS PENDIENTES
+Fecha de revision: 2026-09-16
+Alcance: cambios sin confirmar frente a HEAD.
+
+RESUMEN
+- No hay cambios preparados para commit (staged).
+- 9 archivos modificados y 119 eliminados que ya estaban versionados.
+- 21 entradas sin seguimiento (directorios/archivos); contienen 65 archivos nuevos.
+- Diferencia de archivos versionados: 1,055 lineas agregadas y 14,272 eliminadas en 128 archivos.
+
+CAMBIOS PRINCIPALES
+1. Arranque y arquitectura
+   - index.js reemplaza el arranque mediante cluster por inicio directo con startBot().
+   - Se agrega seleccion de vinculacion QR o codigo, incluyendo deteccion de credenciales existentes.
+   - main.js y handler.js fueron reestructurados ampliamente.
+   - handler.js incorpora un administrador de plugins recursivo, recarga por cambios, compatibilidad con plugins legacy y bloqueos para evitar ejecuciones duplicadas.
+
+2. Configuracion
+   - config.js se simplifica: actualiza la version a 3.0.0 Beta Rc-2, endpoints internos, owners configurables mediante BOT_OWNER y opciones de mantenimiento/comandos propios.
+   - package.json actualiza dependencias y scripts.
+   - LICENSE_ES.txt actualiza el periodo de copyright a 2024-2026.
+
+3. Nuevos modulos sin seguimiento
+   - lib/: console.js, maintenance.js, settings.js, storage.js y una interfaz web en lib/web/.
+   - plugins/ se reorganiza en categorias: auto, config, downloaders, economy, gacha, games, group, ia, menus, owner, reaccion, store, tools, utils y welcome.
+   - La reorganizacion aporta 65 archivos nuevos sin seguimiento.
+
+4. Compatibilidad y utilidades
+   - lib/sticker.js mejora el uso de las capacidades disponibles y el manejo de resultados vacios.
+   - lib/uploadFile.js usa Buffer para crear Blob de forma compatible.
+
+ELIMINACIONES RELEVANTES
+- Se eliminan modulos heredados de lib/, entre ellos simple.js, webp.js, mongoDB.js, database.js, plugins.js y varios adaptadores/descargadores.
+- Se eliminan los plugins planos antiguos de plugins/; su funcionalidad parece migrarse a los nuevos subdirectorios sin seguimiento.
+- Tambien se eliminan archivos auxiliares heredados: Alya.iss, koyeb.js, server.js, speed.py, test.js y yt_api.py.
+- Se eliminaron Alya-SubBots/file, tmp/file y tmp/Thumbs.db.
+
+ARCHIVOS MODIFICADOS DESTACADOS
+- config.js
+- handler.js
+- index.js
+- main.js
+- package.json
+- lib/sticker.js
+- lib/uploadFile.js
+- LICENSE_ES.txt
+
+RIESGOS / PUNTOS PARA VALIDAR ANTES DEL COMMIT
+- La migracion elimina 119 archivos rastreados y agrega una estructura nueva aun sin seguimiento; conviene confirmar que todos los directorios nuevos de plugins deben incluirse.
+- Al eliminar lib/simple.js y otros modulos centrales, se debe ejecutar el arranque y las pruebas funcionales para detectar importaciones antiguas.
+- Revisar package.json y ejecutar la instalacion/verificacion de dependencias correspondiente antes de publicar.
+- tmp/Thumbs.db es un archivo temporal de Windows: valorar mantenerlo fuera del control de versiones mediante .gitignore.
+
+ESTADO DE GIT AL MOMENTO DE LA REVISION
+- No hay archivos en el area de preparacion.
+- Este registro es informativo y no incluye los cambios en el commit.

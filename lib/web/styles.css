@@ -1,0 +1,227 @@
+:root {
+  --bg-color: #0b1220;
+  --bg-image: none;
+  --text-color: #e6edf3;
+  --muted-color: rgba(230, 237, 243, 0.85);
+  --card-color: #111b33;
+  --card-shadow: rgba(2, 8, 23, 0.45);
+  --border-color: #223355;
+  --input-bg: #0e1730;
+  --input-border: #30456b;
+  --accent-color: #d90093;
+  --accent-contrast: #ffffff;
+  --code-bg: #0f2a26;
+  --code-text: #8af7df;
+  --code-border: #1abc9c;
+  --error-bg: #3a1b1b;
+  --error-border: #a84848;
+  --error-text: #ffd7d7;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-color);
+  background-image: var(--bg-image);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: var(--text-color);
+  padding: 24px;
+}
+
+body.is-loading {
+  overflow: hidden;
+}
+
+.card {
+  max-width: 520px;
+  margin: 0 auto;
+  background: color-mix(in srgb, var(--card-color) 82%, transparent);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 20px;
+  display: grid;
+  gap: 16px;
+  box-shadow: 0 24px 60px var(--card-shadow);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+body.is-loading .card {
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+}
+
+header h1 {
+  margin: 0 0 6px 0;
+}
+
+header p {
+  margin: 0;
+  color: var(--muted-color);
+}
+
+.ceo {
+  margin-top: 10px;
+  font-size: 13px;
+  letter-spacing: 0.2px;
+}
+
+label {
+  font-weight: 600;
+}
+
+form {
+  display: grid;
+  gap: 12px;
+}
+
+select,
+input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--input-border);
+  background: var(--input-bg);
+  color: var(--text-color);
+}
+
+button {
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: var(--accent-color);
+  color: var(--accent-contrast);
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, filter 0.2s ease;
+}
+
+button:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.alert {
+  padding: 12px;
+  border-radius: 10px;
+  background: var(--error-bg);
+  border: 1px solid var(--error-border);
+  color: var(--error-text);
+  font-weight: 600;
+}
+
+.alert--success {
+  background: var(--code-bg);
+  border-color: var(--code-border);
+  color: var(--code-text);
+}
+
+.code {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid var(--code-border);
+  background: var(--code-bg);
+  color: var(--code-text);
+  display: grid;
+  gap: 8px;
+}
+
+.code h2 {
+  margin: 0;
+  font-size: 16px;
+}
+
+#code-value {
+  font-size: 28px;
+  letter-spacing: 1px;
+}
+
+.hidden {
+  display: none;
+}
+
+.intro {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: 10;
+  animation: intro-fade 4.5s ease forwards;
+}
+
+.intro__text {
+  font-family: "Dancing Script", "Segoe UI", system-ui, sans-serif;
+  font-size: clamp(22px, 3vw, 36px);
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--text-color);
+  text-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+  display: inline-block;
+  text-align: center;
+  animation: intro-reveal 2.5s ease forwards, intro-rise 1.5s ease forwards;
+}
+
+.intro__title {
+  display: block;
+  font-size: clamp(34px, 5vw, 56px);
+  line-height: 1.05;
+}
+
+.intro__by {
+  display: block;
+  font-size: clamp(20px, 2.6vw, 30px);
+  line-height: 1.1;
+}
+
+.intro__name {
+  display: block;
+  font-size: clamp(22px, 3vw, 34px);
+  line-height: 1.2;
+}
+
+@keyframes intro-rise {
+  0% {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes intro-reveal {
+  0% {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0;
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+}
+
+@keyframes intro-fade {
+  0% {
+    opacity: 1;
+    visibility: visible;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}

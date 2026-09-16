@@ -1,71 +1,69 @@
-console.log('Iniciando 🚀🚀🚀') 
-import { join, dirname } from 'path'
-import { createRequire } from 'module'
-import { fileURLToPath } from 'url'
-import { setupMaster, fork } from 'cluster'
-import { watchFile, unwatchFile } from 'fs'
 import cfonts from 'cfonts'
-import { createInterface } from 'readline'
-import yargs from 'yargs'
-const __dirname = dirname(fileURLToPath(import.meta.url))
-const require = createRequire(__dirname)
-const { name, author } = require(join(__dirname, './package.json'))
+import chalk from 'chalk'
+import { createInterface } from 'node:readline/promises'
+import { stdin as input, stdout as output } from 'node:process'
+import fs from 'node:fs'
+import path from 'node:path'
+import './config.js'
+import { startBot } from './main.js'
+
 const { say } = cfonts
-const rl = createInterface(process.stdin, process.stdout)
- 
-// CAmbia porel Nombre de tu bot
-say('Alya_Bot', {
-font: 'chrome',
-align: 'center',
-gradient: ['red', 'magenta']})
-say(`Con amor por Emma (Violets Version)`, {
-font: 'console',
-align: 'center',
-gradient: ['red', 'magenta']});
 
-let isRunning = false
-/**
-* Start a js file
-* @param {String} file `path/to/file`
-*/
-function start(file) {
-if (isRunning) return
-isRunning = true
-const args = [join(__dirname, file), ...process.argv.slice(2)]
+say('AlyaBot Rc-1', {
+  font: 'chrome',
+  align: 'center',
+  gradient: ['red', 'magenta'],
+})
 
-setupMaster({
-exec: args[0],
-args: args.slice(1)})
-const p = fork()
-p.on('message', (data) => {
-//console.log('╭--------- - - - ✓\n┆ ✅ TIEMPO DE ACTIVIDAD ACTUALIZADA\n╰-------------------- - - -', data)
-switch (data) {
-case 'reset':
-p.process.kill()
-isRunning = false
-start.apply(this, arguments)
-break
-case 'uptime':
-p.send(process.uptime())
-break
+function normalizeMode(value = '') {
+  const mode = String(value).trim().toLowerCase()
+  if (mode === '1' || mode === 'qr') return 'qr'
+  if (mode === '2' || mode === 'code') return 'code'
+  return null
 }
+
+function getModeFromNpmArgv() {
+  try {
+    const parsed = JSON.parse(process.env.npm_config_argv || '{}')
+    const original = Array.isArray(parsed.original) ? parsed.original : []
+    for (const part of original) {
+      const mode = normalizeMode(part)
+      if (mode) return mode
+    }
+  } catch {}
+  return null
+}
+
+async function askMode() {
+  const rl = createInterface({ input, output })
+  console.log(chalk.magentaBright('\nSelecciona metodo de vinculacion:'))
+  console.log(`${chalk.yellowBright('1)')} ${chalk.greenBright('QR')}`)
+  console.log(`${chalk.yellowBright('2)')} ${chalk.cyanBright('Codigo (8 caracteres)')}`)
+  const answer = await rl.question(chalk.blueBright('Opcion [1/2]: '))
+  rl.close()
+  return normalizeMode(answer) || 'qr'
+}
+
+async function resolveStartMode() {
+  const argMode = normalizeMode(process.argv[2])
+  if (argMode) return argMode
+
+  const npmArgMode = getModeFromNpmArgv()
+  if (npmArgMode) return npmArgMode
+
+  const credsPath = path.resolve('./AlyaBot-Session/creds.json')
+  if (fs.existsSync(credsPath)) {
+    console.log(chalk.cyanBright('[BOOT] creds.json detectado, se omite seleccion de metodo.'))
+    return 'qr'
+  }
+
+  return askMode()
+}
+
+const mode = await resolveStartMode()
+console.log(chalk.greenBright(`[BOOT] Modo seleccionado: ${mode === 'qr' ? 'QR' : 'CODIGO'}`))
+
+startBot({ mode }).catch((error) => {
+  console.error('[FATAL] No se pudo iniciar el bot:', error)
+  process.exit(1)
 })
-p.on('exit', (_, code) => {
-isRunning = false;
-console.error('⚠️ Error Inesperado ⚠️', code)
-p.process.kill()
-isRunning = false
-start.apply(this, arguments)
-if (process.env.pm_id) {
-process.exit(1)
-} else {
-process.exit()
-}})
-const opts = new Object(yargs(process.argv.slice(2)).exitProcess(false).parse())
-if (!opts['test']) {
-if (!rl.listenerCount()) {
-rl.on('line', (line) => {
-p.emit('message', line.trim())
-})
-}}}
-start('main.js')
